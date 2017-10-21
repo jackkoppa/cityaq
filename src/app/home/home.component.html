@@ -1,19 +1,9 @@
-<div>
-    This is the home component. {{testMsg}}
-    <button mat-button (click)="loadCities()">Load Cities</button>
+<div class="wrapper">
+    <div class="intro">
+        <h1>Welcome to OpenAQ Viz</h1>
+        <h3>Compare air quality for cities by searching below</h3>
+        <h3>Find out more about open-source air data @ <a href="https://openaq.org" target="_blank">openaq.org</a></h3>
+    </div>
 
-    <br/>
-    <mat-card *ngIf="latestInfo">
-        <h2>Latest Info for: {{latestInfo.city}}</h2>
-        <ul *ngIf="latestInfo.measurements">
-            <li *ngFor="let measurement of latestInfo.measurements">
-                {{measurement.parameter}}
-                {{measurement.value}}
-            </li>
-        </ul>
-    </mat-card>
-    <mat-card *ngFor="let city of allCities">
-        <h1>{{city.city}}</h1>
-        <button mat-button (click)="loadLatest(city.city)">Get Latest Info</button>
-    </mat-card>
+    <search-display></search-display>
 </div>
