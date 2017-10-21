@@ -1,6 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 .intro {
     text-align: center;
+}
+
+.mat-card {
+    margin: 10px;
+}
+
+.cities-input {
+    margin: 0 auto;
+    width: 90%;
+    position: relative;
+    display: block;
+}
+
+.fixed-footer {
+    position: fixed !important;
+    bottom: 5px;
+}
+
+.red {
+    color: red;
+}
+.green {
+    color: green;
+
+}
+.orange {
+    color: orange;
+}
+.dark-red {
+    color: #610000;
 }

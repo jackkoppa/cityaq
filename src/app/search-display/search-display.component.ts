@@ -1,47 +1,71 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { CitiesService } from '../handlers/cities.service';
 import { LatestService } from '../handlers/latest.service';
 import { CitiesResponseModel } from '../api/openaq/cities/cities-response.model';
 import { LatestResponseModel } from '../api/openaq/latest/latest-response.model';
 
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
+
 @Component({
     selector: 'viz-search-display',
-    templateUrl: './home.component.html'
+    templateUrl: './search-display.component.html'
 })
-
-export class CityDisplayComponent{
+export class SearchDisplayComponent{
     constructor(
         private citiesService: CitiesService,
         private latestService: LatestService
       ) {};
       testMsg: string = "Hello - I am Home."
       allCities: CitiesResponseModel[] = [];
+      filteredCities: Observable<CitiesResponseModel[]>;
       latestInfo: LatestResponseModel; 
-      searchedCities: string[];
+      searchedCities: LatestResponseModel[] = [];
+      cityCtrl: FormControl;
     
       ngOnInit() {
-        
+        this.cityCtrl = new FormControl();
+        this.loadCities();
+        this.filteredCities = this.cityCtrl.valueChanges
+          .startWith(null)
+          .map(city => city ? this.filterCities(city) : this.allCities.slice());
       }
     
       loadCities() {
         console.log('loadCities called');
         this.citiesService.getAllCities().subscribe(cities => {
-            for (let i = 0; i < 50; i++) {
-              this.allCities.push(cities[i])
-            }
+            this.allCities = cities;
             console.log(this.allCities);
           });
       }
     
-      loadLatest(city: string) {
-        console.log('loadLatest called');
-        this.latestService.getLatestPM25ByCity(city).subscribe(latest => {
-           this.latestInfo = latest[0];
-           
-        });
-      }
+    loadLatest(city: string) {
+      console.log('loadLatest called');
+      this.latestService.getLatestPM25ByCity(city).subscribe(latest => {
+        console.log(latest);
+          this.searchedCities.push(latest[0])         
+      });
+    }
 
-    addToSearchedCities(event:any){
-       searchedCities.push( document.getElementById('cityInput').value )
+    filterCities(name: string) {
+      return this.allCities.filter(city =>
+        city.city.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    }
+
+    addToSearchedCities(event:any) {
+      console.log('addToSearched called', this.cityCtrl.value);
+      
+      this.loadLatest(this.cityCtrl.value);
+    }
+
+    getClass(city: LatestResponseModel): string {
+      let val = city && city.measurements && city.measurements[0] && city.measurements[0].value;
+      if (!val) return 'black';
+      if (val < 20) return 'green';
+      if (val < 40) return 'orange';
+      if (val < 70) return 'red';
+      return 'dark-red';
     }
 }
