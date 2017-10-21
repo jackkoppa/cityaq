@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CitiesResponseModel } from './api/openaq/cities-response.model';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  response: CitiesResponseModel;
 }
