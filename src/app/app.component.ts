@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CitiesResponseModel } from './api/openaq/cities-response.model';
+import { CitiesResponseModel } from './api/openaq/cities/cities-response.model';
 
 @Component({
   selector: 'app-root',
