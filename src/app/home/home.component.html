@@ -1,5 +1,9 @@
 <div>
     This is the home component. {{testMsg}}
     <mat-card>Here's a Material Card</mat-card>
-    <button mat-button>Click Me</button>
+    <button mat-button (click)="loadCities()">Click Me</button>
+
+    <mat-card *ngFor="let city of allCities">
+        <h1>{{city.city}}</h1>
+    </mat-card>
 </div>
