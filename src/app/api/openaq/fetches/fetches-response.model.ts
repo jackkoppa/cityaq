@@ -1,8 +1,8 @@
 // https://docs.openaq.org/#api-Fetches
 
 export class FetchesResponseModel {
-    timeStarted: Date;
-    timeEnded: Date;
+    timeStarted: string;
+    timeEnded: string;
     count: number;
     results: object;
 }

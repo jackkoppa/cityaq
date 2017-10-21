@@ -17,7 +17,7 @@ export class HomeComponent {
 
   loadCities() {
     console.log('loadCities called');
-      this.citiesService.getAllCities().subscribe(cities => {
+    this.citiesService.getAllCities().subscribe(cities => {
         this.allCities = cities;
         console.log(this.allCities);
       });
