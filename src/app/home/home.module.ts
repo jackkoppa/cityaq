@@ -1,16 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatButtonModule } from '@angular/material';
 import { HomeComponent } from './home.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
+    imports: [MaterialModule],
     declarations: [HomeComponent],
-    imports: [
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatButtonModule
-    ],
     exports: [HomeComponent]
 })
 export class HomeModule {}
-
