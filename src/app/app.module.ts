@@ -5,7 +5,7 @@ import { MaterialModule } from './material/material.module';
 import { HomeModule } from './home/home.module';
 import { HandlersModule } from './handlers/handlers.module';
 import { AppComponent } from './app.component';
-import { CitiesApi } from './api/openaq/cities/cities.api';
+import { ApiModule } from './api/api.module';
 
 @NgModule({
   declarations: [
@@ -14,10 +14,11 @@ import { CitiesApi } from './api/openaq/cities/cities.api';
   imports: [
     BrowserModule,
     HttpModule,
+    ApiModule,
     HomeModule,
     HandlersModule
   ],
-  providers: [CitiesApi],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
