@@ -42,6 +42,6 @@ export class CityDisplayComponent{
       }
 
     addToSearchedCities(event:any){
-       searchedCities.push(event.)
+       searchedCities.push( document.getElementById('cityInput').value )
     }
 }
