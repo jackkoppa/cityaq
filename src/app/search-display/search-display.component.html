@@ -1,4 +1,13 @@
 <div>
-    <search-bar></search-bar>
-    <country-display></country-display>
+    <mat-form-field>
+        <input type="submit" (onsubmit)="addToSearchedCities($event)" matInput placeholder="City" aria-label="City" [matAutocomplete]="auto" [formControl]="cityCtrl">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let city of allCities" [value]="city.name">
+            <span>{{ city }}</span>
+        </mat-option>
+    </mat-autocomplete>
+    <mat-card *ngFor="let city of searchedCities">
+        <h1>{{city.city}}</h1>
+    </mat-card>
 </div>
