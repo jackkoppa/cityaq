@@ -6,6 +6,13 @@ html, body {
     margin: 0;
 }
 
+footer {
+    bottom: 0;
+    position: fixed !important;
+    text-align: center;
+    width: 100%;
+}
+
 .intro {
     text-align: center;
 }
@@ -20,10 +27,6 @@ mat-form-field.cities-input {
     width: calc(100% - 20px);
 }
 
-.fixed-footer {
-    position: fixed !important;
-    bottom: 5px;
-}
 
 .red {
     color: red;
