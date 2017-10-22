@@ -1,7 +1,7 @@
 <div>
     <form>
-        <mat-form-field>
-            <input (keyup.enter)="addToSearchedCities($event)" class="cities-input" matInput placeholder="City" aria-label="City" [matAutocomplete]="auto" [formControl]="cityCtrl">
+        <mat-form-field class="cities-input">
+            <input (keyup.enter)="addToSearchedCities($event)" matInput placeholder="City" aria-label="City" [matAutocomplete]="auto" [formControl]="cityCtrl">
             <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let city of filteredCities | async" [value]="city.city">
                     <span>{{city.city}}</span>

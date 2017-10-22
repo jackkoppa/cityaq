@@ -14,11 +14,10 @@ html, body {
     margin: 10px;
 }
 
-.cities-input {
-    margin: 0 auto;
-    width: 90%;
-    position: relative;
+mat-form-field.cities-input {
     display: block;
+    margin: 0 auto;
+    width: calc(100% - 20px);
 }
 
 .fixed-footer {

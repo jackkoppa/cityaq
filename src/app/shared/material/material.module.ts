@@ -3,19 +3,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {     
     MatCardModule, 
     MatButtonModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule   
  } from '@angular/material';
 
 @NgModule({
     imports: [
         MatCardModule, 
         MatButtonModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule
     ],
     exports: [
         MatCardModule, 
         MatButtonModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule
     ]
 })
 export class MaterialModule {}
