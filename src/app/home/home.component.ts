@@ -5,38 +5,35 @@ import { CitiesResponseModel } from '../core/api/cities/cities-response.model';
 import { LatestResponseModel } from '../core/api/latest/latest-response.model';
 
 @Component({
-  selector: 'viz-home',
-  templateUrl: './home.component.html'
+    selector: 'viz-home',
+    templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  constructor(
-    private citiesService: CitiesService,
-    private latestService: LatestService
-  ) {};
-  testMsg: string = "Hello - I am Home."
-  allCities: CitiesResponseModel[] = [];
-  latestInfo: LatestResponseModel; 
+    constructor(
+        private citiesService: CitiesService,
+        private latestService: LatestService
+    ) { };
 
-  ngOnInit() {
-    
-  }
+    testMsg: string = "Hello - I am Home."
+    allCities: CitiesResponseModel[] = [];
+    latestInfo: LatestResponseModel;
 
-  loadCities() {
-    console.log('loadCities called');
-    this.citiesService.getAllCities().subscribe(cities => {
-        for (let i = 0; i < 50; i++) {
-          this.allCities.push(cities[i])
-        }
-        console.log(this.allCities);
-      });
-  }
+    ngOnInit() { }
 
-  loadLatest(city: string) {
-    console.log('loadLatest called');
-    this.latestService.getLatestPM25ByCity(city).subscribe(latest => {
-       this.latestInfo = latest[0];
-       
-    });
-  }
+    loadCities() {
+        console.log('loadCities called');
+        this.citiesService.getAllCities().subscribe(cities => {
+            for (let i = 0; i < 50; i++) {
+                this.allCities.push(cities[i])
+            }
+            console.log(this.allCities);
+        });
+    }
 
+    loadLatest(city: string) {
+        console.log('loadLatest called');
+        this.latestService.getLatestPM25ByCity(city).subscribe(latest => {
+            this.latestInfo = latest[0];
+        });
+    }
 }

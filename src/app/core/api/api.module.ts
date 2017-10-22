@@ -3,9 +3,9 @@ import { CitiesApi } from './cities/cities.api';
 import { LatestApi } from './latest/latest.api';
 
 @NgModule({
-  providers: [
-      CitiesApi,
-      LatestApi
+    providers: [
+        CitiesApi,
+        LatestApi
     ]
 })
 export class ApiModule { }

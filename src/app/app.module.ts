@@ -7,17 +7,17 @@ import { HomeModule } from './home/home.module';
 import { SearchDisplayModule } from './search-display/search-display.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    CoreModule,
-    HomeModule,
-    SearchDisplayModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpModule,
+        CoreModule,
+        HomeModule,
+        SearchDisplayModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
