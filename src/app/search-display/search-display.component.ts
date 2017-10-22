@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CitiesService } from '../handlers/cities.service';
-import { LatestService } from '../handlers/latest.service';
-import { CitiesResponseModel } from '../api/openaq/cities/cities-response.model';
-import { LatestResponseModel } from '../api/openaq/latest/latest-response.model';
+import { CitiesService } from '../core/handlers/cities.service';
+import { LatestService } from '../core/handlers/latest.service';
+import { CitiesResponseModel } from '../core/api/cities/cities-response.model';
+import { LatestResponseModel } from '../core/api/latest/latest-response.model';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';

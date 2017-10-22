@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
 import { LatestRequestModel } from './latest-request.model';
 import { LatestResponseModel } from './latest-response.model';
-import * as Helper from '../../api-helper.service';
+import * as Helper from '../api-helper.logic';
 import { environment } from '../../../../environments/environment';
 import 'rxjs/add/operator/map';
 import {Observable } from 'rxjs/Observable';
@@ -15,6 +15,6 @@ export class LatestApi {
 
     public getLatest(request?: LatestRequestModel): Observable<LatestResponseModel[]> {
         return this.http.get(environment.openaqApiUrl + 'latest?' + Helper.buildQueryString(request))
-            .map(res => (<LatestResponseModel[]>res.json().results));
+            .map(res => <LatestResponseModel[]>res.json().results);
     }
 }
