@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { SearchDisplayService } from './search-display.service';
 import { CitiesService } from '../core/handlers/cities.service';
 import { LatestService } from '../core/handlers/latest.service';
 import { CitiesResponseModel } from '../core/api/cities/cities-response.model';
@@ -14,14 +15,13 @@ import 'rxjs/add/operator/map';
     templateUrl: './search-display.component.html'
 })
 export class SearchDisplayComponent implements OnInit {
-    testMsg: string = "Hello - I am Home."
     allCities: CitiesResponseModel[] = [];
     filteredCities: Observable<CitiesResponseModel[]>;
-    latestInfo: LatestResponseModel;
-    searchedCities: LatestResponseModel[] = [];
+    searchedLocations: LatestResponseModel[] = [];
     cityCtrl: FormControl;
 
     constructor(
+        private searchDisplayService: SearchDisplayService,
         private citiesService: CitiesService,
         private latestService: LatestService
     ) { };
@@ -31,41 +31,29 @@ export class SearchDisplayComponent implements OnInit {
         this.loadCities();
         this.filteredCities = this.cityCtrl.valueChanges
             .startWith(null)
-            .map(city => city ? this.filterCities(city) : this.allCities.slice());
+            .map(cityName => cityName ? 
+                this.searchDisplayService.filterCities(cityName, this.allCities) : 
+                this.allCities.slice(0, 5));
     }
 
     loadCities() {
-        console.log('loadCities called');
-        this.citiesService.getAllCities().subscribe(cities => {
-            this.allCities = cities;
-            console.log(this.allCities);
-        });
+        this.citiesService.getAllCities()
+            .subscribe(cities => this.allCities = cities.sort(this.searchDisplayService.sortCities));
     }
 
-    loadLatest(city: string) {
-        console.log('loadLatest called');
-        this.latestService.getLatestPM25ByCity(city).subscribe(latest => {
-            console.log(latest);
-            this.searchedCities.push(latest[0])
-        });
-    }
-
-    filterCities(name: string) {
-        return this.allCities.filter(city =>
-            city.city.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    loadLatest(cityName: string) {
+        this.latestService.getLatestPM25ByCity(cityName)
+            .subscribe(latest => {
+                if(this.searchDisplayService.validateLatestResponse(latest[0])) 
+                    this.searchedLocations.push(latest[0]);
+            });
     }
 
     addToSearchedCities(event: any) {
-        console.log('addToSearched called', this.cityCtrl.value);
         this.loadLatest(this.cityCtrl.value);
     }
 
-    getClass(city: LatestResponseModel): string {
-        let val = city && city.measurements && city.measurements[0] && city.measurements[0].value;
-        if (!val) return 'black';
-        if (val < 20) return 'green';
-        if (val < 40) return 'orange';
-        if (val < 70) return 'red';
-        return 'dark-red';
+    getClass(location: LatestResponseModel): string {
+        return this.searchDisplayService.pm25Color(location);
     }
 }

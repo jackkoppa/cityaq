@@ -9,10 +9,13 @@
             </mat-autocomplete>
         </mat-form-field>
     </form>
-    <mat-card *ngFor="let city of searchedCities" class="city-card" [ngClass]="getClass(city)">
-        <h1 *ngIf="city">{{city.city}}</h1>
-        <h2 *ngIf="city.measurements && city.measurements[0]">
-            {{city.measurements[0].parameter}}: {{city.measurements[0].value}}
+    <mat-card 
+        *ngFor="let location of searchedLocations"
+        class="city-card"
+        [ngClass]="getClass(location)">
+        <h1>{{location.city}}</h1>
+        <h2>
+            {{location.measurements[0].parameter}}: {{location.measurements[0].value}}
         </h2>
     </mat-card>
 </div>
