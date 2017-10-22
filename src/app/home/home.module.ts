@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { SearchDisplayModule } from '../search-display/search-display.module';
-import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-    imports: [MaterialModule, SearchDisplayModule,],
+    imports: [SharedModule, SearchDisplayModule,],
     declarations: [HomeComponent],
     exports: [HomeComponent]
 })

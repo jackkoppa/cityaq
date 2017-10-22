@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from './material/material.module';
 import { HomeModule } from './home/home.module';
 import { SearchDisplayModule } from './search-display/search-display.module';
 import { HandlersModule } from './handlers/handlers.module';

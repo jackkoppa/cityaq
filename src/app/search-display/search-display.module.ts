@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchDisplayComponent } from './search-display.component';
-import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-    imports: [MaterialModule, FormsModule, ReactiveFormsModule],
+    imports: [SharedModule, FormsModule, ReactiveFormsModule],
     declarations: [SearchDisplayComponent],
     exports: [SearchDisplayComponent],
     providers: []

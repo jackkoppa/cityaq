@@ -8,13 +8,11 @@ import {
 
 @NgModule({
     imports: [
-        BrowserAnimationsModule,
         MatCardModule, 
         MatButtonModule,
         MatAutocompleteModule
     ],
     exports: [
-        BrowserAnimationsModule,
         MatCardModule, 
         MatButtonModule,
         MatAutocompleteModule
