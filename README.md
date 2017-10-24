@@ -2,8 +2,6 @@
 ## Background
 Single page Angular app to compare simple air quality data for different cities, using data from the [OpenAQ](https://openaq.org/) API. Intended to be a quick, mobile-first reference for current air quality information around the world. Strongly typed API implementation using TypeScript; Angular Material for UI components.
 
-Created at the Oct. 21 Hack & Tell, hosted by Rokkincat. 
-
 ## Running Locally
 ### Install
 * Node.js & npm ([link](https://nodejs.org/en/download/))
@@ -26,3 +24,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Contributors
+Big thanks to [RobertImbrie](https://github.com/RobertImbrie) & [hegotgame](https://github.com/hegotgame) for their help in creating the project @ Rokkincat's Hack & Tell on Oct. 21, 2017.
