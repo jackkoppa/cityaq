@@ -10,6 +10,7 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
+  - npm install -g angular-cli-ghpages
   - npm install
 
 script:
