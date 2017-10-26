@@ -1,0 +1,23 @@
+#.travis.yml
+
+language: node_js
+node_js:
+  - "8.7"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm install -g @angular/cli
+  - npm install
+
+script:
+  - ng build --prod
+
+after_success:
+  - npm run ghdeploy
+
+notifications:
+  email:
+    on_failure: change
