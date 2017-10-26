@@ -13,7 +13,8 @@ before_script:
   - npm install -g angular-cli-ghpages
 
 script:
-  - npm run ghdeploy
+  - npm run ci-test
+  - npm run ci-deploy
 
 notifications:
   email:

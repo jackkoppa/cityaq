@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ghdeploy": "ng build --prod --base-href \"https://jackkoppa.github.io/openaq-viz/\" && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/openaq-viz.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
+    "ci-test": "ng test -cc -sr --browsers=ChromeHeadless",
+    "ci-deploy": "ng build --prod --base-href \"https://jackkoppa.github.io/openaq-viz/\" && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/openaq-viz.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
   },
   "private": true,
   "dependencies": {
