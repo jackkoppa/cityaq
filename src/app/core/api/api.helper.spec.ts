@@ -1,4 +1,4 @@
-import { ApiHelper } from './api-helper.logic';
+import { ApiHelper } from './api.helper';
 
 describe('buildQueryString', () => {
 
