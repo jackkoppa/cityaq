@@ -14,6 +14,7 @@ before_script:
 
 script:
   - npm run ci-test
+  - npm run ci-coveralls
   - npm run ci-deploy
 
 notifications:

@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ci-test": "ng test -cc -sr --browsers=ChromeHeadless",
+    "ci-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "ci-deploy": "ng build --prod --base-href \"https://jackkoppa.github.io/openaq-viz/\" && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/openaq-viz.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
   },
   "private": true,
@@ -38,6 +39,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "codelyzer": "~3.2.0",
+    "coveralls": "^3.0.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
