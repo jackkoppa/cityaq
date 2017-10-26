@@ -13,9 +13,6 @@ before_script:
   - npm install
 
 script:
-  - ng build --prod
-
-after_success:
   - npm run ghdeploy
 
 notifications:
