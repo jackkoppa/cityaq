@@ -35,6 +35,13 @@ describe('ApiHelper', () => {
                     numberProp: 1234
                 },
                 'stringProp=a%20string%20value&booleanProp=false&numberProp=1234'
+            ],
+            [
+                'should convert an array prop to a string with query params for each array element',
+                {
+                    arrayProp: ['element one', 'element two', 'third element']
+                },
+                'arrayProp[]=element%20one&arrayProp[]=element%20two&arrayProp[]=third%20element'
             ]
         ];
         testCases.forEach(test => {
