@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LatestResponseModel } from '../core/api/latest/latest-response.model';
-import { CitiesResponseModel } from '../core/api/cities/cities-response.model';
+import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
+import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
 
 @Injectable()
 export class SearchDisplayService {

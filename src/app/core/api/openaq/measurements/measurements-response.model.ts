@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Measurements
 
-export class MeasurementsResponseModel {
+export interface MeasurementsResponseModel {
     date: object;
     parameter: string;
     value: number;

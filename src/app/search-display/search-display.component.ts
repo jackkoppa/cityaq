@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { SearchDisplayService } from './search-display.service';
 import { CitiesService } from '../core/handlers/cities.service';
 import { LatestService } from '../core/handlers/latest.service';
-import { CitiesResponseModel } from '../core/api/cities/cities-response.model';
-import { LatestResponseModel } from '../core/api/latest/latest-response.model';
+import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
+import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';

@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Parameters
 
-export class ParametersResponseModel {
+export interface ParametersResponseModel {
     id: string;
     name: string;
     description: number;

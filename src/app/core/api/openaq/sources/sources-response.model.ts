@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Sources
 
-export class SourcesResponseModel {
+export interface SourcesResponseModel {
     url: string;
     adapter: string;
     name: string;

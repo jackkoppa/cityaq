@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Locations
 
-export class LocationsResponseModel {
+export interface LocationsResponseModel {
     location: string;
     country: string;
     city: string;
