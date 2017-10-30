@@ -39,6 +39,29 @@ describe('ApiService', () => {
                         numberProp: 1234
                     },
                     'stringProp=a%20string%20value&booleanProp=false&numberProp=1234'
+                ],
+                [
+                    'should return an empty string for an empty object',
+                    { },
+                    ''
+                ],
+                [
+                    'should return an empty string for an object with only null or undefined props',
+                    { 
+                        undefinedProp: undefined,
+                        nullProp: null,
+                        anotherUndefinedProp: undefined
+                    },
+                    ''
+                ],
+                [
+                    'should only include existing values when mixing string, number, and undefined props',
+                    { 
+                        stringProp: 'a string',
+                        undefinedProp: undefined,
+                        numberProp: 10
+                    },
+                    'stringProp=a%20string&numberProp=10'
                 ]
             ];
             testCases.forEach(test => {
@@ -61,6 +84,32 @@ describe('ApiService', () => {
                     ]
                 },
                 'arrayProp%5B%5D=array%20value%20one&arrayProp%5B%5D=a%20second%20array%20element'
+            ],
+            [
+                'should convert an object that mixes array props with strings and numbers to an encoded string',
+                {
+                    arrayProp: [
+                        'one element',
+                        'second element'
+                    ],
+                    stringProp: 'one string',
+                    numberProp: 20,
+                    booleanProp: true
+                },
+                'stringProp=one%20string&numberProp=20&booleanProp=true&arrayProp%5B%5D=one%20element&arrayProp%5B%5D=second%20element'
+            ],
+            [
+                'should ignore undefined and null array elements in an array prop',
+                {
+                    arrayProp: [
+                        undefined,
+                        'real element',
+                        true,
+                        null,
+                        30
+                    ]
+                },
+                'arrayProp%5B%5D=real%20element&arrayProp%5B%5D=true&arrayProp%5B%5D=30'
             ]
         ]
 

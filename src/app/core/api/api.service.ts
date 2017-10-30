@@ -5,26 +5,28 @@ import { BaseOpenAQRequest } from './openaq/base-openaq-request.model';
 @Injectable()
 export class ApiService {
     public buildBaseQueryString(request: BaseRequest): string {
-        return this.setBaseQueryArray(request).join('&')
+        return this.setBaseQueryArray(request).join('&') || '';
     }
 
     public buildOpenAQQueryString(request: BaseOpenAQRequest): string {
         let queryArray: string[] = this.setBaseQueryArray(request);
         Object.keys(request).forEach(key => {
             if (Array.isArray(request[key]))
-                (<Primitive[]>request[key]).forEach(arrayProp => queryArray.push(this.encode(key + '[]', arrayProp)));            
+                (<Primitive[]>request[key]).forEach(arrayProp => {
+                    if (arrayProp != null) queryArray.push(this.encode(key + '[]', arrayProp))
+                });            
         });
-        return queryArray.join('&');
+        return queryArray.join('&') || '';
     }
 
     private encode(key: string, val: Primitive): string {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(val.toString())
+        return encodeURIComponent(key) + '=' + encodeURIComponent(val.toString());
     }
 
     private setBaseQueryArray(request: BaseRequest | BaseOpenAQRequest): string[] {
         let queryArray: string[] = [];
         Object.keys(request).forEach(key => {
-            if (!Array.isArray(request[key])) queryArray.push(this.encode(key, <Primitive>request[key]));
+            if (!Array.isArray(request[key]) && request[key] != null) queryArray.push(this.encode(key, <Primitive>request[key]));
         });
         return queryArray;
     }
