@@ -5,10 +5,12 @@ import { Parameters } from '../../api/openaq/parameters/parameters.model';
 export interface BaseIndex {
     parameter?: Parameters;
     unit?: string;
-    good: Range;
-    moderate: Range;
-    unhealthySensitive: Range;
-    unhealthy: Range;
-    veryUnhealthy: Range;
-    hazardous: Range;
+    levels: {
+        good: Range;
+        moderate: Range;
+        unhealthySensitive: Range;
+        unhealthy: Range;
+        veryUnhealthy: Range;
+        hazardous: Range;
+    }    
 }
