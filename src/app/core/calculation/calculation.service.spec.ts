@@ -16,6 +16,8 @@ describe('CalculationService', () => {
             [250.4,     300],
             [255,       305],
             // below tests currently fail, using calculations from https://airnow.gov/index.cfm?action=airnow.calculator
+            // Update: diagnosed - AirNow breaks down the 301-500 AQI range into 301-400 & 401-500; leads to different results
+            // seeing if I can get a response from AirNow before adjusting or accepting different results
             // [256,       306],
             // [277,       327],
             // [351,       401],
