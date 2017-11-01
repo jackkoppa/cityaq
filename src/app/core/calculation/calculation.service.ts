@@ -40,19 +40,25 @@ export class CalculationService {
     }
 
     private calculateParameterAQI(value: number, index: BaseIndex, decimal: number): number {
-        const decimalVal = +value.toFixed(decimal);
+        const truncatedVal = this.truncateAtDecimal(value, decimal);
         let calculatedAqi: number;
-        Object.keys(index.levels).some(level => {
+        let foundMatching = Object.keys(index.levels).some(level => {
             const min = index.levels[level][0],
                 max = index.levels[level][1],
                 aqiMin = AQI_LEVELS[level][0],
                 aqiMax = AQI_LEVELS[level][1];
-            if (min <= decimalVal && decimalVal <= max) {
-                calculatedAqi = this.linearCalculation(decimalVal, min, max, aqiMin, aqiMax);
+            if (min <= truncatedVal && truncatedVal <= max) {
+                calculatedAqi = this.linearCalculation(truncatedVal, min, max, aqiMin, aqiMax);
                 return true;
             }
         });
+        if (!foundMatching)
+            return this.handleUnmatchedLevel(truncatedVal, index, decimal);
         return Math.round(calculatedAqi);
+    }
+
+    private truncateAtDecimal(value: number, decimal: number): number {
+        return +(Math.floor(value * (Math.pow(10, decimal))) / Math.pow(10, decimal)).toFixed(decimal);
     }
 
     private linearCalculation(
@@ -63,5 +69,14 @@ export class CalculationService {
         aqiMax: number
     ): number {
         return (value - min) * (aqiMax - aqiMin) / (max - min) + aqiMin;
+    }
+
+    private handleUnmatchedLevel(value: number, index: BaseIndex, decimal: number): number {
+        if (value >= index.levels.hazardous2[1]) // if greater than greatest measurement, return highest AQI (500)
+            return AQI_LEVELS.hazardous2[1];
+        if (value <= 0) // if less than or equal to 0, return lowest AQI (0)
+            return AQI_LEVELS.good[0];
+        throw new Error(`Failed to calculate AQI for ${index.parameter} parameter,` + 
+            `with value of ${value} ${index.unit}`)
     }
 }
