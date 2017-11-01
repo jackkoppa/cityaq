@@ -25,6 +25,20 @@ describe('CalculationService', () => {
                 expect(calculationService.calculatePM25AQI(input)).toBe(expected);
             });
         });
+
+        describe('given disallowed input values', () => {
+            let disallowedTestCases: [any, string][] = [
+                [{}, 'an empty object'],
+                [['one', 'two'], 'an array with elements'],
+            ]
+            disallowedTestCases.forEach(test => {
+                let [input, inputDescription] = test;
+                it(`should throw an error given ${inputDescription}`, () => {
+                    let testFn = () => { calculationService.calculatePM25AQI(input) };
+                    expect(testFn).toThrow();
+                });
+            });
+        });
     });
 
     describe('calculatePM10AQI', () => {
