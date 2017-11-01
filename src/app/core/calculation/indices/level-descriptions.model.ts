@@ -4,4 +4,5 @@ export type LevelDescriptions =
     'Unhealthy for Sensitive Groups' |
     'Unhealthy' |
     'Very Unhealthy' | 
-    'Hazardous'
+    'Hazardous' |
+    'Unknown' // default when not found
