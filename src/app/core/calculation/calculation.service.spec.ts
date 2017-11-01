@@ -82,4 +82,70 @@ describe('CalculationService', () => {
             });
         })
     });
+
+    describe('calculateCOAQI', () => {
+        let testCases: [number, number][] = [            
+            // input    expected
+            [-40,       0],
+            [0,         0],
+            [4.499,     50],
+            [4.5,       51],
+            [10,        109],
+            [13,        159],
+            [25.1234,   265],
+            [35,        346],
+            [50.4789,   500],
+            [10000.11,  500]
+        ];
+        testCases.forEach(test => {
+            let [input, expected] = test;
+            it(`should output ${expected} for an input of ${input}`, () => {
+                expect(calculationService.calculateCOAQI(input)).toBe(expected);
+            });
+        });
+    });
+
+    describe('calculateSO2AQI', () => {
+        let testCases: [number, number][] = [            
+            // input    expected
+            [-40,       0],
+            [0,         0],
+            [35.99,     50],
+            [36,        51],
+            [100,       112],
+            [200,       157],
+            [400,       232],
+            [700,       348],
+            [1004.75,   500],
+            [10000.11,  500]
+        ];
+        testCases.forEach(test => {
+            let [input, expected] = test;
+            it(`should output ${expected} for an input of ${input}`, () => {
+                expect(calculationService.calculateSO2AQI(input)).toBe(expected);
+            });
+        });
+    });
+    
+    describe('calculateNO2AQI', () => {
+        let testCases: [number, number][] = [            
+            // input    expected
+            [-40,       0],
+            [0,         0],
+            [53.99,     50],
+            [54,        51],
+            [150,       110],
+            [500,       175],
+            [825.1234,  230],
+            [1300,      313],
+            [2049.123,  500],
+            [10000,  500]
+        ];
+        testCases.forEach(test => {
+            let [input, expected] = test;
+            it(`should output ${expected} for an input of ${input}`, () => {
+                expect(calculationService.calculateNO2AQI(input)).toBe(expected);
+            });
+        });
+    });
 });
