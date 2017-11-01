@@ -1,5 +1,4 @@
 // https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf, p. 12
-// note: also offers 1 hour exposure guidelines for o3, not implemented here
 import { BaseIndex } from '../base-index.model'; 
 
 export const O3_INDEX: BaseIndex = {
