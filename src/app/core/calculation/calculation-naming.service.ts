@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Levels } from './indices/levels.model';
 import { LevelDescriptions } from './indices/level-descriptions.model';
 
-type LevelName = keyof Levels;
+export type LevelName = keyof Levels;
 
 @Injectable()
 export class CalculationNamingService {
