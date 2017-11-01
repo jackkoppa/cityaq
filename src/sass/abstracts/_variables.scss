@@ -1,4 +1,4 @@
-// all application-wide Sass variables
+// application-wide Sass variables
 
 //// fonts
 /// @type List
@@ -34,13 +34,13 @@ $max-width: 1180px !default;
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels
 $breakpoints: (
-  'small': 320px,
-  'medium': 768px,
-  'large': 1024px,
+    'small': 320px,
+    'medium': 768px,
+    'large': 1024px,
 ) !default;
 
 
-// urls
+//// urls
 /// Relative or absolute URL where all assets are served from
 /// @type String
 /// @example scss - When using a CDN

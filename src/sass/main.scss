@@ -2,35 +2,36 @@
 
 // 1. Configuration and helpers
 @import
-  'abstracts/variables',
-  'abstracts/functions',
-  'abstracts/mixins';
+    'abstracts/variables',
+    'abstracts/functions',
+    'abstracts/mixins';
 
 // 2. Vendors
 @import
-  'vendor/normalize',
-  '~@angular/material/prebuilt-themes/indigo-pink.css';
+    'vendor/normalize',
+    '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 // 3. Base stuff
 @import
-  'base/base',
-  'base/fonts',
-  'base/typography',
-  'base/helpers';
+    'base/base',
+    'base/fonts',
+    'base/typography',
+    'base/helpers';
 
 // 4. Layout-related sections
 @import
-  'layout/header',
-  'layout/footer';
+    'layout/header',
+    'layout/footer';
 
 // 5. Components
 @import
-  'components/button';
+    'elements/button',
+    'elements/link';
 
 // 6. Page-specific styles
 @import
-  'pages/home';
+    'modules/home/home.component';
 
 // 7. Shame (should eventually be empty)
 @import
-  'shame';
+    'shame';
