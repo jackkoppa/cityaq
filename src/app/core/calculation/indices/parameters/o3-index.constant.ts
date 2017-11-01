@@ -12,7 +12,10 @@ export const O3_INDEX: BaseIndex = {
         unhealthySensitive: [0.071, 0.085],
         unhealthy: [0.086, 0.105],
         veryUnhealthy: [0.106, 0.200],
-        hazardous1: null,
-        hazardous2: null
+        // TODO: EPA specifically states that beyond 300 AQI for O3, 1-hour concentrations should be used
+        // currently not setup to handle multiple concentration periods; 
+        // consider changing implementation to do so
+        hazardous1: [null, null],
+        hazardous2: [null, null]
     }    
 }

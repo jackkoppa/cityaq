@@ -48,4 +48,38 @@ describe('CalculationService', () => {
             });
         });
     });
+
+    describe('calculateO3AQI', () => {
+        let testCases: [number, number][] = [            
+            // input    expected
+            [-40,       0],
+            [0,         0],
+            [0.05499,   50],
+            [0.055,     51],
+            [0.077,     122],
+            [0.090,     161],
+            [0.20099,   300]
+        ];
+        testCases.forEach(test => {
+            let [input, expected] = test;
+            it(`should output ${expected} for an input of ${input}`, () => {
+                expect(calculationService.calculateO3AQI(input)).toBe(expected);
+            });
+        });
+        
+        describe('given edge cases beyond the EPA-recorded indices', () => {
+            let boundaryTestCases: number[] = [
+                0.201,
+                0.201111,
+                0.400,
+                10000
+            ];
+            boundaryTestCases.forEach(input => {
+                it(`should output 500 for an input of ${input}, ` +
+                    `by defaulting to the highest available AQI when above the highest EPA-given index`, () => {
+                    expect(calculationService.calculateO3AQI(input)).toBe(500);
+                });
+            });
+        })
+    });
 });
