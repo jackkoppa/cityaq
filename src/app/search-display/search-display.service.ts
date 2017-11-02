@@ -21,14 +21,17 @@ export class SearchDisplayService {
         return 0;
     }
 
+    // TODO: replace with real calculations from calculation.service
     pm25Color(location: LatestResponseModel): string {
         if (!this.validateLatestResponse(location)) return '';
         let val: number = location.measurements[0].value;
         if (!val) return '';
-        if (val < 20) return 'green';
+        if (val < 10) return 'green';
+        if (val < 25) return 'yello';
         if (val < 40) return 'orange';
         if (val < 70) return 'red';
-        if (val >= 70) return 'dark-red';
+        if (val < 90) return 'purple';
+        if (val >= 90) return 'maroon';
         return '';
     }
 

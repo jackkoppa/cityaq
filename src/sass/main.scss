@@ -3,6 +3,7 @@
 // 1. Configuration and helpers
 @import
     'abstracts/variables',
+    'abstracts/aqi-variables',
     'abstracts/functions',
     'abstracts/mixins';
 
@@ -16,6 +17,7 @@
     'base/base',
     'base/fonts',
     'base/typography',
+    'base/colors',
     'base/helpers';
 
 // 4. Layout-related sections

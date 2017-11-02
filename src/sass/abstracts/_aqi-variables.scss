@@ -1,0 +1,10 @@
+// US EPA Air Quality Index variables - https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
+
+$aqi-colors: (
+    'green': rgb(0, 228, 0),
+    'yellow': rgb(255, 255, 0),
+    'orange': rgb(255, 126, 0),
+    'red': rgb(255, 0, 0),
+    'purple': rgb(143, 63, 151),
+    'maroon': rgb(126, 0, 35)
+) !default;
