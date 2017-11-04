@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('openaq-viz App', () => {
+describe('cityaq App', () => {
   let page: AppPage;
 
   beforeEach(() => {

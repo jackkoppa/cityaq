@@ -1,5 +1,5 @@
 {
-  "name": "openaq-viz",
+  "name": "cityaq",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -11,7 +11,7 @@
     "e2e": "ng e2e",
     "ci-test": "ng test -cc -sr --browsers=ChromeHeadless",
     "ci-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "ci-deploy": "ng build --prod --base-href \"https://jackkoppa.github.io/openaq-viz/\" && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/openaq-viz.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
+    "ci-deploy": "ng build --prod --base-href \"https://jackkoppa.github.io/cityaq/\" && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/cityaq.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
   },
   "private": true,
   "dependencies": {
