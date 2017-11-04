@@ -27,7 +27,7 @@ export class SearchDisplayService {
         let val: number = location.measurements[0].value;
         if (!val) return '';
         if (val < 10) return 'green';
-        if (val < 25) return 'yello';
+        if (val < 25) return 'yellow';
         if (val < 40) return 'orange';
         if (val < 70) return 'red';
         if (val < 90) return 'purple';
