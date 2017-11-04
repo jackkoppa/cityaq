@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'viz-home',
+    selector: 'aq-home',
     templateUrl: './home.component.html'
 })
 export class HomeComponent {

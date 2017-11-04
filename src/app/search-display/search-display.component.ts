@@ -11,7 +11,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 @Component({
-    selector: 'viz-search-display',
+    selector: 'aq-search-display',
     templateUrl: './search-display.component.html'
 })
 export class SearchDisplayComponent implements OnInit {
