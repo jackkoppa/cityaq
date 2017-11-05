@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CitiesService } from './cities.service';
-import { LatestService } from './latest.service';
+import { CitiesHandlerService } from './cities-handler.service';
+import { LatestHandlerService } from './latest-handler.service';
 
 @NgModule({
     providers: [
-        CitiesService,
-        LatestService
+        CitiesHandlerService,
+        LatestHandlerService
     ]
 })
 export class HandlersModule {}

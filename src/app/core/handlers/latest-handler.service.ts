@@ -5,7 +5,7 @@ import { LatestRequestModel } from '../api/openaq/latest/latest-request.model';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class LatestService {
+export class LatestHandlerService {
     constructor(private latestApi: LatestApi) {};
 
     getLatestPM25ByCity(city: string): Observable<LatestResponseModel[]> {

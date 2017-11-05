@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CompareService } from './compare.service';
-import { CitiesService } from '../core/handlers/cities.service';
+import { CitiesHandlerService } from '../core/handlers/cities-handler.service';
 import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
 
 @Component({
@@ -9,10 +9,11 @@ import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.m
     templateUrl: './compare.component.html'
 })
 export class CompareComponent implements OnInit {
-    allCities: CitiesResponseModel[] = [];
+    allCities: CitiesResponseModel = [];
+    selectedCities;
 
     constructor(
-        private citiesService: CitiesService,
+        private citiesService: CitiesHandlerService,
         private compareService: CompareService
     ) { };
 

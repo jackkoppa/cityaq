@@ -15,8 +15,8 @@ export class SearchService {
 
     public filterCities(
         cityName: string,
-        allCities: CitiesResponseModel[]
-    ): CitiesResponseModel[] {
+        allCities: CitiesResponseModel
+    ): CitiesResponseModel {
         return cityName ? 
             this.filterCitiesWhenNameExists(cityName, allCities) : 
             allCities.slice(0, 5); 
@@ -24,9 +24,9 @@ export class SearchService {
 
     private filterCitiesWhenNameExists(
         cityName: string,
-        allCities: CitiesResponseModel[]
-    ): CitiesResponseModel[] {
-        const filteredCities: CitiesResponseModel[] = allCities.filter(city =>
+        allCities: CitiesResponseModel
+    ): CitiesResponseModel {
+        const filteredCities: CitiesResponseModel = allCities.filter(city =>
             city.city.toLowerCase().indexOf(cityName.toLowerCase()) === 0);
         return filteredCities.slice(0, 5);
     }

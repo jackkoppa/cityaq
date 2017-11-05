@@ -5,10 +5,10 @@ import { CitiesRequestModel } from '../api/openaq/cities/cities-request.model';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class CitiesService {
+export class CitiesHandlerService {
     constructor(private citiesApi: CitiesApi) {};
 
-    getAllCities(): Observable<CitiesResponseModel[]> {
+    getAllCities(): Observable<CitiesResponseModel> {
         let request: CitiesRequestModel = { limit: 9999 };
         return this.citiesApi.getCities(request);
     }

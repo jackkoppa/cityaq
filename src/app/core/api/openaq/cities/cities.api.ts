@@ -15,7 +15,7 @@ export class CitiesApi {
         private apiService: ApiService
     ) {}
 
-    public getCities(request?: CitiesRequestModel): Observable<CitiesResponseModel[]> {
+    public getCities(request?: CitiesRequestModel): Observable<CitiesResponseModel> {
         return this.http.get(environment.openaqApiUrl + 'cities?' + this.apiService.buildOpenAQQueryString(request))
             .map(res => res.json().results);
     }
