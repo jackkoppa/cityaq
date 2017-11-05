@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 export class LatestHandlerService {
     constructor(private latestApi: LatestApi) {};
 
-    getLatestPM25ByCity(city: string): Observable<LatestResponseModel[]> {
+    getLatestPM25ByCity(city: string): Observable<LatestResponseModel> {
         let request: LatestRequestModel = {
             city: city,
             parameter: 'pm25'

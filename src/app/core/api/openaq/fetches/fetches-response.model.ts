@@ -1,8 +1,4 @@
 // https://docs.openaq.org/#api-Fetches
+import { FetchesIndividualResponseModel } from './fetches-individual-response.model';
 
-export class FetchesResponseModel {
-    timeStarted: string;
-    timeEnded: string;
-    count: number;
-    results: object;
-}
+export interface FetchesResponseModel extends Array<FetchesIndividualResponseModel> {}

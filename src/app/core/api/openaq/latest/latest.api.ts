@@ -16,7 +16,7 @@ export class LatestApi {
         private apiService: ApiService
     ) {}
 
-    public getLatest(request?: LatestRequestModel): Observable<LatestResponseModel[]> {
+    public getLatest(request?: LatestRequestModel): Observable<LatestResponseModel> {
         return this.http.get(environment.openaqApiUrl + 'latest?' + this.apiService.buildOpenAQQueryString(request))
             .map(res => res.json().results);
     }

@@ -1,9 +1,4 @@
 // https://docs.openaq.org/#api-Latest
-import { LatestMeasurement } from './latest-measurement.model';
+import { LatestIndividualResponseModel } from './latest-individual-response.model';
 
-export interface LatestResponseModel {
-    location: string;
-    country: string;
-    city: string;
-    measurements: LatestMeasurement[];
-}
+export interface LatestResponseModel extends Array<LatestIndividualResponseModel> {}

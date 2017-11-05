@@ -1,13 +1,4 @@
 // https://docs.openaq.org/#api-Measurements
+import { MeasurementsIndividualResponseModel } from './measurements-individual-response.model';
 
-export interface MeasurementsResponseModel {
-    date: object;
-    parameter: string;
-    value: number;
-    unit: string;
-    location: string;
-    country: string;
-    city: string;
-    coordinates: object;
-    sourceName: string;
-}
+export interface MeasurementsResponseModel extends Array<MeasurementsIndividualResponseModel> {}
