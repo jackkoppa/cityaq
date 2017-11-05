@@ -13,6 +13,6 @@ export class LatestService {
             city: city,
             parameter: 'pm25'
         }
-        return this.latestApi.getLatest(request);
+        return this.latestApi.getLatest(request);        
     }
 }

@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
-import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
     imports: [
-        MaterialModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MaterialModule
     ],
     exports: [
-        MaterialModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MaterialModule
     ]
 })
 export class SharedModule {}

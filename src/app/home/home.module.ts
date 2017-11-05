@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home.component';
-import { SearchDisplayModule } from '../search-display/search-display.module';
+
 import { SharedModule } from '../shared/shared.module';
+import { CompareModule } from '../compare/compare.module';
+
+import { HomeComponent } from './home.component';
+import { IntroComponent } from './intro.component';
 
 @NgModule({
     imports: [
         SharedModule,
-        SearchDisplayModule
+        CompareModule
     ],
-    declarations: [HomeComponent],
-    exports: [HomeComponent]
+    declarations: [
+        HomeComponent,
+        IntroComponent
+    ],
+    exports: [
+        HomeComponent
+    ]
 })
 export class HomeModule {}
