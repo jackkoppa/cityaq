@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { CompareModule } from './compare/compare.module';
 import { SearchModule } from './search/search.module';
+import { CityModule } from './city/city.module';
 
 @NgModule({
     declarations: [
