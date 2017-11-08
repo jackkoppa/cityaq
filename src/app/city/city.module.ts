@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { CityCardsListComponent } from './city-cards-list.component';
 import { CityCardComponent } from './city-card.component';
 
 @NgModule({
@@ -9,9 +10,11 @@ import { CityCardComponent } from './city-card.component';
         SharedModule
     ],
     declarations: [
+        CityCardsListComponent,
         CityCardComponent
     ],
     exports: [
+        CityCardsListComponent,
         CityCardComponent
     ]
 })
