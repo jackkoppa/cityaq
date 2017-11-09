@@ -10,7 +10,7 @@ import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.m
 })
 export class CompareComponent implements OnInit {
     allCities: CitiesResponseModel = [];
-    selectedCities;
+    selectedCities: CitiesResponseModel = [];
 
     constructor(
         private citiesService: CitiesHandlerService,
