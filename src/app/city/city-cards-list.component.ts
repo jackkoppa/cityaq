@@ -12,6 +12,6 @@ export class CityCardsListComponent implements OnInit {
     constructor() { };
 
     ngOnInit(): void {
-        console.log('current selectedCities:', this.selectedCities);
+        //console.log('current selectedCities:', this.selectedCities);
     }
 }
