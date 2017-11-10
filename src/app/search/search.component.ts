@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SearchService } from './search.service';
 import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
+import { CitiesIndividualResponseModel } from '../core/api/openaq/cities/cities-individual-response.model';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 
 import { Observable } from 'rxjs/Observable';
@@ -27,7 +28,11 @@ export class SearchComponent implements OnInit {
         this.filterCitiesOnInputChange();
     }
 
-    public addToSearchedCities(event: any) {
+    public attemptSearch(): void {
+        
+    }
+
+    private addToSearchedCities(event: any) {
         
     }
 
