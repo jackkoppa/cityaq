@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
     @Output() addSearchedCity: EventEmitter<SearchedCity> = new EventEmitter<SearchedCity>();
     filteredCities: Observable<CitiesResponseModel>;
     searchForm: FormGroup;
+    searching: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -53,6 +54,7 @@ export class SearchComponent implements OnInit {
     }
 
     private search(): void {
+        this.searching = true;
         const cityName = this.searchForm.value['searchInput'];
         const city = this.allCities.find(city => city.city === cityName);
         const country = city.country;
@@ -62,6 +64,7 @@ export class SearchComponent implements OnInit {
     }
 
     private outputSearchedCity(city: CitiesIndividualResponseModel, locations: LocationsResponseModel): void {
+        this.searching = false;
         const searchedCity: SearchedCity = city;
         searchedCity.locationsResponse = locations;
         this.addSearchedCity.emit(searchedCity);
