@@ -32,19 +32,15 @@ export class CityCardComponent implements OnInit {
         console.log('searchedCity:', this.searchedCity);
         this.getLatestCityMeasurements()
             .then(() => {
-                
-                this.aqis.push({
-                    parameter: 'pm25', 
-                    value: this.getParameterAQI('pm25')
-                });
-                this.aqis.push({
-                    parameter: 'so2', 
-                    value: this.getParameterAQI('so2')
-                });
+                this.getAvailableParameters()
+                    .forEach(param => this.aqis.push({
+                        parameter: param, 
+                        value: this.getParameterAQI(param)
+                    }));
             });
     }
 
-    public getLatestCityMeasurements(): Promise<void> {
+    private getLatestCityMeasurements(): Promise<void> {
         return this.getLatest()
             .map(latest => {
                 this.latestCityMeasurements = this.searchedCity;
@@ -53,7 +49,18 @@ export class CityCardComponent implements OnInit {
             .toPromise();
     }
 
-    public getParameterAQI(parameter: ParametersModel): number {
+    private getAvailableParameters(): ParametersModel[] {
+        const parameters = [];
+        this.searchedCity.locationsResponse.forEach(location => {
+            location.parameters.forEach(newParam => {
+                if (parameters.findIndex(foundParam => foundParam === newParam) === -1)
+                    parameters.push(newParam);
+            });
+        });
+        return parameters;
+    }
+
+    private getParameterAQI(parameter: ParametersModel): number {
         const latestParameterMeasurements: LatestMeasurement[] = [];
         this.latestCityMeasurements
             .latestResponse
