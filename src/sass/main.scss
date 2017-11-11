@@ -32,7 +32,8 @@
 
 // 6. Page-specific styles
 @import
-    'modules/home/home.component';
+    'modules/home/home.component',
+    'modules/shared/material/_mat-spinner.component.scss';
 
 // 7. Shame (should eventually be empty)
 @import

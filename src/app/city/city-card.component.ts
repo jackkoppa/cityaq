@@ -3,11 +3,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { CalculationService } from '../core/calculation/calculation.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
+import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { ParametersModel } from '../core/api/openaq/parameters.model';
 import { SearchedCity } from '../search/searched-city.model';
 import { LatestCityMeasurements } from './latest-city-measurements.model';
+
 import { Observable } from 'rxjs/Observable';
-import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
+import 'rxjs/add/operator/do';
 
 interface AQI {
     parameter: ParametersModel,
@@ -20,7 +22,7 @@ interface AQI {
 })
 export class CityCardComponent implements OnInit {
     @Input() searchedCity: SearchedCity;
-    latestCityMeasurements: LatestCityMeasurements;
+    latestMeasurements: LatestResponseModel;
     aqis: AQI[] = [];
 
     constructor(
@@ -31,7 +33,7 @@ export class CityCardComponent implements OnInit {
     ngOnInit() {
         console.log('searchedCity:', this.searchedCity);
         this.getLatestCityMeasurements()
-            .then(() => {
+            .subscribe(latest => {
                 this.getAvailableParameters()
                     .forEach(param => this.aqis.push({
                         parameter: param, 
@@ -40,13 +42,9 @@ export class CityCardComponent implements OnInit {
             });
     }
 
-    private getLatestCityMeasurements(): Promise<void> {
+    private getLatestCityMeasurements(): Observable<LatestResponseModel> {
         return this.getLatest()
-            .map(latest => {
-                this.latestCityMeasurements = this.searchedCity;
-                this.latestCityMeasurements.latestResponse = latest;
-            })
-            .toPromise();
+            .map(latest => this.latestMeasurements = latest);
     }
 
     private getAvailableParameters(): ParametersModel[] {
@@ -62,8 +60,7 @@ export class CityCardComponent implements OnInit {
 
     private getParameterAQI(parameter: ParametersModel): number {
         const latestParameterMeasurements: LatestMeasurement[] = [];
-        this.latestCityMeasurements
-            .latestResponse
+        this.latestMeasurements
             .forEach(response => {
                 const match = response.measurements
                     .find(measurement => measurement.parameter === parameter);
