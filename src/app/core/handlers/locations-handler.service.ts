@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Observable';
 export class LocationsHandlerService {
     constructor(private locationsApi: LocationsApi) {};
 
-    getLocationsByCityAndCountry(city: string, country: string): Observable<LocationsResponseModel> {
+    getLocationsByCityAndCountry(cityName: string, country: string): Observable<LocationsResponseModel> {
         let request: LocationsRequest = {
-            city: city,
+            city: cityName,
             country: country
         }
         return this.locationsApi.getLocations(request);        

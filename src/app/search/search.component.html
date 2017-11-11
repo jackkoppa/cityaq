@@ -7,9 +7,10 @@
             formControlName="searchInput"
             [matAutocomplete]="auto"
             (keyup.enter)="attemptSearch()">
+        <mat-icon>search</mat-icon>
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let city of filteredCities | async" [value]="city.city">
-                <span>{{city.city}}</span>
+                <span>{{city.city | uppercase}}</span>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>

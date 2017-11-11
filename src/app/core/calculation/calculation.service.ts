@@ -1,6 +1,7 @@
 // https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
 import { Injectable } from '@angular/core';
 
+import { ParametersModel } from '../api/openaq/parameters.model';
 import { BaseIndex } from './indices/base-index.model';
 import { AQI_LEVELS } from './indices/aqi-levels.constant';
 
@@ -14,6 +15,33 @@ import { NO2_INDEX } from './indices/parameters/no2-index.constant';
 @Injectable()
 export class CalculationService {
     constructor() {};
+
+    public calculateAQIByParameter(value: number, parameter: ParametersModel): number {
+        let result: number;
+        switch(parameter) {
+            case 'pm25':
+                result = this.calculatePM25AQI(value);
+                break;
+            case 'pm10':
+                result = this.calculatePM10AQI(value);
+                break;
+            case 'o3':
+                result = this.calculateO3AQI(value);
+                break;
+            case 'co':
+                result = this.calculateCOAQI(value);
+                break;
+            case 'so2':
+                result = this.calculateSO2AQI(value);
+                break;
+            case 'no2':
+                result = this.calculateNO2AQI(value);
+                break;
+            default:
+                throw new Error('invalid parameter given for AQI calculation');            
+        }
+        return result;
+    }
 
     public calculatePM25AQI(value: number): number {
         return this.calculateParameterAQI(value, PM25_INDEX, 1)

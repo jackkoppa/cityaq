@@ -1,3 +1,7 @@
 <mat-card>
-    <h2>{{searchedCity.city}}</h2>
+    <h2>{{latestCityMeasurements?.city | uppercase}}</h2>
+    <h4>{{latestCityMeasurements?.country | uppercase}}</h4>
+    <p *ngFor="let aqi of aqis">
+        {{aqi.parameter}} AQI: {{aqi.value}}
+    </p>
 </mat-card>
