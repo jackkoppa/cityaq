@@ -28,6 +28,6 @@ export class CompareComponent implements OnInit {
     }
 
     public addSearchedCity(searchedCity: SearchedCity): void {
-        this.searchedCities.push(searchedCity);
+        this.searchedCities.unshift(searchedCity);
     }
 }
