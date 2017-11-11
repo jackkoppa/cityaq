@@ -6,7 +6,7 @@
             aria-label="City"
             formControlName="searchInput"
             [matAutocomplete]="auto"
-            (keyup.enter)="addToSearchedCities($event)">
+            (keyup.enter)="attemptSearch()">
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let city of filteredCities | async" [value]="city.city">
                 <span>{{city.city}}</span>

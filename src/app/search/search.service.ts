@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
+import { LocationsResponseModel } from '../core/api/openaq/locations/locations-response.model';
+import { Observable } from 'rxjs/Observable';
+import { CitiesRequestModel } from '../core/api/openaq/cities/cities-request.model';
 
 interface ValidationResult {
     [index: string]: boolean;
@@ -10,8 +13,8 @@ interface ValidationResult {
 export class SearchService {
     public validateSearchInput(control: FormControl): ValidationResult {
         
-        return { invalid: true };
-    }    
+        return null;
+    }
 
     public filterCities(
         cityName: string,

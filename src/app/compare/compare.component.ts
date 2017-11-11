@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompareService } from './compare.service';
 import { CitiesHandlerService } from '../core/handlers/cities-handler.service';
 import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
+import { SearchedCity } from '../search/searched-city.model';
 
 @Component({
     selector: 'aq-compare',
@@ -10,10 +11,10 @@ import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.m
 })
 export class CompareComponent implements OnInit {
     allCities: CitiesResponseModel = [];
-    selectedCities: CitiesResponseModel = [];
+    searchedCities: SearchedCity[] = [];
 
     constructor(
-        private citiesService: CitiesHandlerService,
+        private citiesHandlerService: CitiesHandlerService,
         private compareService: CompareService
     ) { };
 
@@ -21,8 +22,12 @@ export class CompareComponent implements OnInit {
         this.loadCities();
     }
 
-    loadCities() {
-        this.citiesService.getAllCities()
+    public loadCities() {
+        this.citiesHandlerService.getAllCities()
             .subscribe(cities => this.allCities = cities.sort(this.compareService.sortCities));
+    }
+
+    public addSearchedCity(searchedCity: SearchedCity): void {
+        this.searchedCities.push(searchedCity);
     }
 }

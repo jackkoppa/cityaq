@@ -7,7 +7,7 @@ import { LatestResponseModel } from './latest-response.model';
 import { ApiService } from '../../api.service';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
-import {Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class LatestApi {
