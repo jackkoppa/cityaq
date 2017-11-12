@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { LatestHandlerService } from '../core/handlers/latest-handler.service';
+import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { CalculationService } from '../core/calculation/calculation.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
@@ -27,6 +28,7 @@ export class CityCardComponent implements OnInit {
 
     constructor(
         private latestHandlerService: LatestHandlerService,
+        private staticMapsHandlerService: StaticMapsHandlerService,
         private calculationService: CalculationService
     ) { };
 

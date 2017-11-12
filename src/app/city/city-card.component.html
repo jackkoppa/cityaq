@@ -1,4 +1,5 @@
-<mat-card class="city-card">
+<mat-card class="city-card" >
+    <div class="color-overlay"></div>
     <h2>{{searchedCity.city | uppercase}}</h2>
     <h4>{{searchedCity.country | uppercase}}</h4>
     <div *ngFor="let aqi of aqis" class="aqi-indicator">

@@ -1,0 +1,1 @@
+export type MapType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';

@@ -1,0 +1,1 @@
+export type ImageFileType = 'png' | 'png32' | 'jpg' | 'jpg-baseline' | 'gif';
