@@ -9,10 +9,13 @@
 
 // 2. Vendors
 @import
-    'vendor/normalize',
-    '~@angular/material/prebuilt-themes/indigo-pink.css';
+    'vendor/normalize';
 
-// 3. Base stuff
+// 3. Themes
+@import 
+    'themes/cityaq-base-material-theme';
+
+// 4. Base stuff
 @import
     'base/base',
     'base/fonts',
@@ -20,22 +23,22 @@
     'base/colors',
     'base/helpers';
 
-// 4. Layout-related sections
+// 5. Layout-related sections
 @import
     'layout/header',
     'layout/footer';
 
-// 5. Components
+// 6. Elements
 @import
     'elements/button',
     'elements/link';
 
-// 6. Page-specific styles
+// 7. Module styles
 @import
     'modules/city/city-card.component',
     'modules/home/home.component',
     'modules/search/search.component';
 
-// 7. Shame (should eventually be empty)
+// 8. Shame (should eventually be empty)
 @import
     'shame';

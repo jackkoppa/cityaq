@@ -1,0 +1,23 @@
+@import '~@angular/material/theming';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$cityaq-base-primary: mat-palette($mat-green, A400, A200, A700);
+$cityaq-base-accent:  mat-palette($mat-deep-purple, 400, 200, 600);
+
+// The warn palette is optional (defaults to red).
+$cityaq-base-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$cityaq-base-theme: mat-light-theme($cityaq-base-primary, $cityaq-base-accent, $cityaq-base-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($cityaq-base-theme);
