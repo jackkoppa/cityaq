@@ -11,8 +11,7 @@ interface ValidationResult {
 
 @Injectable()
 export class SearchService {
-    public validateSearchInput(control: FormControl): ValidationResult {
-        
+    public validateSearchInput(control: FormControl): ValidationResult {        
         return null;
     }
 

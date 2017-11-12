@@ -32,8 +32,9 @@
 
 // 6. Page-specific styles
 @import
+    'modules/city/city-card.component',
     'modules/home/home.component',
-    'modules/shared/material/_mat-spinner.component.scss';
+    'modules/search/search.component';
 
 // 7. Shame (should eventually be empty)
 @import
