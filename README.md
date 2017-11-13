@@ -2,7 +2,11 @@
 [![Build Status](https://travis-ci.org/jackkoppa/cityaq.svg?branch=master)](https://travis-ci.org/jackkoppa/cityaq)
 [![Coverage Status](https://coveralls.io/repos/github/jackkoppa/cityaq/badge.svg?branch=master)](https://coveralls.io/github/jackkoppa/cityaq?branch=master)
 ## Background
-Single page Angular app to compare simple air quality data for different cities, using data from the [OpenAQ](https://openaq.org/) API. Intended to be a quick, mobile-first reference for current air quality information around the world. Strongly typed API implementation using TypeScript; Angular Material for UI components.
+Single page Angular app to compare simple air quality data for different cities, using data from the [OpenAQ](https://openaq.org/) API. Intended to be a quick, mobile-first reference for current air quality information around the world. 
+* Strongly typed OpenAQ API implementation using TypeScript
+* Angular Material for UI components
+* Google Static Maps API for location images
+* Modularized Sass for styling
 
 ## Running Locally
 ### Install
