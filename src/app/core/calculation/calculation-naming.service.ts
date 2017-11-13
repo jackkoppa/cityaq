@@ -30,4 +30,32 @@ export class CalculationNamingService {
             className = 'unknown';
         return className;
     }
+
+    public getLevelDescription(level: LevelName): LevelDescriptions {
+        let description: LevelDescriptions;
+        switch(level) {
+            case 'good':
+                description = 'Good';
+                break;
+            case 'moderate':
+                description = 'Moderate';
+                break;
+            case 'unhealthySensitive':
+                description = 'Unhealthy for Sensitive Groups';
+                break;
+            case 'unhealthy':
+                description = 'Unhealthy';
+                break;
+            case 'veryUnhealthy':
+                description = 'Very Unhealthy';
+                break;
+            case 'hazardous1':
+            case 'hazardous2':
+                description = 'Hazardous';
+                break;
+            default:
+                description = 'Unknown';
+        }
+        return description;
+    }
 }
