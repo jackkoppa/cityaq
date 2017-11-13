@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CalculationService } from '../core/calculation/calculation.service';
+import { CalculationNamingService } from '../core/calculation/calculation-naming.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { ParametersModel } from '../core/api/openaq/parameters.model';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { SearchedCity } from '../search/searched-city.model';
 import { CoordinatesModel } from '../core/api/openaq/coordinates.model';
+import { IndividualAQI } from './individual-aqi.model';
 
 @Injectable()
 export class CityService {
     
     constructor(
         private calculationService: CalculationService,
+        private calculationNamingService: CalculationNamingService,
         private staticMapsHandlerService: StaticMapsHandlerService
     ) {}
 
@@ -38,6 +41,19 @@ export class CityService {
             .then(res => this.createImageFromBlob(res))
     }
 
+    public getOverallAQI(aqis: IndividualAQI[]): number {
+        const aqiValues = aqis.map(aqi => aqi.value);
+        if (!aqis || aqis.length <= 0) return 0;
+        return aqiValues.reduce((a, b) => {
+            return Math.max(a, b);
+        });
+    }
+
+    public getOverallAQIClass(aqis: IndividualAQI[]): string {
+        const aqiValue = this.getOverallAQI(aqis);
+        return this.calculationNamingService.getAQIClassName(aqiValue);
+    }
+
     private createImageFromBlob(image: Blob): Promise<any> {
         let reader = new FileReader();
 
@@ -51,8 +67,8 @@ export class CityService {
         return Promise.resolve(null);
     }
 
-    private getLatLong(searchedCity: SearchedCity): LatLong {
-        const latLong: LatLong = {
+    private getLatLong(searchedCity: SearchedCity): CoordinatesModel {
+        const latLong: CoordinatesModel = {
             latitude: 0,
             longitude: 0
         };
@@ -70,9 +86,4 @@ export class CityService {
     private hasLatLong(coordinates: CoordinatesModel): boolean {
         return !!(coordinates.latitude && coordinates.longitude);
     }
-}
-
-interface LatLong {
-    latitude: number;
-    longitude: number;
 }

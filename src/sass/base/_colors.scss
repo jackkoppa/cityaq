@@ -1,5 +1,13 @@
-@each $name, $value in $aqi-colors {
-    .#{$name} {
-        color: $value;
+@each $name, $color in $aqi-colors {
+    .bg-#{map-get($color, name)} {
+        background-color: map-get($color, primary);
+        color: map-get($color, text);
+    }
+    .bg-0-7-#{map-get($color, name)} {
+        background-color: rgba(map-get($color, primary), 0.7);
+        color: map-get($color, text);
+    }
+    .text-#{map-get($color, name)} {
+        color: map-get($color, primary);
     }
 }

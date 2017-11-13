@@ -2,4 +2,20 @@ mat-card.city-card {
     margin: 10px;
     background-size: cover;
     background-position: center;
+
+    .color-overlay {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    h2,
+    h4,
+    .aqi-indicator {
+        position: relative;
+        z-index: 10;
+    }
 }

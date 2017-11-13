@@ -8,14 +8,9 @@ import { ParametersModel } from '../core/api/openaq/parameters.model';
 import { SearchedCity } from '../search/searched-city.model';
 import { CityService } from './city.service';
 import { LatestCityMeasurements } from './latest-city-measurements.model';
-
+import { IndividualAQI } from './individual-aqi.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
-
-interface AQI {
-    parameter: ParametersModel,
-    value: number
-}
 
 @Component({
     selector: 'aq-city-card',
@@ -24,7 +19,7 @@ interface AQI {
 export class CityCardComponent implements OnInit {
     @Input() searchedCity: SearchedCity;
     latestResponse: LatestResponseModel;
-    aqis: AQI[] = [];
+    aqis: IndividualAQI[] = [];
     staticMapsURL: any = '';
 
     constructor(
@@ -41,10 +36,18 @@ export class CityCardComponent implements OnInit {
                     .forEach(param => this.aqis.push({
                         parameter: param, 
                         value: this.cityService.getAQIByParameter(param, this.latestResponse)
-                    }));
+                    }));                
             });
         this.cityService.getStaticMapsImageFileURL(this.searchedCity)
             .then(url => this.staticMapsURL = url);
+    }
+
+    public overallAQI(): number {
+        return this.cityService.getOverallAQI(this.aqis);
+    }
+
+    public overallAQIClass(): string {
+        return this.cityService.getOverallAQIClass(this.aqis);
     }
 
     private getLatestCityMeasurements(): Observable<LatestResponseModel> {

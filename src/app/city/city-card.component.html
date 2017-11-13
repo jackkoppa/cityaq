@@ -1,6 +1,7 @@
 <mat-card class="city-card" 
     [ngStyle]="{'background-image': 'url(' + staticMapsURL + ')'}" >
-    <div class="color-overlay"></div>
+    <div class="color-overlay"
+        [ngClass]="'bg-0-7-' + overallAQIClass()"></div>
     <h2>{{searchedCity.city | uppercase}}</h2>
     <h4>{{searchedCity.country | uppercase}}</h4>
     <div *ngFor="let aqi of aqis" class="aqi-indicator">
