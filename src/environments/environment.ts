@@ -7,5 +7,5 @@ export const environment = {
     production: false,
     openaqApiUrl: 'https://api.openaq.org/v1/',
     mapsApiUrl: 'https://maps.googleapis.com/maps/api/',
-    staticMapsKey: ''
+    staticMapsKey: 'AIzaSyBJ4wQTemqdOaXFsAmZotfakpevljfN2iY'
 };

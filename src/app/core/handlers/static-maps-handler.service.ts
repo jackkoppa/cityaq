@@ -11,18 +11,29 @@ export const DefaultStaticMapsApiRequest: StaticMapsRequest = {
     key: '',
     scale: 2,
     markers: 'color:black|size:small',
-    style: 'feature:poi|visibility:off'
+    style: [
+        'feature:poi|visibility:off',
+        'feature:road|Cvisibility:off',
+        'feature:transit|visibility:off',
+        'feature:water|color:0xcccccc',
+        'feature:landscape|color:0xffffff',
+        'feature:administrative|element:labels|visibility:off',
+        'feature:administrative.country|element:geometry.stroke|color:0x555555',
+        'feature:administrative|element:geometry.fill|visibility:off'
+    ]
+
 }
 
 @Injectable()
 export class StaticMapsHandlerService {
     constructor(private staticMapsApi: StaticMapsApi) {};
 
-    getImageByLatLong(latitude: number, longitude: number): Observable<File> {
-        const request: StaticMapsRequest = DefaultStaticMapsApiRequest;
+    public getImageByLatLong(latitude: number, longitude: number): Observable<File> {
+        const request: StaticMapsRequest = Object.assign({}, DefaultStaticMapsApiRequest);
         const latLong = latitude.toString() + ',' + longitude.toString();
         request.center = latLong;
         request.markers += '|' + latLong;
+        request.key = environment.staticMapsKey;
         return this.staticMapsApi.getImage(request);        
     }
 }

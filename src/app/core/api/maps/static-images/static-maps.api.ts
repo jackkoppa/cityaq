@@ -5,6 +5,7 @@ import { StaticMapsRequest } from './static-maps-request.model';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class StaticMapsApi {
@@ -16,7 +17,8 @@ export class StaticMapsApi {
     public getImage(request?: StaticMapsRequest): Observable<File> {
         return this.http
             .get(
-                environment.mapsApiUrl + 'staticmap?' + this.apiService.buildBaseQueryString(request)
+                environment.mapsApiUrl + 'staticmap?' + this.apiService.buildMapsQueryString(request),
+                { responseType: ResponseContentType.Blob }
             )
             .map(res => <File>res.blob());
     }
