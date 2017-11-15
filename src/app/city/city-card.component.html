@@ -4,8 +4,7 @@
         [ngClass]="'bg-0-7-' + overallAQIClass()"></div>
     <mat-card-title-group>
         <mat-card-title>{{searchedCity.city | uppercase}}</mat-card-title>
-        <mat-card-subtitle>{{searchedCity.country | uppercase}}</mat-card-subtitle>
-
+        <mat-card-subtitle>{{searchedCity.country | countryName | uppercase}}</mat-card-subtitle>
     </mat-card-title-group>
     <div *ngFor="let aqi of aqis" class="aqi-indicator">
         <span>{{aqi.value}}</span>
