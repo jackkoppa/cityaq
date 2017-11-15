@@ -1,12 +1,12 @@
 // https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
 import { Injectable } from '@angular/core';
 
-import { Levels } from './indices/levels.model';
-import { LevelDescriptions } from './indices/level-descriptions.model';
+import { Level } from './indices/levels.model';
+import { LEVEL_DESCRIPTIONS } from './indices/level-descriptions.constant';
 import { AQI_LEVELS } from './indices/aqi-levels.constant';
 import { ParametersModel } from '../api/openaq/parameters.model';
 
-export type LevelName = keyof Levels;
+export type LevelName = keyof Level;
 
 @Injectable()
 export class CalculationNamingService {
@@ -31,31 +31,11 @@ export class CalculationNamingService {
         return className;
     }
 
-    public getLevelDescription(level: LevelName): LevelDescriptions {
-        let description: LevelDescriptions;
-        switch(level) {
-            case 'good':
-                description = 'Good';
-                break;
-            case 'moderate':
-                description = 'Moderate';
-                break;
-            case 'unhealthySensitive':
-                description = 'Unhealthy for Sensitive Groups';
-                break;
-            case 'unhealthy':
-                description = 'Unhealthy';
-                break;
-            case 'veryUnhealthy':
-                description = 'Very Unhealthy';
-                break;
-            case 'hazardous1':
-            case 'hazardous2':
-                description = 'Hazardous';
-                break;
-            default:
-                description = 'Unknown';
+    public getLevelDescription(level: LevelName): string {
+        if (LEVEL_DESCRIPTIONS.hasOwnProperty(level)) {
+            return LEVEL_DESCRIPTIONS[level];
+        } else {
+            return 'Unknown';
         }
-        return description;
     }
 }

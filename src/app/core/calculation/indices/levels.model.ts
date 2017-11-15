@@ -1,6 +1,7 @@
+import { LevelBase } from './level-base.model';
 import { Range } from './range.model';
 
-export interface Levels {
+export interface Level extends LevelBase {
     good: Range;
     moderate: Range;
     unhealthySensitive: Range;
