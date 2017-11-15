@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Level } from './indices/levels.model';
 import { LEVEL_DESCRIPTIONS } from './indices/level-descriptions.constant';
+import { LEVEL_CLASS_NAMES } from './indices/level-class-names.constant';
 import { AQI_LEVELS } from './indices/aqi-levels.constant';
 import { ParametersModel } from '../api/openaq/parameters.model';
 
@@ -12,23 +13,16 @@ export type LevelName = keyof Level;
 export class CalculationNamingService {
     constructor() {};
 
-    public getAQIClassName(aqi: number): string {
-        let className: string
-        if (aqi < AQI_LEVELS.good[1])
-            className = 'green';
-        else if (aqi < AQI_LEVELS.moderate[1])
-            className = 'yellow';
-        else if (aqi < AQI_LEVELS.unhealthySensitive[1])
-            className = 'orange';
-        else if (aqi < AQI_LEVELS.unhealthy[1])
-            className = 'red';
-        else if (aqi < AQI_LEVELS.veryUnhealthy[1])
-            className = 'purple';
-        else if (aqi <= AQI_LEVELS.hazardous2[1])
-            className = 'maroon';
-        else 
-            className = 'unknown';
-        return className;
+    public getAQIClassName(AQI: number): string {
+        const roundedAQI = Math.round(AQI);
+        let className: string;
+        Object.keys(AQI_LEVELS).some(level => {
+            if(AQI_LEVELS[level][0] <= roundedAQI && roundedAQI <= AQI_LEVELS[level][1]) {
+                className = LEVEL_CLASS_NAMES[level];
+                return true;
+            }
+        });
+        return className || 'unknown';
     }
 
     public getLevelDescription(level: LevelName): string {
