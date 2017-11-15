@@ -12,8 +12,7 @@ mat-card.city-card {
         z-index: 1;
     }
 
-    h2,
-    h4,
+    mat-card-title-group,
     .aqi-indicator {
         position: relative;
         z-index: 10;

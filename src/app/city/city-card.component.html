@@ -2,8 +2,11 @@
     [ngStyle]="{'background-image': 'url(' + staticMapsURL + ')'}" >
     <div class="color-overlay"
         [ngClass]="'bg-0-7-' + overallAQIClass()"></div>
-    <h2>{{searchedCity.city | uppercase}}</h2>
-    <h4>{{searchedCity.country | uppercase}}</h4>
+    <mat-card-title-group>
+        <mat-card-title>{{searchedCity.city | uppercase}}</mat-card-title>
+        <mat-card-subtitle>{{searchedCity.country | uppercase}}</mat-card-subtitle>
+
+    </mat-card-title-group>
     <div *ngFor="let aqi of aqis" class="aqi-indicator">
         <span>{{aqi.value}}</span>
         <span class="aqi-name">{{aqi.parameter}}</span>
