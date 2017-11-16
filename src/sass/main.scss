@@ -5,7 +5,8 @@
     'abstracts/variables',
     'abstracts/aqi-variables',
     'abstracts/functions',
-    'abstracts/mixins';
+    'abstracts/mixins',
+    'abstracts/mq';
 
 // 2. Vendors
 @import
@@ -36,6 +37,7 @@
 // 7. Module styles
 @import
     'modules/city/city-card.component',
+    'modules/city/aqi-indicator.component',
     'modules/home/home.component',
     'modules/search/search.component';
 

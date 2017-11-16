@@ -22,12 +22,17 @@ export class CityCardComponent implements OnInit {
     aqis: IndividualAQI[] = [];
     staticMapsURL: any = '';
 
+    get overallAQI(): number {
+        return this.cityService.getOverallAQI(this.aqis);
+    }
+    
     constructor(
         private latestHandlerService: LatestHandlerService,
         private staticMapsHandlerService: StaticMapsHandlerService,
         private cityService: CityService
     ) { };
-
+    
+    
     ngOnInit() {
         console.log('searchedCity:', this.searchedCity);
         this.getLatestCityMeasurements()
@@ -40,10 +45,6 @@ export class CityCardComponent implements OnInit {
             });
         this.cityService.getStaticMapsImageFileURL(this.searchedCity)
             .then(url => this.staticMapsURL = url);
-    }
-
-    public overallAQI(): number {
-        return this.cityService.getOverallAQI(this.aqis);
     }
 
     public overallAQIClass(): string {

@@ -1,0 +1,20 @@
+.aqi-indicator {
+    border-radius: 50%;
+    display: block;
+    margin-right: 5px;
+
+    &.overall {
+        height: 70px;
+        width: 70px;
+
+        span {
+            font-size: 30px;
+            line-height: 70px;
+        }
+    }
+
+    span {
+        display: block;        
+        text-align: center;
+    }
+}

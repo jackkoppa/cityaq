@@ -11,3 +11,13 @@
         color: map-get($color, primary);
     }
 }
+
+.bg-0-7-white {
+    background-color: rgba($white, 0.7);
+    color: $dark-grey;
+}
+
+.bg-0-7-dark-grey {
+    background-color: rgba($dark-grey, 0.7);
+    color: $white;
+}

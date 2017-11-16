@@ -2,19 +2,27 @@ mat-card.city-card {
     margin: 10px;
     background-size: cover;
     background-position: center;
+    padding: 0;
 
-    .color-overlay {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1;
-    }
-
-    mat-card-title-group,
-    .aqi-indicator {
+    mat-card-header,
+    mat-card-content {
+        padding: 24px;
         position: relative;
         z-index: 10;
     }
+
+    mat-card-header {
+        .mat-card-header-text { display: none; }
+        
+        .city-title {
+            display: block;
+            flex: 1 70%;
+
+            h2,
+            h5 {
+                margin: 15px 0;
+            }
+        }
+    }
+
 }
