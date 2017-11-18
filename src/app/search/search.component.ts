@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
+
 import { SearchService } from './search.service';
 import { SearchedCity } from './searched-city.model';
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
@@ -7,9 +12,6 @@ import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.m
 import { CitiesIndividualResponseModel } from '../core/api/openaq/cities/cities-individual-response.model';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
 import { LocationsResponseModel } from '../core/api/openaq/locations/locations-response.model';
 import { CityCardsListComponent } from '../city/city-cards-list.component';
 

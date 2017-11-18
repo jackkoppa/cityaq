@@ -1,3 +1,12 @@
-<div class="aqi-indicator" [ngClass]="indicatorClass">
-    <span>{{AQI | number:'1.0-0'}}</span>
+<div class="aqi-indicator-wrapper">
+    <mat-spinner *ngIf="AQI == null"
+        color="accent"
+        [diameter]="54"
+        [strokeWidth]="5"
+        [@fade]></mat-spinner>
+    <div class="aqi-indicator" *ngIf="AQI != null"
+        [ngClass]="indicatorClass"
+        [@fade]>
+        <span>{{AQI | number:'1.0-0'}}</span>
+    </div>
 </div>

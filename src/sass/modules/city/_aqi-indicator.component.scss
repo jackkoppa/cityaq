@@ -1,21 +1,32 @@
-.aqi-indicator {
-    border-radius: 50%;
-    display: block;
-    box-shadow: 1px 1px 15px -5px $dark-grey;
+.aqi-indicator-wrapper {
+    height: 54px;
     margin-right: 5px;
+    position: relative;
+    width: 54px;
 
-    &.overall {
-        height: 54px;
-        width: 54px;
+    mat-spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
 
+    .aqi-indicator {
+        border-radius: 50%;
+        display: block;
+        box-shadow: 1px 1px 15px -5px $dark-grey;        
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    
         span {
+            display: block;        
+            text-align: center;
             font-size: 24px;
             line-height: 54px;
         }
-    }
-
-    span {
-        display: block;        
-        text-align: center;
     }
 }
