@@ -6,6 +6,8 @@ import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.m
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
 import { SearchedCity } from '../search/searched-city.model';
+import { FadeAnimation  } from '../shared/animations/fade-animation.constant';
+
 import { CityService } from './city.service';
 import { LatestCityMeasurements } from './latest-city-measurements.model';
 import { ParameterAverage } from './individual-aqi.model';
@@ -14,7 +16,8 @@ import 'rxjs/add/operator/do';
 
 @Component({
     selector: 'aq-city-card',
-    templateUrl: './city-card.component.html'
+    templateUrl: './city-card.component.html',
+    animations: [FadeAnimation]
 })
 export class CityCardComponent implements OnInit {
     @Input() searchedCity: SearchedCity;

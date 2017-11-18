@@ -1,8 +1,17 @@
 mat-card.city-card {
-    margin: 10px;
-    background-size: cover;
-    background-position: center;
+    margin: 10px;    
     padding: 0;
+
+    .city-map-background {
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
 
     mat-card-header,
     mat-card-content {
@@ -15,7 +24,9 @@ mat-card.city-card {
         padding: 10px;
     }
 
-    mat-card-header {
+    mat-card-header {   
+        transition: background-color 0.5s;
+
         .mat-card-header-text { display: none; }
         
         .city-title {

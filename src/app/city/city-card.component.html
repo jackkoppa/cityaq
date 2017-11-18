@@ -1,5 +1,10 @@
-<mat-card class="city-card" 
-    [ngStyle]="{'background-image': 'url(' + staticMapsURL + ')'}" >    
+<mat-card class="city-card">
+    <div>
+        <div class="city-map-background"
+            *ngIf="staticMapsURL"
+            [ngStyle]="{'background-image': 'url(' + staticMapsURL + ')'}"
+            [@fade]></div> 
+    </div>        
     <mat-card-header [ngClass]="'bg-0-7-' + overallAQIClass">
         <aq-aqi-indicator [AQI]="overallAQI"
             [overall]="true"></aq-aqi-indicator>  
