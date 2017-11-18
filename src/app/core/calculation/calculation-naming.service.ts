@@ -1,7 +1,7 @@
 // https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
 import { Injectable } from '@angular/core';
 
-import { Level } from './indices/levels.model';
+import { Level } from './indices/level.model';
 import { LEVEL_DESCRIPTIONS } from './indices/level-descriptions.constant';
 import { LEVEL_CLASS_NAMES } from './indices/level-class-names.constant';
 import { AQI_LEVELS } from './indices/aqi-levels.constant';

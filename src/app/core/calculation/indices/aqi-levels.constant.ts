@@ -1,4 +1,4 @@
-import { Level } from './levels.model'; 
+import { Level } from './level.model'; 
 
 export const AQI_LEVELS: Level = {
     good: [0, 50],

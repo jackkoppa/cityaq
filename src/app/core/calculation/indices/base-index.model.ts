@@ -1,5 +1,5 @@
 // https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
-import { Level } from './levels.model';
+import { Level } from './level.model';
 import { Parameter } from '../../api/openaq/parameters.model';
 
 export interface BaseIndex {
