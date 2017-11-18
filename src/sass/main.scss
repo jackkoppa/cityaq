@@ -36,8 +36,9 @@
 
 // 7. Module styles
 @import
-    'modules/city/city-card.component',
     'modules/city/aqi-indicator.component',
+    'modules/city/city-card.component',
+    'modules/city/city-cards-list.component',
     'modules/home/home.component',
     'modules/search/search.component';
 
