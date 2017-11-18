@@ -1,5 +1,7 @@
-.cities-input mat-spinner {
-    bottom: 5px;
-    position: absolute;
-    right: 0;
+.cities-input {
+
+    mat-progress-bar {
+        position: absolute;
+        bottom: -5px;
+    }
 }

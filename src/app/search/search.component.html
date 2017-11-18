@@ -6,14 +6,14 @@
             aria-label="City"
             formControlName="searchInput"
             [matAutocomplete]="auto"
-            (keyup.enter)="attemptSearch()">
-        <mat-spinner *ngIf="searching" 
-            [diameter]="50"
-            [strokeWidth]="5"></mat-spinner>
+            (keyup.enter)="attemptSearch()">   
+        <mat-progress-bar *ngIf="searching" 
+            color="accent"
+            mode="indeterminate"></mat-progress-bar>     
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let city of filteredCities | async" [value]="city.city">
                 <span>{{city.city | uppercase}}</span>
             </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+        </mat-autocomplete>        
+    </mat-form-field>    
 </form>
