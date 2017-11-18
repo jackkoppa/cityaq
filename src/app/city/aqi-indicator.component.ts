@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { CalculationNamingService } from '../core/calculation/calculation-naming.service';
 
-import { IndividualAQI } from './individual-aqi.model';
+import { ParameterAverage } from './individual-aqi.model';
 
 @Component({
     selector: 'aq-aqi-indicator',

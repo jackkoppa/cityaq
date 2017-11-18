@@ -7,7 +7,8 @@ import { Parameter } from '../core/api/openaq/parameter.model';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { SearchedCity } from '../search/searched-city.model';
 import { CoordinatesModel } from '../core/api/openaq/coordinates.model';
-import { IndividualAQI } from './individual-aqi.model';
+import { ParameterAverage } from './individual-aqi.model';
+import { LatestCityMeasurements } from './latest-city-measurements.model';
 
 @Injectable()
 export class CityService {
@@ -18,21 +19,6 @@ export class CityService {
         private staticMapsHandlerService: StaticMapsHandlerService
     ) {}
 
-    public getAQIByParameter(
-        parameter: Parameter,
-        latestResponse: LatestResponseModel 
-    ): number {
-        const latestParameterMeasurements: LatestMeasurement[] = [];
-        latestResponse.forEach(response => {
-            const match = response.measurements
-                .find(measurement => measurement.parameter === parameter);
-            if (match) latestParameterMeasurements.push(match);
-        });
-        const aqis = latestParameterMeasurements
-            .map(measurement => this.calculationService.calculateAQIByParameter(measurement.value, parameter));
-        return aqis.reduce((sum, aqi) => sum + aqi, 0) / aqis.length;
-    }
-
     public getStaticMapsImageFileURL(searchedCity: SearchedCity): Promise<any> {
         const coordinates = this.getLatLong(searchedCity);
         return this.staticMapsHandlerService
@@ -41,17 +27,21 @@ export class CityService {
             .then(res => this.createImageFromBlob(res))
     }
 
-    public getOverallAQI(aqis: IndividualAQI[]): number {
-        const aqiValues = aqis.map(aqi => aqi.value);
-        if (!aqis || aqis.length <= 0) return 0;
-        return aqiValues.reduce((a, b) => {
-            return Math.max(a, b);
-        });
+    public getParameterAverages(searchedCity: SearchedCity, latestResponse: LatestResponseModel): ParameterAverage[] {
+        const parameterAverages: ParameterAverage[] = [];
+        this.verifyCityAndLatest(searchedCity, latestResponse) && this.getAvailableParameters(searchedCity)
+            .forEach(parameter => parameterAverages.push(this.getParameterAverage(parameter, latestResponse)));
+        return parameterAverages;
     }
 
-    public getOverallAQIClass(aqis: IndividualAQI[]): string {
-        const aqiValue = this.getOverallAQI(aqis);
-        return this.calculationNamingService.getAQIClassName(aqiValue);
+    public getOverallAQI(parameterAverages: ParameterAverage[]): number {
+        if (!parameterAverages || parameterAverages.length <= 0) return null;
+        return parameterAverages.map(average => average.AQI).reduce((a, b) => Math.max(a,b));
+    }
+
+    public getOverallAQIClass(overallAQI: number): string {
+        if (overallAQI == null) return null;
+        return this.calculationNamingService.getAQIClassName(overallAQI);
     }
 
     private createImageFromBlob(image: Blob): Promise<any> {
@@ -85,5 +75,86 @@ export class CityService {
 
     private hasLatLong(coordinates: CoordinatesModel): boolean {
         return !!(coordinates.latitude && coordinates.longitude);
+    } 
+
+    private verifyCityAndLatest(searchedCity: SearchedCity, latestResponse: LatestResponseModel): boolean {
+        return !!(searchedCity && 
+            searchedCity.city && 
+            searchedCity.locationsResponse && 
+            searchedCity.locationsResponse.length > 0 &&
+            latestResponse &&
+            latestResponse.length > 0);
+    }
+
+    private getAvailableParameters(searchedCity: SearchedCity): Parameter[] {
+        const parameters = [];
+        searchedCity.locationsResponse.forEach(location => {
+            location.parameters.forEach(newParam => {
+                if (parameters.findIndex(foundParam => foundParam === newParam) === -1)
+                    parameters.push(newParam);
+            });
+        });
+        return parameters;
+    }
+
+    private getParameterAverage(
+        parameter: Parameter,
+        latestResponse: LatestResponseModel
+    ): ParameterAverage {
+        const latestMeasurements = this.getLatestMeasurementsByParameter(parameter, latestResponse);
+        const concentration = this.getConcentrationAvgByParameter(parameter, latestMeasurements);
+        const unit = this.getUnit(latestMeasurements);
+        const AQI = this.getAQIByParameterAndConcentration(parameter, concentration);
+        const dataPoints = latestMeasurements.length;
+        return {
+            parameter: parameter,
+            concentration: concentration,
+            unit: unit,
+            AQI: AQI,
+            dataPoints: dataPoints
+        }
+    }
+
+    private getLatestMeasurementsByParameter(
+        parameter: Parameter,
+        latestResponse: LatestResponseModel
+    ): LatestMeasurement[] {
+        const latestMeasurements: LatestMeasurement[] = [];
+        latestResponse.forEach(response => {
+            const match = response.measurements
+                .find(measurement => measurement.parameter === parameter);
+            if (match) latestMeasurements.push(match);
+        });
+        return latestMeasurements;
+    }
+
+    private getConcentrationAvgByParameter(
+        parameter: Parameter,
+        latestMeasurements: LatestMeasurement[]
+    ): number {
+        const concentrations: number[] = latestMeasurements
+            .map(measurement => measurement.value);
+        return concentrations.reduce((sum, aqi) => sum + aqi, 0) / concentrations.length;
+    }
+
+    private getUnit(latestMeasurements: LatestMeasurement[]): string {
+        let unit: string;
+        const discrepancy: boolean = latestMeasurements.some(measurement => {
+            if (unit && unit != measurement.unit) return true;
+            else unit = measurement.unit;
+        });
+        if (discrepancy) {
+            const units = latestMeasurements.map(measurement => measurement.unit).toString()
+            throw new Error(`Tried to calculate averages of different units for parameter ${latestMeasurements[0].parameter}, with units ${units}`)
+        } else {
+            return unit;
+        }    
+    }
+    
+    private getAQIByParameterAndConcentration(
+        parameter: Parameter,
+        concentration: number 
+    ): number {
+        return this.calculationService.calculateAQIByParameter(concentration, parameter);
     }
 }

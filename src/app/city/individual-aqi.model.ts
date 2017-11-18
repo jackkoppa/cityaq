@@ -1,6 +1,9 @@
 import { Parameter } from '../core/api/openaq/parameter.model';
 
-export interface IndividualAQI {
+export interface ParameterAverage {
     parameter: Parameter,
-    value: number
+    concentration: number,
+    unit: string,
+    AQI: number,
+    dataPoints: number
 }

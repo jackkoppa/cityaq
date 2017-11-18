@@ -8,7 +8,7 @@ import { Parameter } from '../core/api/openaq/parameter.model';
 import { SearchedCity } from '../search/searched-city.model';
 import { CityService } from './city.service';
 import { LatestCityMeasurements } from './latest-city-measurements.model';
-import { IndividualAQI } from './individual-aqi.model';
+import { ParameterAverage } from './individual-aqi.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 
@@ -19,13 +19,12 @@ import 'rxjs/add/operator/do';
 export class CityCardComponent implements OnInit {
     @Input() searchedCity: SearchedCity;
     latestResponse: LatestResponseModel;
-    aqis: IndividualAQI[] = [];
+    //aqis: ParameterAverage[] = [];
+    parameterAverages: ParameterAverage[] = [];
+    overallAQI: number;
+    overallAQIClass: string;
     staticMapsURL: any = '';
     expanded: boolean = false;
-
-    get overallAQI(): number {
-        return this.cityService.getOverallAQI(this.aqis);
-    }
 
     get contentClass(): string {
         return this.expanded ? 'expanded' : 'closed';
@@ -45,44 +44,27 @@ export class CityCardComponent implements OnInit {
     ngOnInit() {
         console.log('searchedCity:', this.searchedCity);
         this.getLatestCityMeasurements()
-            .subscribe(latest => {
-                this.getAvailableParameters()
-                    .forEach(param => this.aqis.push({
-                        parameter: param, 
-                        value: this.cityService.getAQIByParameter(param, this.latestResponse)
-                    }));                
-            });
+            .subscribe(latest => this.setAveragesAndClasses(latest));
         this.cityService.getStaticMapsImageFileURL(this.searchedCity)
             .then(url => this.staticMapsURL = url);
-    }
-
-    public overallAQIClass(): string {
-        return this.cityService.getOverallAQIClass(this.aqis);
     }
 
     public toggleContent(): void {
         this.expanded = !this.expanded;
     }
-
+    
     private getLatestCityMeasurements(): Observable<LatestResponseModel> {
-        return this.getLatest()
-            .map(latest => this.latestResponse = latest);
+        return this.latestHandlerService
+            .getLatestByCityAndCountry(this.searchedCity.city, this.searchedCity.country);
     }
 
-    private getAvailableParameters(): Parameter[] {
-        const parameters = [];
-        this.searchedCity.locationsResponse.forEach(location => {
-            location.parameters.forEach(newParam => {
-                if (parameters.findIndex(foundParam => foundParam === newParam) === -1)
-                    parameters.push(newParam);
-            });
-        });
-        return parameters;
-    }
-
-    private getLatest(): Observable<LatestResponseModel> {
-        const cityName = this.searchedCity.city;
-        const country = this.searchedCity.country;
-        return this.latestHandlerService.getLatestByCityAndCountry(cityName, country);
+    private setAveragesAndClasses(latest: LatestResponseModel): void {
+        this.latestResponse = latest;
+        this.parameterAverages = this.cityService.getParameterAverages(
+            this.searchedCity, 
+            this.latestResponse
+        );
+        this.overallAQI = this.cityService.getOverallAQI(this.parameterAverages);
+        this.overallAQIClass = this.cityService.getOverallAQIClass(this.overallAQI);        
     }
 }
