@@ -3,6 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'countryName'})
 export class CountryNamePipe implements PipeTransform {
     transform(countryCode: string): string {
+        if (!countryCode) return '';
         if (ISO_COUNTRIES.hasOwnProperty(countryCode)) {
             return ISO_COUNTRIES[countryCode];
         } else {

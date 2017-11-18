@@ -15,7 +15,7 @@
         <div class="aqi-indicator-badges">
             <div *ngFor="let aqi of aqis" class="aqi-indicator-badge">
                 <span>{{aqi.value}}</span>
-                <span class="aqi-name">{{aqi.parameter}}</span>
+                <span class="aqi-name">{{aqi.parameter | parameter}}</span>
             </div>
         </div>
     </mat-card-content>
