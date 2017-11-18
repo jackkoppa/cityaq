@@ -1,8 +1,8 @@
 // https://docs.openaq.org/#api-Parameters
-import { ParametersModel } from '../parameters.model';
+import { Parameter } from '../parameters.model';
 
 export interface ParametersIndividualResponseModel {
-    id: ParametersModel;
+    id: Parameter;
     name: string;
     description: number;
     preferredUnit: number;

@@ -4,7 +4,7 @@ import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
-import { ParametersModel } from '../core/api/openaq/parameters.model';
+import { Parameter } from '../core/api/openaq/parameters.model';
 import { SearchedCity } from '../search/searched-city.model';
 import { CityService } from './city.service';
 import { LatestCityMeasurements } from './latest-city-measurements.model';
@@ -69,7 +69,7 @@ export class CityCardComponent implements OnInit {
             .map(latest => this.latestResponse = latest);
     }
 
-    private getAvailableParameters(): ParametersModel[] {
+    private getAvailableParameters(): Parameter[] {
         const parameters = [];
         this.searchedCity.locationsResponse.forEach(location => {
             location.parameters.forEach(newParam => {

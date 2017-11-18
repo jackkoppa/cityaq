@@ -1,7 +1,7 @@
 // https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
 import { Injectable } from '@angular/core';
 
-import { ParametersModel } from '../api/openaq/parameters.model';
+import { Parameter } from '../api/openaq/parameters.model';
 import { BaseIndex } from './indices/base-index.model';
 import { AQI_LEVELS } from './indices/aqi-levels.constant';
 
@@ -16,7 +16,7 @@ import { NO2_INDEX } from './indices/parameters/no2-index.constant';
 export class CalculationService {
     constructor() {};
 
-    public calculateAQIByParameter(value: number, parameter: ParametersModel): number {
+    public calculateAQIByParameter(value: number, parameter: Parameter): number {
         let result: number;
         switch(parameter) {
             case 'pm25':

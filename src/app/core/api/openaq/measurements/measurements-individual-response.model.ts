@@ -1,11 +1,11 @@
 // https://docs.openaq.org/#api-Measurements
 import { CoordinatesModel } from '../coordinates.model';
-import { ParametersModel } from '../parameters.model';
+import { Parameter } from '../parameters.model';
 import { TimezoneDateModel } from './timezone-date.model';
 
 export interface MeasurementsIndividualResponseModel {
     date: TimezoneDateModel;
-    parameter: ParametersModel;
+    parameter: Parameter;
     value: number;
     unit: string;
     location: string;

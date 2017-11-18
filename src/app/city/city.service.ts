@@ -3,7 +3,7 @@ import { CalculationService } from '../core/calculation/calculation.service';
 import { CalculationNamingService } from '../core/calculation/calculation-naming.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
-import { ParametersModel } from '../core/api/openaq/parameters.model';
+import { Parameter } from '../core/api/openaq/parameters.model';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { SearchedCity } from '../search/searched-city.model';
 import { CoordinatesModel } from '../core/api/openaq/coordinates.model';
@@ -19,7 +19,7 @@ export class CityService {
     ) {}
 
     public getAQIByParameter(
-        parameter: ParametersModel,
+        parameter: Parameter,
         latestResponse: LatestResponseModel 
     ): number {
         const latestParameterMeasurements: LatestMeasurement[] = [];

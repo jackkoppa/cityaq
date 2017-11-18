@@ -1,1 +1,1 @@
-export type ParametersModel = 'pm25' | 'pm10' | 'so2' | 'no2' | 'o3' | 'co' | 'bc'
+export type Parameter = 'pm25' | 'pm10' | 'so2' | 'no2' | 'o3' | 'co' | 'bc'

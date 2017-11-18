@@ -5,7 +5,7 @@ import { Level } from './indices/levels.model';
 import { LEVEL_DESCRIPTIONS } from './indices/level-descriptions.constant';
 import { LEVEL_CLASS_NAMES } from './indices/level-class-names.constant';
 import { AQI_LEVELS } from './indices/aqi-levels.constant';
-import { ParametersModel } from '../api/openaq/parameters.model';
+import { Parameter } from '../api/openaq/parameters.model';
 
 export type LevelName = keyof Level;
 
