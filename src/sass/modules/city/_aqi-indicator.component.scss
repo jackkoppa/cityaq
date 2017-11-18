@@ -1,6 +1,7 @@
 .aqi-indicator {
     border-radius: 50%;
     display: block;
+    box-shadow: 1px 1px 15px -5px $dark-grey;
     margin-right: 5px;
 
     &.overall {

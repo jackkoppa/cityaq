@@ -9,9 +9,11 @@
         </div>
     </mat-card-header>
     <mat-card-content class="bg-0-7-white">
-        <div *ngFor="let aqi of aqis" class="aqi-indicator">
-            <span>{{aqi.value}}</span>
-            <span class="aqi-name">{{aqi.parameter}}</span>
+        <div class="aqi-indicator-badges">
+            <div *ngFor="let aqi of aqis" class="aqi-indicator-badge">
+                <span>{{aqi.value}}</span>
+                <span class="aqi-name">{{aqi.parameter}}</span>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>
