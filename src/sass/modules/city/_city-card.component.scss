@@ -12,7 +12,7 @@ mat-card.city-card {
 
     mat-card-header,
     .aqi-indicator-badges {
-        padding: 24px;
+        padding: 10px;
     }
 
     mat-card-header {
@@ -23,9 +23,14 @@ mat-card.city-card {
             flex: 1 70%;
 
             h2,
-            h5 {
-                margin: 15px 0;
+            h5 { 
+                font-weight: 400;
+                margin: 0; 
             }
+
+            h2 { font-size: 24px; }
+
+            h5 { font-size: 16px; }
         }
     }
 
