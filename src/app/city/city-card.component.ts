@@ -4,7 +4,7 @@ import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
-import { Parameter } from '../core/api/openaq/parameters.model';
+import { Parameter } from '../core/api/openaq/parameter.model';
 import { SearchedCity } from '../search/searched-city.model';
 import { CityService } from './city.service';
 import { LatestCityMeasurements } from './latest-city-measurements.model';

@@ -1,4 +1,4 @@
-import { Parameter } from '../core/api/openaq/parameters.model';
+import { Parameter } from '../core/api/openaq/parameter.model';
 
 export interface IndividualAQI {
     parameter: Parameter,

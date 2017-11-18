@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Latest
 import { BaseOpenAQRequest } from '../base-openaq-request.model';
-import { Parameter } from '../parameters.model';
+import { Parameter } from '../parameter.model';
 
 export interface LatestRequestModel extends BaseOpenAQRequest {
     city?: string;
