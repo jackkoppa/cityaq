@@ -1,25 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { ParametersModel } from '../../core/api/openaq/parameters.model';
+import { PARAMETER_DISPLAY_NAMES } from '../../core/calculation/indices/parameter-display-names.constant';
 
 @Pipe({name: 'parameter'})
 export class ParameterPipe implements PipeTransform {
     transform(parameter: ParametersModel): string {
         if (!parameter) return '';
-        if (PARAMETER_DISPLAY_STRINGS.hasOwnProperty(parameter)) {
-            return PARAMETER_DISPLAY_STRINGS[parameter];
+        if (PARAMETER_DISPLAY_NAMES.hasOwnProperty(parameter)) {
+            return PARAMETER_DISPLAY_NAMES[parameter];
         } else {
             return parameter;
         }
     }
-}
-
-const PARAMETER_DISPLAY_STRINGS: { [P in ParametersModel]: string } = {
-    'pm25': 'PM 2.5',
-    'pm10': 'PM 10',
-    'no2': 'NO₂',
-    'so2': 'SO₂',
-    'o3': 'O₃',
-    'co': 'CO',
-    'bc': 'BC'
 }
