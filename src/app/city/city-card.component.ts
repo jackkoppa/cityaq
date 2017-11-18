@@ -21,9 +21,18 @@ export class CityCardComponent implements OnInit {
     latestResponse: LatestResponseModel;
     aqis: IndividualAQI[] = [];
     staticMapsURL: any = '';
+    expanded: boolean = false;
 
     get overallAQI(): number {
         return this.cityService.getOverallAQI(this.aqis);
+    }
+
+    get contentClass(): string {
+        return this.expanded ? 'expanded' : 'closed';
+    }
+
+    get buttonIcon(): string {
+        return this.expanded ? 'expand_less' : 'expand_more';
     }
     
     constructor(
@@ -49,6 +58,10 @@ export class CityCardComponent implements OnInit {
 
     public overallAQIClass(): string {
         return this.cityService.getOverallAQIClass(this.aqis);
+    }
+
+    public toggleContent(): void {
+        this.expanded = !this.expanded;
     }
 
     private getLatestCityMeasurements(): Observable<LatestResponseModel> {

@@ -18,7 +18,7 @@ import {
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        MatProgressBarModule
+        MatProgressBarModule,
     ],
     exports: [
         MatCardModule, 
