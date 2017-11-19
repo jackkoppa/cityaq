@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DirectivesModule } from './directives/directives.module';
 import { MaterialModule } from './material/material.module';
+import { MessagingModule } from './messaging/messaging.module';
 import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
@@ -10,12 +11,14 @@ import { PipesModule } from './pipes/pipes.module';
         BrowserAnimationsModule,
         DirectivesModule,
         MaterialModule,
+        MessagingModule,
         PipesModule
     ],
     exports: [
         BrowserAnimationsModule,
         DirectivesModule,
         MaterialModule,
+        MessagingModule,
         PipesModule
     ]
 })

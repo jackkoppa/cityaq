@@ -5,15 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
-import { SearchService } from './search.service';
-import { SearchedCity } from './searched-city.model';
-import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
-import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
 import { CitiesIndividualResponseModel } from '../core/api/openaq/cities/cities-individual-response.model';
+import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
-
 import { LocationsResponseModel } from '../core/api/openaq/locations/locations-response.model';
 import { CityCardsListComponent } from '../city/city-cards-list.component';
+import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
+import { MessagingService } from '../shared/messaging/messaging.service';
+
+import { SearchedCity } from './searched-city.model';
+import { SearchService } from './search.service';
 
 @Component({
     selector: 'aq-search',
@@ -31,7 +32,8 @@ export class SearchComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private searchService: SearchService,
-        private locationsHandlerService: LocationsHandlerService
+        private locationsHandlerService: LocationsHandlerService,
+        private messagingService: MessagingService
     ) { };
 
     public ngOnInit(): void {
@@ -47,7 +49,7 @@ export class SearchComponent implements OnInit {
         if (cityName) 
             this.search(cityName);
         else 
-            console.error('not found');
+            this.messagingService.error('Please select a valid city from the dropdown');
     }
 
     public setSearchStarted(): void {
