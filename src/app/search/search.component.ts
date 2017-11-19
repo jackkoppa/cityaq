@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { CitiesIndividualResponseModel } from '../core/api/openaq/cities/cities-individual-response.model';
 import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
@@ -42,14 +43,18 @@ export class SearchComponent implements OnInit {
     }
 
     public attemptSearch(): void {
+        if (this.searching) return;
+        this.searching = true;
         const cityName = this.searchService.validateSearchInput(
             this.searchForm.value['searchInput'],
             this.allCities
         );
-        if (cityName) 
+        if (cityName) {
             this.search(cityName);
-        else 
+        } else {
             this.messagingService.error('Please select a valid city from the dropdown');
+            this.searching = false;
+        }
     }
 
     public setSearchStarted(): void {
@@ -74,12 +79,16 @@ export class SearchComponent implements OnInit {
     }
 
     private search(cityName: string): void {
-        this.searching = true;
         const city = this.allCities.find(city => city.city === cityName);
         const country = city.country;
         this.locationsHandlerService
             .getLocationsByCityAndCountry(cityName, country)
-            .subscribe(locations => this.outputSearchedCity(city, locations));
+            .subscribe(locations => {
+                this.outputSearchedCity(city, locations)
+            }, err => {
+                this.messagingService.error(`Failed to find data for ${cityName.toUpperCase()}`);
+                console.error(`Search error for ${cityName}: ${err}`);
+            });
     }
 
     private outputSearchedCity(city: CitiesIndividualResponseModel, locations: LocationsResponseModel): void {

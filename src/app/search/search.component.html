@@ -12,7 +12,7 @@
         <mat-progress-bar *ngIf="searching" 
             color="accent"
             mode="indeterminate"></mat-progress-bar>     
-        <mat-autocomplete #auto="matAutocomplete">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="attemptSearch()">
             <mat-option *ngFor="let city of filteredCities | async" [value]="city.city">
                 <span>{{city.city | uppercase}}</span>
             </mat-option>

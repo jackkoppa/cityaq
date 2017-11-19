@@ -37,6 +37,9 @@ export class CalculationService {
             case 'no2':
                 result = this.calculateNO2AQI(value);
                 break;
+            case 'bc':
+                result = null;
+                break;
             default:
                 throw new Error('invalid parameter given for AQI calculation');            
         }
