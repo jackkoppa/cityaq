@@ -1,0 +1,36 @@
+aq-parameter-average-indicator {
+    display: flex;
+    flex: 0 0 50%;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+
+    .parameter-average-indicator {
+        display: flex;
+        flex: 1 100%;
+        align-items: baseline;
+
+        span {
+            display: block;            
+            font-weight: bold;
+            white-space: nowrap;
+            &.average-concentration {
+                flex: 2 30%;
+                font-size: 24px;
+                text-align: right;
+                padding-right: 2px;
+            }
+            &.average-parameter {
+                flex: 1 30%;
+                font-size: 16px;
+                text-align: left;
+            }
+        }
+    }
+    
+    .average-unit {
+        flex: 1 100%;
+        font-size: 12px;
+        margin-top: -5px;
+        text-align: center;
+    }
+}

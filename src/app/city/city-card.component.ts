@@ -30,7 +30,7 @@ export class CityCardComponent implements OnInit {
     expanded: boolean = false;
 
     get contentClass(): string {
-        return this.expanded ? 'expanded' : 'closed';
+        return this.expanded ? 'expanded ' + this.getRowsClass() : 'closed';
     }
 
     get buttonIcon(): string {
@@ -55,6 +55,10 @@ export class CityCardComponent implements OnInit {
     public toggleContent(): void {
         this.expanded = !this.expanded;
     }
+
+    private getRowsClass(): string {
+        return 'rows-' + Math.ceil(this.parameterAverages.length / 2)
+    }
     
     private getLatestCityMeasurements(): Observable<LatestResponseModel> {
         return this.latestHandlerService
@@ -68,6 +72,6 @@ export class CityCardComponent implements OnInit {
             this.latestResponse
         );
         this.overallAQI = this.cityService.getOverallAQI(this.parameterAverages);
-        this.overallAQIClass = this.cityService.getOverallAQIClass(this.overallAQI);        
+        this.overallAQIClass = this.cityService.getAQIClass(this.overallAQI);        
     }
 }

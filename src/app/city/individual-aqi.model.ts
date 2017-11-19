@@ -5,5 +5,6 @@ export interface ParameterAverage {
     concentration: number,
     unit: string,
     AQI: number,
+    class: string,
     dataPoints: number
 }

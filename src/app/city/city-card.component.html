@@ -17,11 +17,9 @@
         </button>
     </mat-card-header>
     <mat-card-content class="bg-0-7-white" [ngClass]="contentClass">
-        <div class="aqi-indicator-badges">
-            <div *ngFor="let avg of parameterAverages" class="aqi-indicator-badge">
-                <span>{{avg.AQI}}</span>
-                <span class="aqi-name">{{avg.parameter | parameter}}</span>
-            </div>
+        <div class="parameter-averages">
+            <aq-parameter-average-indicator *ngFor="let average of parameterAverages"
+                [average]="average"></aq-parameter-average-indicator>
         </div>
     </mat-card-content>
 </mat-card>

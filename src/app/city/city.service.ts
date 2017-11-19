@@ -39,9 +39,9 @@ export class CityService {
         return parameterAverages.map(average => average.AQI).reduce((a, b) => Math.max(a,b));
     }
 
-    public getOverallAQIClass(overallAQI: number): string {
-        if (overallAQI == null) return null;
-        return this.calculationNamingService.getAQIClassName(overallAQI);
+    public getAQIClass(AQI: number): string {
+        if (AQI == null) return null;
+        return this.calculationNamingService.getAQIClassName(AQI);
     }
 
     private createImageFromBlob(image: Blob): Promise<any> {
@@ -74,7 +74,7 @@ export class CityService {
     }
 
     private hasLatLong(coordinates: CoordinatesModel): boolean {
-        return !!(coordinates.latitude && coordinates.longitude);
+        return !!(coordinates && coordinates.latitude && coordinates.longitude);
     } 
 
     private verifyCityAndLatest(searchedCity: SearchedCity, latestResponse: LatestResponseModel): boolean {
@@ -105,12 +105,14 @@ export class CityService {
         const concentration = this.getConcentrationAvgByParameter(parameter, latestMeasurements);
         const unit = this.getUnit(latestMeasurements);
         const AQI = this.getAQIByParameterAndConcentration(parameter, concentration);
+        const className = this.getAQIClass(AQI);
         const dataPoints = latestMeasurements.length;
         return {
             parameter: parameter,
             concentration: concentration,
             unit: unit,
             AQI: AQI,
+            class: className,
             dataPoints: dataPoints
         }
     }

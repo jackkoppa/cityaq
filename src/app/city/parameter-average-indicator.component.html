@@ -1,0 +1,11 @@
+<div class="parameter-average-indicator">
+    <span class="average-concentration" [ngClass]="'text-' + average?.class">
+        {{average?.concentration | number:'1.0-2'}}
+    </span>
+    <span class="average-parameter">
+        {{average?.parameter | parameter}}
+    </span>       
+</div>
+<span class="average-unit">
+    {{average.unit}}
+</span>
