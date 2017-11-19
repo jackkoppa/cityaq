@@ -1,6 +1,7 @@
 import { LevelBase } from '../calculation/indices/level-base.model';
+import { ColorName } from './color-name.model';
 
-export const LEVEL_CLASS_NAMES: LevelBase = {
+export const LEVEL_CLASS_NAMES: LevelBase<ColorName> = {
     good: 'green',
     moderate: 'yellow',
     unhealthySensitive: 'orange',
