@@ -11,8 +11,8 @@ $epa-aqi-colors: (
 // alternative colors, as close to EPA as possible while following Material Design pallettes: https://material.io/color/
 $material-aqi-colors: (
     green:  ( name: 'green',    primary: rgb(0, 230, 118),  text: $dark-grey ),
-    yellow: ( name: 'yellow',   primary: rgb(255, 234, 0),  text: $dark-grey ),
-    orange: ( name: 'orange',   primary: rgb(255, 145, 0),  text: $dark-grey ),
+    yellow: ( name: 'yellow',   primary: rgb(255, 196, 0),  text: $dark-grey ),
+    orange: ( name: 'orange',   primary: rgb(255, 110, 0),  text: $dark-grey ),
     red:    ( name: 'red',      primary: rgb(213, 0, 0),    text: $white ),
     purple: ( name: 'purple',   primary: rgb(171, 71, 188), text: $white ),
     maroon: ( name: 'maroon',   primary: rgb(136, 14, 79),  text: $white )

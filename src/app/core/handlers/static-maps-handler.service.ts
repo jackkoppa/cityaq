@@ -24,16 +24,22 @@ export const DefaultStaticMapsApiRequest: StaticMapsRequest = {
 
 }
 
+const LONG_OFFSET: number = -30;
+
 @Injectable()
 export class StaticMapsHandlerService {
     constructor(private staticMapsApi: StaticMapsApi) {};
 
     public getImageByLatLong(latitude: number, longitude: number): Observable<File> {
         const request: StaticMapsRequest = Object.assign({}, DefaultStaticMapsApiRequest);
-        const latLong = latitude.toString() + ',' + longitude.toString();
-        request.center = latLong;
-        request.markers += '|' + latLong;
+        request.center = latitude.toString() + ',' + (longitude + this.latOffset()).toString();
+        request.markers += '|' + latitude.toString() + ',' + longitude.toString();
         request.key = environment.staticMapsKey;
         return this.staticMapsApi.getImage(request);        
+    }
+
+    private latOffset(): number {
+        if (!environment.randomizedMapsLongitude) return 0;
+        return LONG_OFFSET + ((Math.random() >= 0.5 ? -1 : 1) * Math.random() * LONG_OFFSET);
     }
 }
