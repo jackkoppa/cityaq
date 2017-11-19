@@ -93,8 +93,13 @@ export class SearchComponent implements OnInit {
 
     private outputSearchedCity(city: CitiesIndividualResponseModel, locations: LocationsResponseModel): void {
         this.searching = false;
+        this.clearSearchInput();
         const searchedCity: SearchedCity = city;
         searchedCity.locationsResponse = locations;
         this.addSearchedCity.emit(searchedCity);
+    }
+
+    private clearSearchInput(): void {
+        this.searchForm.get('searchInput').setValue('');
     }
 }
