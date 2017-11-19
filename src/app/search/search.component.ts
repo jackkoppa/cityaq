@@ -40,7 +40,14 @@ export class SearchComponent implements OnInit {
     }
 
     public attemptSearch(): void {
-        if (this.searchForm.valid) this.search();
+        const cityName = this.searchService.validateSearchInput(
+            this.searchForm.value['searchInput'],
+            this.allCities
+        );
+        if (cityName) 
+            this.search(cityName);
+        else 
+            console.error('not found');
     }
 
     public setSearchStarted(): void {
@@ -52,7 +59,7 @@ export class SearchComponent implements OnInit {
     
     private newForm(): void {
         this.searchForm = this.fb.group({
-            searchInput: ['', this.searchService.validateSearchInput]
+            searchInput: ['']
         });
     }
 
@@ -64,9 +71,8 @@ export class SearchComponent implements OnInit {
             .map(cityName => this.searchService.filterCities(cityName, this.allCities));
     }
 
-    private search(): void {
+    private search(cityName: string): void {
         this.searching = true;
-        const cityName = this.searchForm.value['searchInput'];
         const city = this.allCities.find(city => city.city === cityName);
         const country = city.country;
         this.locationsHandlerService

@@ -5,14 +5,11 @@ import { LocationsResponseModel } from '../core/api/openaq/locations/locations-r
 import { Observable } from 'rxjs/Observable';
 import { CitiesRequestModel } from '../core/api/openaq/cities/cities-request.model';
 
-interface ValidationResult {
-    [index: string]: boolean;
-}
-
 @Injectable()
 export class SearchService {
-    public validateSearchInput(control: FormControl): ValidationResult {        
-        return null;
+    public validateSearchInput(cityName: string, allCities: CitiesResponseModel): string {        
+        const match = allCities.find(city => city.city.toUpperCase() === cityName.toUpperCase());
+        return match ? match.city : null;
     }
 
     public filterCities(

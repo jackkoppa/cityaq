@@ -7,7 +7,8 @@
             formControlName="searchInput"
             [matAutocomplete]="auto"
             (focus)="setSearchStarted()"
-            (keyup.enter)="attemptSearch()">   
+            (keyup.enter)="attemptSearch()"
+            aq-uppercase>   
         <mat-progress-bar *ngIf="searching" 
             color="accent"
             mode="indeterminate"></mat-progress-bar>     
