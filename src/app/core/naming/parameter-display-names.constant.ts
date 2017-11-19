@@ -1,4 +1,4 @@
-import { Parameter } from '../../api/openaq/parameter.model';
+import { Parameter } from '../api/openaq/parameter.model';
 
 export const PARAMETER_DISPLAY_NAMES: { [P in Parameter]: string } = {
     'pm25': 'PM 2.5',

@@ -1,8 +1,8 @@
-import { CalculationNamingService, LevelName } from './calculation-naming.service';
+import { NamingService, LevelName } from './naming.service';
 
-describe('CalculationNamingService', () => {
-    let calculationNamingService: CalculationNamingService;
-    beforeEach(() => calculationNamingService = new CalculationNamingService());
+describe('NamingService', () => {
+    let namingService: NamingService;
+    beforeEach(() => namingService = new NamingService());
 
     describe('getAQIClassName', () => {
         let testCases: [number, string][] = [
@@ -34,7 +34,7 @@ describe('CalculationNamingService', () => {
         testCases.forEach(test => {
             let [input, expected] = test;
             it(`should return class name of "${expected}" for an AQI of ${input}`, () => {
-                expect(calculationNamingService.getAQIClassName(input)).toBe(expected);
+                expect(namingService.getAQIClassName(input)).toBe(expected);
             });
         });
     });
@@ -55,7 +55,7 @@ describe('CalculationNamingService', () => {
         testCases.forEach(test => {
             let [input, expected] = test;
             it(`should return description of "${expected}" for a level name of "${input}"`, () => {
-                expect(calculationNamingService.getLevelDescription(<LevelName>input))
+                expect(namingService.getLevelDescription(<LevelName>input))
                     .toBe(expected);
             });
         });

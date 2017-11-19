@@ -1,4 +1,4 @@
-import { LevelBase } from './level-base.model';
+import { LevelBase } from '../calculation/indices/level-base.model';
 
 export const LEVEL_DESCRIPTIONS: LevelBase = {
     good: 'Good',

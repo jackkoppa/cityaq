@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CalculationService } from '../core/calculation/calculation.service';
-import { CalculationNamingService } from '../core/calculation/calculation-naming.service';
+import { NamingService } from '../core/naming/naming.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
@@ -15,7 +15,7 @@ export class CityService {
     
     constructor(
         private calculationService: CalculationService,
-        private calculationNamingService: CalculationNamingService,
+        private namingService: NamingService,
         private staticMapsHandlerService: StaticMapsHandlerService
     ) {}
 
@@ -41,7 +41,7 @@ export class CityService {
 
     public getAQIClass(AQI: number): string {
         if (AQI == null) return null;
-        return this.calculationNamingService.getAQIClassName(AQI);
+        return this.namingService.getAQIClassName(AQI);
     }
 
     private createImageFromBlob(image: Blob): Promise<any> {
