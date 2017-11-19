@@ -21,7 +21,9 @@ import { CityCardsListComponent } from '../city/city-cards-list.component';
 })
 export class SearchComponent implements OnInit {
     @Input() allCities: CitiesResponseModel = [];
+    @Output() searchStarted: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() addSearchedCity: EventEmitter<SearchedCity> = new EventEmitter<SearchedCity>();
+    initialSearch: boolean = false;
     filteredCities: Observable<CitiesResponseModel>;
     searchForm: FormGroup;
     searching: boolean = false;
@@ -39,6 +41,13 @@ export class SearchComponent implements OnInit {
 
     public attemptSearch(): void {
         if (this.searchForm.valid) this.search();
+    }
+
+    public setSearchStarted(): void {
+        if (!this.initialSearch) {
+            this.initialSearch = true;
+            this.searchStarted.emit(true);
+        }
     }
     
     private newForm(): void {

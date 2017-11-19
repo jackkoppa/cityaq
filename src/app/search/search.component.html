@@ -6,6 +6,7 @@
             aria-label="City"
             formControlName="searchInput"
             [matAutocomplete]="auto"
+            (focus)="setSearchStarted()"
             (keyup.enter)="attemptSearch()">   
         <mat-progress-bar *ngIf="searching" 
             color="accent"

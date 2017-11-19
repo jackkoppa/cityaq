@@ -1,5 +1,6 @@
 <aq-search 
     [allCities]="allCities"
+    (searchStarted)="setSearchStarted($event)"
     (addSearchedCity)="addSearchedCity($event)"></aq-search>
 <aq-city-cards-list 
     [searchedCities]="searchedCities"></aq-city-cards-list>

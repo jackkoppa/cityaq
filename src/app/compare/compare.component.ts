@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { CompareService } from './compare.service';
 import { CitiesHandlerService } from '../core/handlers/cities-handler.service';
@@ -10,6 +10,7 @@ import { SearchedCity } from '../search/searched-city.model';
     templateUrl: './compare.component.html'
 })
 export class CompareComponent implements OnInit {
+    @Output() searchStarted: EventEmitter<boolean> = new EventEmitter<boolean>();
     allCities: CitiesResponseModel = [];
     searchedCities: SearchedCity[] = [];
 
@@ -29,5 +30,9 @@ export class CompareComponent implements OnInit {
 
     public addSearchedCity(searchedCity: SearchedCity): void {
         this.searchedCities.unshift(searchedCity);
+    }
+
+    public setSearchStarted(started: boolean): void {
+        this.searchStarted.emit(started);
     }
 }

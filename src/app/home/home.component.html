@@ -1,5 +1,8 @@
 <aq-banner></aq-banner>
 <div class="wrapper">
-    <aq-intro></aq-intro>
-    <aq-compare></aq-compare>
+    <div *ngIf="!searchStarted"
+        [@slideOut]>
+        <aq-intro></aq-intro>
+    </div>    
+    <aq-compare (searchStarted)="setSearchStarted($event)"></aq-compare>
 </div>
