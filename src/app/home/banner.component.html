@@ -1,3 +1,9 @@
-<div class="banner-wrapper">
-    
+<div class="banner-wrapper">    
+    <div *ngFor="let color of colors; let first = first" 
+        class="banner-color"
+        [ngClass]="'bg-' + color">
+        <button mat-icon-button *ngIf="first">
+            <mat-icon aria-label="CityAQ introduction">info</mat-icon>
+        </button>
+    </div>
 </div>
