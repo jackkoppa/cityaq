@@ -2,8 +2,8 @@
     <div *ngFor="let color of colors; let first = first" 
         class="banner-color"
         [ngClass]="'bg-' + color">
-        <button mat-icon-button *ngIf="first">
-            <mat-icon aria-label="CityAQ introduction">info</mat-icon>
+        <button mat-mini-fab *ngIf="first">
+            <mat-icon aria-label="CityAQ Introduction">info</mat-icon>
         </button>
     </div>
 </div>
