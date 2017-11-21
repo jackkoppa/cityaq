@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CalculationService } from '../core/calculation/calculation.service';
 import { NamingService } from '../core/naming/naming.service';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
@@ -8,6 +9,7 @@ import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.s
 import { SearchedCity } from '../search/searched-city.model';
 import { CoordinatesModel } from '../core/api/openaq/coordinates.model';
 import { ParameterAverage } from './individual-aqi.model';
+
 import { LatestCityMeasurements } from './latest-city-measurements.model';
 
 @Injectable()
@@ -51,7 +53,7 @@ export class CityService {
             reader.readAsDataURL(image);
             return new Promise<any>(resolve => {
                 reader.onloadend = () => resolve(reader.result);
-            })
+            });
         }
 
         return Promise.resolve(null);
