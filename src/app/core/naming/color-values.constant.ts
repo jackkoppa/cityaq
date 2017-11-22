@@ -8,6 +8,6 @@ export const COLOR_VALUES: { [C in ColorName]: [number, number, number] } = {
     yellow: [255,   196,    0],
     orange: [255,   110,    0],
     red:    [213,   0,      0],
-    purple: [171,   71,     188],
+    purple: [126,   87,     194],
     maroon: [136,   14,     79]
 }
