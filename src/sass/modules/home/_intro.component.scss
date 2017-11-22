@@ -1,0 +1,27 @@
+aq-intro {
+    position: relative;
+
+    h1,
+    h3 {
+        position: relative;
+        z-index: 10;
+    }
+
+    .logo-image {
+        bottom: 0;
+        height: 100%;
+        opacity: 0.4;
+        position: absolute;
+        right: 0;
+        width: 50%;
+        z-index: 1;
+
+        img {
+            bottom: 0;
+            left: 0;
+            max-height: 100%;
+            max-width: 100%;
+            position: absolute;
+        }
+    }
+}
