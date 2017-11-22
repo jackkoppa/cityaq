@@ -2,7 +2,7 @@
     <div *ngFor="let color of colors; let first = first" 
         class="banner-color"
         [ngClass]="'bg-' + color">
-        <button mat-mini-fab *ngIf="first">
+        <button mat-mini-fab *ngIf="first" (click)="openMenu()">
             <mat-icon aria-label="CityAQ Introduction">info</mat-icon>
         </button>
     </div>

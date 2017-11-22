@@ -8,7 +8,15 @@ export class MessagingService {
 
     public error(msg: string): MatSnackBarRef<SimpleSnackBar> {
         return this.matSnackBar.open(msg, undefined, {
-            duration: 3000
+            duration: 3000,
+            extraClasses: ['error']
         });                
+    }
+
+    public notify(msg: string): MatSnackBarRef<SimpleSnackBar> {
+        return this.matSnackBar.open(msg, undefined, {
+            duration: 2000,
+            extraClasses: ['notify']
+        });
     }
 }
