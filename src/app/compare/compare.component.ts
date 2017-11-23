@@ -23,7 +23,7 @@ export class CompareComponent implements OnInit {
         this.loadCities();
     }
 
-    public loadCities() {
+    public loadCities(): void {
         this.citiesHandlerService.getAllCities()
             .subscribe(cities => this.allCities = cities.sort(this.compareService.sortCities));
     }
