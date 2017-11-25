@@ -33,10 +33,18 @@ describe('IntroComponent', () => {
             expect(h3.textContent).toContain('Compare air quality for cities by searching below');
         });
 
-        it('should have the correct source for the svg image', () => {
-            let imgDebug: DebugElement = fixture.debugElement.query(By.css('img'));
-            let img: HTMLImageElement = imgDebug.nativeElement;
-            expect(img.src).toBe('http://localhost:9876/assets/icons/cityAQ.svg');
-        })
+        describe('given a list of divs with class "skyline"', () => {
+            let divsDebug: DebugElement[];
+            beforeEach(() => divsDebug = fixture.debugElement.queryAll(By.css('.skyline')));
+
+            let testCases: string[] = ['skyline-foreground', 'skyline-midground', 'skyline-background'];
+
+            testCases.forEach(className => {
+                it(`should have a div with class "${className}"`, () => {
+                    let div: HTMLElement = divsDebug.find(divDebug => divDebug.nativeElement.classList.contains(className)).nativeElement;
+                    expect(div).toBeTruthy();
+                });
+            });
+        });
     });
 });
