@@ -1,27 +1,52 @@
+/// @type Length
+$skyline-height: 160px;
+
+/// @type Length
+$skyline-foreground-height: $skyline-height * 0.6;
+
 aq-intro {
+    height: 100%;
     position: relative;
 
-    h1,
-    h3 {
-        position: relative;
-        z-index: 10;
+    mat-card.mat-card {
+        height: 100%;
+        padding: 0;
     }
 
-    .logo-image {
+    .text-content {
+        height: 100%;
+        margin-bottom: calc(#{$skyline-foreground-height} + 15px);
+        position: relative;
+        z-index: 5;
+
+        h1 { 
+            margin-top: 0; 
+            padding-top: 15px;
+        }
+        h3 { margin-bottom: 0; }
+    }
+
+    .skyline {
+        background-size: auto $skyline-height;
+        background-repeat: repeat-x;
+        background-position: center bottom;
         bottom: 0;
         height: 100%;
-        opacity: 0.35;
+        left: 0;
         position: absolute;
-        right: 0;
-        width: 50%;
-        z-index: 1;
+        width: 100%;
 
-        img {
-            bottom: 0;
-            left: 0;
-            max-height: 100%;
-            max-width: 100%;
-            position: absolute;
+        &.skyline-foreground {
+            background-image: url('../assets/icons/skyline-foreground.svg');
+            z-index: 10;
+        }
+        &.skyline-midground {
+            background-image: url('../assets/icons/skyline-midground.svg');
+            z-index: 2;
+        }
+        &.skyline-background {
+            background-image: url('../assets/icons/skyline-background.svg');
+            z-index: 1;
         }
     }
 }
