@@ -1,5 +1,5 @@
 // https://docs.openaq.org/#api-Fetches
 
-export interface FetchFailureModel {
+export interface FetchFailure {
     [index: string]: number
 }

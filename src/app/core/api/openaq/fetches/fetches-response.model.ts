@@ -1,4 +1,4 @@
 // https://docs.openaq.org/#api-Fetches
-import { FetchesIndividualResponseModel } from './fetches-individual-response.model';
+import { FetchesIndividualResponse } from './fetches-individual-response.model';
 
-export interface FetchesResponseModel extends Array<FetchesIndividualResponseModel> {}
+export interface FetchesResponse extends Array<FetchesIndividualResponse> {}
