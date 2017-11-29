@@ -1,8 +1,8 @@
 // https://docs.openaq.org/#api-Cities
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
-import { CitiesRequestModel } from './cities-request.model';
-import { CitiesResponseModel } from './cities-response.model';
+import { CitiesRequest } from './cities-request.model';
+import { CitiesResponse } from './cities-response.model';
 import { ApiService } from '../../api.service';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
@@ -15,7 +15,7 @@ export class CitiesApi {
         private apiService: ApiService
     ) {}
 
-    public getCities(request?: CitiesRequestModel): Observable<CitiesResponseModel> {
+    public getCities(request?: CitiesRequest): Observable<CitiesResponse> {
         return this.http.get(environment.openaqApiUrl + 'cities?' + this.apiService.buildOpenAQQueryString(request))
             .map(res => res.json().results);
     }

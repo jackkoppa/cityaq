@@ -6,8 +6,8 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { CitiesIndividualResponseModel } from '../core/api/openaq/cities/cities-individual-response.model';
-import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
+import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
+import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
 import { LocationsResponseModel } from '../core/api/openaq/locations/locations-response.model';
 import { CityCardsListComponent } from '../city/city-cards-list.component';
@@ -22,11 +22,11 @@ import { SearchService } from './search.service';
     templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
-    @Input() allCities: CitiesResponseModel = [];
+    @Input() allCities: CitiesResponse = [];
     @Output() searchStarted: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() addSearchedCity: EventEmitter<SearchedCity> = new EventEmitter<SearchedCity>();
     initialSearch: boolean = false;
-    filteredCities: Observable<CitiesResponseModel>;
+    filteredCities: Observable<CitiesResponse>;
     searchForm: FormGroup;
     searching: boolean = false;
 
@@ -91,7 +91,7 @@ export class SearchComponent implements OnInit {
             });
     }
 
-    private outputSearchedCity(city: CitiesIndividualResponseModel, locations: LocationsResponseModel): void {
+    private outputSearchedCity(city: CitiesIndividualResponse, locations: LocationsResponseModel): void {
         this.searching = false;
         this.clearSearchInput();
         const searchedCity: SearchedCity = city;

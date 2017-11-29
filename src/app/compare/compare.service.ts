@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CitiesIndividualResponseModel } from '../core/api/openaq/cities/cities-individual-response.model';
+import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
 
 @Injectable()
 export class CompareService {
-    sortCities(cityA: CitiesIndividualResponseModel, cityB: CitiesIndividualResponseModel): number {
+    sortCities(cityA: CitiesIndividualResponse, cityB: CitiesIndividualResponse): number {
         const a = cityA.city.toLowerCase();
         const b = cityB.city.toLowerCase();
         if (a < b) return -1;

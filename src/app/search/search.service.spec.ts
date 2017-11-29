@@ -1,12 +1,12 @@
 import { SearchService } from './search.service';
 
-import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
+import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 
 describe('SearchService', () => {
     let searchService: SearchService;
     beforeEach(() => searchService = new SearchService());
 
-    const testCitiesResponseModels: CitiesResponseModel[] = [
+    const testCitiesResponseModels: CitiesResponse[] = [
         [
             {
               "city": "037",

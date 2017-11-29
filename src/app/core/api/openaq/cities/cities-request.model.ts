@@ -1,7 +1,7 @@
 // https://docs.openaq.org/#api-Cities
 import { BaseOpenAQRequest } from '../base-openaq-request.model';
 
-export interface CitiesRequestModel extends BaseOpenAQRequest {
+export interface CitiesRequest extends BaseOpenAQRequest {
     country?: string;
     order_by?: string[];
     sort?: string[];

@@ -3,7 +3,7 @@ import { FadeSlideAnimation } from '../shared/animations/fade-slide-animation.co
 import {BrowserModule} from '@angular/platform-browser'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
-import { CitiesResponseModel } from '../core/api/openaq/cities/cities-response.model';
+import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { SearchedCity } from '../search/searched-city.model';
 
 @Component({
