@@ -2,7 +2,7 @@
 import { CoordinatesModel } from '../coordinates.model';
 import { Parameter } from '../parameter.model';
 
-export interface LocationsIndividualResponseModel {
+export interface LocationsIndividualResponse {
     location: string;
     country: string;
     city: string;

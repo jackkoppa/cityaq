@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
-import { LocationsResponseModel } from '../core/api/openaq/locations/locations-response.model';
+import { LocationsResponse } from '../core/api/openaq/locations/locations-response.model';
 import { Observable } from 'rxjs/Observable';
 import { CitiesRequest } from '../core/api/openaq/cities/cities-request.model';
 

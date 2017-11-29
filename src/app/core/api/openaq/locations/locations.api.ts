@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
 import { LocationsRequest } from './locations-request.model';
-import { LocationsResponseModel } from './locations-response.model';
+import { LocationsResponse } from './locations-response.model';
 import { ApiService } from '../../api.service';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
@@ -16,7 +16,7 @@ export class LocationsApi {
         private apiService: ApiService
     ) {}
 
-    public getLocations(request?: LocationsRequest): Observable<LocationsResponseModel> {
+    public getLocations(request?: LocationsRequest): Observable<LocationsResponse> {
         return this.http.get(environment.openaqApiUrl + 'locations?' + this.apiService.buildOpenAQQueryString(request))
             .map(res => res.json().results);
     }

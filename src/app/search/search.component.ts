@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
-import { LocationsResponseModel } from '../core/api/openaq/locations/locations-response.model';
+import { LocationsResponse } from '../core/api/openaq/locations/locations-response.model';
 import { CityCardsListComponent } from '../city/city-cards-list.component';
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
 import { MessagingService } from '../shared/messaging/messaging.service';
@@ -91,7 +91,7 @@ export class SearchComponent implements OnInit {
             });
     }
 
-    private outputSearchedCity(city: CitiesIndividualResponse, locations: LocationsResponseModel): void {
+    private outputSearchedCity(city: CitiesIndividualResponse, locations: LocationsResponse): void {
         this.searching = false;
         this.clearSearchInput();
         const searchedCity: SearchedCity = city;
