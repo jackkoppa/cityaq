@@ -2,7 +2,7 @@
 import { BaseOpenAQRequest } from '../base-openaq-request.model';
 import { Parameter } from '../parameter.model';
 
-export interface LatestRequestModel extends BaseOpenAQRequest {
+export interface LatestRequest extends BaseOpenAQRequest {
     city?: string;
     country?: string;
     location?: string;

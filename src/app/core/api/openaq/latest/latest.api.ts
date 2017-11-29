@@ -2,8 +2,8 @@
 
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
-import { LatestRequestModel } from './latest-request.model';
-import { LatestResponseModel } from './latest-response.model';
+import { LatestRequest } from './latest-request.model';
+import { LatestResponse } from './latest-response.model';
 import { ApiService } from '../../api.service';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
@@ -16,7 +16,7 @@ export class LatestApi {
         private apiService: ApiService
     ) {}
 
-    public getLatest(request?: LatestRequestModel): Observable<LatestResponseModel> {
+    public getLatest(request?: LatestRequest): Observable<LatestResponse> {
         return this.http.get(environment.openaqApiUrl + 'latest?' + this.apiService.buildOpenAQQueryString(request))
             .map(res => res.json().results);
     }

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { LatestApi } from '../api/openaq/latest/latest.api';
-import { LatestRequestModel } from '../api/openaq/latest/latest-request.model';
-import { LatestResponseModel } from '../api/openaq/latest/latest-response.model';
+import { LatestRequest } from '../api/openaq/latest/latest-request.model';
+import { LatestResponse } from '../api/openaq/latest/latest-response.model';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class LatestHandlerService {
     constructor(private latestApi: LatestApi) {};
 
-    getLatestByCityAndCountry(cityName: string, country: string): Observable<LatestResponseModel> {
-        let request: LatestRequestModel = {
+    getLatestByCityAndCountry(cityName: string, country: string): Observable<LatestResponse> {
+        let request: LatestRequest = {
             city: cityName,
             country: country
         }

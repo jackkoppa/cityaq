@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 
 import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
-import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
+import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { LocationsResponseModel } from '../core/api/openaq/locations/locations-response.model';
 import { CityCardsListComponent } from '../city/city-cards-list.component';
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { CalculationService } from '../core/calculation/calculation.service';
 import { NamingService } from '../core/naming/naming.service';
-import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
+import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
@@ -29,7 +29,7 @@ export class CityService {
             .then(res => this.createImageFromBlob(res))
     }
 
-    public getParameterAverages(searchedCity: SearchedCity, latestResponse: LatestResponseModel): ParameterAverage[] {
+    public getParameterAverages(searchedCity: SearchedCity, latestResponse: LatestResponse): ParameterAverage[] {
         const parameterAverages: ParameterAverage[] = [];
         this.verifyCityAndLatest(searchedCity, latestResponse) && this.getAvailableParameters(searchedCity)
             .forEach(parameter => parameterAverages.push(this.getParameterAverage(parameter, latestResponse)));
@@ -79,7 +79,7 @@ export class CityService {
         return !!(coordinates && coordinates.latitude && coordinates.longitude);
     } 
 
-    private verifyCityAndLatest(searchedCity: SearchedCity, latestResponse: LatestResponseModel): boolean {
+    private verifyCityAndLatest(searchedCity: SearchedCity, latestResponse: LatestResponse): boolean {
         return !!(searchedCity && 
             searchedCity.city && 
             searchedCity.locationsResponse && 
@@ -101,7 +101,7 @@ export class CityService {
 
     private getParameterAverage(
         parameter: Parameter,
-        latestResponse: LatestResponseModel
+        latestResponse: LatestResponse
     ): ParameterAverage {
         const latestMeasurements = this.getLatestMeasurementsByParameter(parameter, latestResponse);
         const concentration = this.getConcentrationAvgByParameter(parameter, latestMeasurements);
@@ -121,7 +121,7 @@ export class CityService {
 
     private getLatestMeasurementsByParameter(
         parameter: Parameter,
-        latestResponse: LatestResponseModel
+        latestResponse: LatestResponse
     ): LatestMeasurement[] {
         const latestMeasurements: LatestMeasurement[] = [];
         latestResponse.forEach(response => {

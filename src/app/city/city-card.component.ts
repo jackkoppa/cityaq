@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
-import { LatestResponseModel } from '../core/api/openaq/latest/latest-response.model';
+import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
 import { SearchedCity } from '../search/searched-city.model';
@@ -21,7 +21,7 @@ import 'rxjs/add/operator/do';
 })
 export class CityCardComponent implements OnInit {
     @Input() searchedCity: SearchedCity;
-    latestResponse: LatestResponseModel;
+    latestResponse: LatestResponse;
     //aqis: ParameterAverage[] = [];
     parameterAverages: ParameterAverage[] = [];
     overallAQI: number;
@@ -60,12 +60,12 @@ export class CityCardComponent implements OnInit {
         return 'rows-' + Math.ceil(this.parameterAverages.length / 2)
     }
     
-    private getLatestCityMeasurements(): Observable<LatestResponseModel> {
+    private getLatestCityMeasurements(): Observable<LatestResponse> {
         return this.latestHandlerService
             .getLatestByCityAndCountry(this.searchedCity.city, this.searchedCity.country);
     }
 
-    private setAveragesAndClasses(latest: LatestResponseModel): void {
+    private setAveragesAndClasses(latest: LatestResponse): void {
         this.latestResponse = latest;
         this.parameterAverages = this.cityService.getParameterAverages(
             this.searchedCity, 
