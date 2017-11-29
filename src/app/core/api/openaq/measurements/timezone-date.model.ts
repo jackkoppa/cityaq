@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Measurements
 
-export interface TimezoneDateModel {
+export interface TimezoneDate {
     utc: string;
     local: string;
 }

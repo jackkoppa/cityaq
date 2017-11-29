@@ -1,4 +1,4 @@
 // https://docs.openaq.org/#api-Measurements
-import { MeasurementsIndividualResponseModel } from './measurements-individual-response.model';
+import { MeasurementsIndividualResponse } from './measurements-individual-response.model';
 
-export interface MeasurementsResponseModel extends Array<MeasurementsIndividualResponseModel> {}
+export interface MeasurementsResponse extends Array<MeasurementsIndividualResponse> {}
