@@ -1,4 +1,4 @@
 // https://docs.openaq.org/#api-Countries
-import { CountriesIndividualResponseModel } from './countries-individual-response.model';
+import { CountriesIndividualResponse } from './countries-individual-response.model';
 
-export interface CountriesResponseModel extends Array<CountriesIndividualResponseModel> {}
+export interface CountriesResponse extends Array<CountriesIndividualResponse> {}

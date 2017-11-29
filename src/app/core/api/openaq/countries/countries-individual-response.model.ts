@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Countries
 
-export interface CountriesIndividualResponseModel {
+export interface CountriesIndividualResponse {
     code: string;
     name: string;
     count: number;
