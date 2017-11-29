@@ -1,5 +1,5 @@
 // https://docs.openaq.org/#api-Locations
-import { CoordinatesModel } from '../coordinates.model';
+import { Coordinates } from '../coordinates.model';
 import { Parameter } from '../parameter.model';
 
 export interface LocationsIndividualResponse {
@@ -13,5 +13,5 @@ export interface LocationsIndividualResponse {
     firstUpdated: string;
     lastUpdated: string;
     parameters: Parameter[];
-    coordinates: CoordinatesModel;
+    coordinates: Coordinates;
 }

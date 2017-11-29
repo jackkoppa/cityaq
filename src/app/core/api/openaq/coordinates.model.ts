@@ -1,6 +1,6 @@
 // https://docs.openaq.org/#api-Locations
 
-export interface CoordinatesModel {
+export interface Coordinates {
     latitude: number;
     longitude: number;
 }

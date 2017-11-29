@@ -7,7 +7,7 @@ import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.
 import { Parameter } from '../core/api/openaq/parameter.model';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { SearchedCity } from '../search/searched-city.model';
-import { CoordinatesModel } from '../core/api/openaq/coordinates.model';
+import { Coordinates } from '../core/api/openaq/coordinates.model';
 import { ParameterAverage } from './individual-aqi.model';
 
 import { LatestCityMeasurements } from './latest-city-measurements.model';
@@ -59,8 +59,8 @@ export class CityService {
         return Promise.resolve(null);
     }
 
-    private getLatLong(searchedCity: SearchedCity): CoordinatesModel {
-        const latLong: CoordinatesModel = {
+    private getLatLong(searchedCity: SearchedCity): Coordinates {
+        const latLong: Coordinates = {
             latitude: 0,
             longitude: 0
         };
@@ -75,7 +75,7 @@ export class CityService {
         return latLong;
     }
 
-    private hasLatLong(coordinates: CoordinatesModel): boolean {
+    private hasLatLong(coordinates: Coordinates): boolean {
         return !!(coordinates && coordinates.latitude && coordinates.longitude);
     } 
 

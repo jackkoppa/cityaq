@@ -6,7 +6,7 @@ describe('SearchService', () => {
     let searchService: SearchService;
     beforeEach(() => searchService = new SearchService());
 
-    const testCitiesResponseModels: CitiesResponse[] = [
+    const testCitiesResponses: CitiesResponse[] = [
         [
             {
               "city": "037",
