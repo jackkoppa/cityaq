@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { Primitive, BaseRequest } from './base-request.model';
-import { BaseOpenAQRequest } from './openaq/base-openaq-request.model';
 import { BaseMapsRequest } from './maps/base-maps-request.model';
+import { BaseOpenAQRequest } from './openaq/base-openaq-request.model';
 
 @Injectable()
 export class ApiService {

@@ -1,13 +1,15 @@
 // https://docs.openaq.org/#api-Latest
-
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
-import { LatestRequest } from './latest-request.model';
-import { LatestResponse } from './latest-response.model';
-import { ApiService } from '../../api.service';
-import { environment } from '../../../../../environments/environment';
+
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+
+import { environment } from '../../../../../environments/environment';
+import { ApiService } from '../../api.service';
+
+import { LatestRequest } from './latest-request.model';
+import { LatestResponse } from './latest-response.model';
 
 @Injectable()
 export class LatestApi {

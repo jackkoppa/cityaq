@@ -6,16 +6,16 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { CityCardsListComponent } from '../city/city-cards-list.component';
 import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { LocationsResponse } from '../core/api/openaq/locations/locations-response.model';
-import { CityCardsListComponent } from '../city/city-cards-list.component';
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
 import { MessagingService } from '../shared/messaging/messaging.service';
 
-import { SearchedCity } from './searched-city.model';
 import { SearchService } from './search.service';
+import { SearchedCity } from './searched-city.model';
 
 @Component({
     selector: 'aq-search',
@@ -85,9 +85,8 @@ export class SearchComponent implements OnInit {
             .getLocationsByCityAndCountry(cityName, country)
             .subscribe(locations => {
                 this.outputSearchedCity(city, locations)
-            }, err => {
-                this.messagingService.error(`Failed to find data for ${cityName.toUpperCase()}`);
-                console.error(`Search error for ${cityName}: ${err}`);
+            }, error => {
+                this.handleLocationSearchError(error, cityName, city);
             });
     }
 
@@ -97,6 +96,13 @@ export class SearchComponent implements OnInit {
         const searchedCity: SearchedCity = city;
         searchedCity.locationsResponse = locations;
         this.addSearchedCity.emit(searchedCity);
+    }
+
+    private handleLocationSearchError(error: any, cityName: string, city: CitiesIndividualResponse): void {
+        this.messagingService.error(
+            `Failed to find data for ${cityName.toUpperCase()}`,
+            `Search error for ${cityName}, ${city}: ${error}`
+        );
     }
 
     private clearSearchInput(): void {

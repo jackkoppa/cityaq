@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { CompareService } from './compare.service';
-import { CitiesHandlerService } from '../core/handlers/cities-handler.service';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
+import { CitiesHandlerService } from '../core/handlers/cities-handler.service';
 import { SearchedCity } from '../search/searched-city.model';
+
+import { CompareService } from './compare.service';
 
 @Component({
     selector: 'aq-compare',

@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
-import { ApiService } from '../../api.service';
-import { StaticMapsRequest } from './static-maps-request.model';
-import { environment } from '../../../../../environments/environment';
+import { Http, RequestOptionsArgs, BaseRequestOptions, ResponseContentType } from '@angular/http';
+
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { ResponseContentType } from '@angular/http';
+
+import { environment } from '../../../../../environments/environment';
+import { ApiService } from '../../api.service';
+
+import { StaticMapsRequest } from './static-maps-request.model';
 
 @Injectable()
 export class StaticMapsApi {
     constructor(
-        private http: Http,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private http: Http
     ) {}
 
     public getImage(request?: StaticMapsRequest): Observable<File> {

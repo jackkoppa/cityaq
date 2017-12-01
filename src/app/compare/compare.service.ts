@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
 
 @Injectable()

@@ -1,4 +1,4 @@
-import { trigger, transition, style, animate, state, AnimationTriggerMetadata } from '@angular/animations';
+import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations';
 
 export const FadeAnimation: AnimationTriggerMetadata = trigger(
     'fade',

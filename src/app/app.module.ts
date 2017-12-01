@@ -2,12 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
+import { CityModule } from './city/city.module';
+import { CompareModule } from './compare/compare.module';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
-import { CompareModule } from './compare/compare.module';
 import { SearchModule } from './search/search.module';
-import { CityModule } from './city/city.module';
 
 @NgModule({
     declarations: [
@@ -17,9 +18,10 @@ import { CityModule } from './city/city.module';
         BrowserModule,
         HttpModule,
         ReactiveFormsModule,
+        CityModule,
+        CompareModule,
         CoreModule,
         HomeModule,
-        CompareModule,
         SearchModule
     ],
     providers: [],

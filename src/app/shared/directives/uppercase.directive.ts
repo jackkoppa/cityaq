@@ -1,8 +1,8 @@
 import { Directive, OnInit, OnDestroy } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
-import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
 
 @Directive({
     selector: '[aq-uppercase]'

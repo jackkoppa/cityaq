@@ -1,18 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import 'rxjs/add/operator/do';
+import { Observable } from 'rxjs/Observable';
+
+import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
+import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
+import { Parameter } from '../core/api/openaq/parameter.model';
 import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
-import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
-import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
-import { Parameter } from '../core/api/openaq/parameter.model';
-import { SearchedCity } from '../search/searched-city.model';
 import { FadeAnimation  } from '../shared/animations/fade-animation.constant';
+import { SearchedCity } from '../search/searched-city.model';
 
 import { CityService } from './city.service';
-import { LatestCityMeasurements } from './latest-city-measurements.model';
 import { ParameterAverage } from './individual-aqi.model';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
+import { LatestCityMeasurements } from './latest-city-measurements.model';
 
 @Component({
     selector: 'aq-city-card',
@@ -38,9 +39,9 @@ export class CityCardComponent implements OnInit {
     }
     
     constructor(
+        private cityService: CityService,
         private latestHandlerService: LatestHandlerService,
-        private staticMapsHandlerService: StaticMapsHandlerService,
-        private cityService: CityService
+        private staticMapsHandlerService: StaticMapsHandlerService
     ) { };
     
     

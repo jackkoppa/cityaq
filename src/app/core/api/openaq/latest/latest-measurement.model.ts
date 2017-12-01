@@ -1,3 +1,4 @@
+// https://docs.openaq.org/#api-Latest
 import { AveragingPeriod } from './averaging-period.model';
 
 export interface LatestMeasurement {

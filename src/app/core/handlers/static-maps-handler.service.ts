@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
+
+import { environment } from '../../../environments/environment';
 import { StaticMapsApi } from '../api/maps/static-images/static-maps.api';
 import { StaticMapsRequest } from '../api/maps/static-images/static-maps-request.model';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment';
 
 export const DefaultStaticMapsApiRequest: StaticMapsRequest = {
     center: '',

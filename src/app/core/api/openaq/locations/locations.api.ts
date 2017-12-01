@@ -1,13 +1,15 @@
 // https://docs.openaq.org/#api-Locations
-
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
-import { LocationsRequest } from './locations-request.model';
-import { LocationsResponse } from './locations-response.model';
-import { ApiService } from '../../api.service';
-import { environment } from '../../../../../environments/environment';
+
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+
+import { environment } from '../../../../../environments/environment';
+import { ApiService } from '../../api.service';
+
+import { LocationsRequest } from './locations-request.model';
+import { LocationsResponse } from './locations-response.model';
 
 @Injectable()
 export class LocationsApi {

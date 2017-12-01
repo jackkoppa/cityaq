@@ -1,12 +1,15 @@
 // https://docs.openaq.org/#api-Cities
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, BaseRequestOptions } from '@angular/http';
-import { CitiesRequest } from './cities-request.model';
-import { CitiesResponse } from './cities-response.model';
-import { ApiService } from '../../api.service';
-import { environment } from '../../../../../environments/environment';
+
 import 'rxjs/add/operator/map';
 import {Observable } from 'rxjs/Observable';
+
+import { environment } from '../../../../../environments/environment';
+import { ApiService } from '../../api.service';
+
+import { CitiesResponse } from './cities-response.model';
+import { CitiesRequest } from './cities-request.model';
 
 @Injectable()
 export class CitiesApi {

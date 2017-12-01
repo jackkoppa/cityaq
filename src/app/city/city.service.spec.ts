@@ -1,8 +1,8 @@
 import { CityService } from './city.service';
 
 import { CalculationService } from '../core/calculation/calculation.service';
-import { NamingService } from '../core/naming/naming.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
+import { NamingService } from '../core/naming/naming.service';
 
 describe('CityService', () => {
     let cityService: CityService;

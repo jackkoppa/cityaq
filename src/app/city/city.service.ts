@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { CalculationService } from '../core/calculation/calculation.service';
-import { NamingService } from '../core/naming/naming.service';
-import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
-import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
-import { Parameter } from '../core/api/openaq/parameter.model';
-import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
-import { SearchedCity } from '../search/searched-city.model';
 import { Coordinates } from '../core/api/openaq/coordinates.model';
-import { ParameterAverage } from './individual-aqi.model';
+import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
+import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
+import { Parameter } from '../core/api/openaq/parameter.model';
+import { CalculationService } from '../core/calculation/calculation.service';
+import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
+import { NamingService } from '../core/naming/naming.service';
+import { SearchedCity } from '../search/searched-city.model';
 
+import { ParameterAverage } from './individual-aqi.model';
 import { LatestCityMeasurements } from './latest-city-measurements.model';
 
 @Injectable()

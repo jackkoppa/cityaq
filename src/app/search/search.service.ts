@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+
+import { Observable } from 'rxjs/Observable';
+
+import { CitiesRequest } from '../core/api/openaq/cities/cities-request.model';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { LocationsResponse } from '../core/api/openaq/locations/locations-response.model';
-import { Observable } from 'rxjs/Observable';
-import { CitiesRequest } from '../core/api/openaq/cities/cities-request.model';
 
 @Injectable()
 export class SearchService {

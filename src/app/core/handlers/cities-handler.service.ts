@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CitiesApi } from '../api/openaq/cities/cities.api';
-import { CitiesResponse } from '../api/openaq/cities/cities-response.model';
-import { CitiesRequest } from '../api/openaq/cities/cities-request.model';
+
 import { Observable } from 'rxjs/Observable';
+
+import { CitiesApi } from '../api/openaq/cities/cities.api';
+import { CitiesRequest } from '../api/openaq/cities/cities-request.model';
+import { CitiesResponse } from '../api/openaq/cities/cities-response.model';
 
 @Injectable()
 export class CitiesHandlerService {

@@ -1,5 +1,4 @@
 // https://docs.openaq.org/#api-Sources
-
 export interface SourcesResponse {
     url: string;
     adapter: string;

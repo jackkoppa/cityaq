@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FadeSlideAnimation } from '../shared/animations/fade-slide-animation.constant';
-import {BrowserModule} from '@angular/platform-browser'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { SearchedCity } from '../search/searched-city.model';
+import { FadeSlideAnimation } from '../shared/animations/fade-slide-animation.constant';
 
 @Component({
     selector: 'aq-city-cards-list',

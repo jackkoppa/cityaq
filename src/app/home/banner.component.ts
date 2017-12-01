@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MessagingService } from '../shared/messaging/messaging.service';
 import { ColorName } from '../core/naming/color-name.model';
 import { COLOR_VALUES } from '../core/naming/color-values.constant';
+import { MessagingService } from '../shared/messaging/messaging.service';
 
 @Component({
     selector: 'aq-banner',

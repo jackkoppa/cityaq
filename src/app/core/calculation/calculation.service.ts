@@ -2,9 +2,9 @@
 import { Injectable } from '@angular/core';
 
 import { Parameter } from '../api/openaq/parameter.model';
-import { BaseIndex } from './indices/base-index.model';
-import { AQI_LEVELS } from './indices/aqi-levels.constant';
 
+import { AQI_LEVELS } from './indices/aqi-levels.constant';
+import { BaseIndex } from './indices/base-index.model';
 import { PARAMETER_INDEX_MAP } from './indices/parameters/parameter-index-map.constant';
 
 @Injectable()
