@@ -6,5 +6,6 @@ export interface BaseIndex {
     parameter: Parameter;
     unit: string;
     hours: number;
+    decimalPlaces: number;
     levels: Level;    
 }

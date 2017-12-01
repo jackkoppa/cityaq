@@ -5,6 +5,7 @@ export const NO2_INDEX: BaseIndex = {
     parameter: 'no2',
     unit: 'ppb',
     hours: 1,
+    decimalPlaces: 0,
     levels: {
         good: [0, 53],
         moderate: [54, 100],

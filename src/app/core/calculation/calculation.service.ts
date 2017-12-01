@@ -5,73 +5,23 @@ import { Parameter } from '../api/openaq/parameter.model';
 import { BaseIndex } from './indices/base-index.model';
 import { AQI_LEVELS } from './indices/aqi-levels.constant';
 
-import { PM25_INDEX } from './indices/parameters/pm25-index.constant';
-import { PM10_INDEX } from './indices/parameters/pm10-index.constant';
-import { O3_INDEX } from './indices/parameters/o3-index.constant';
-import { CO_INDEX } from './indices/parameters/co-index.constant';
-import { SO2_INDEX } from './indices/parameters/so2-index.constant';
-import { NO2_INDEX } from './indices/parameters/no2-index.constant';
+import { PARAMETER_INDEX_MAP } from './indices/parameters/parameter-index-map.constant';
 
 @Injectable()
 export class CalculationService {
     constructor() {};
 
     public calculateAQIByParameter(value: number, parameter: Parameter): number {
-        let result: number;
-        switch(parameter) {
-            case 'pm25':
-                result = this.calculatePM25AQI(value);
-                break;
-            case 'pm10':
-                result = this.calculatePM10AQI(value);
-                break;
-            case 'o3':
-                result = this.calculateO3AQI(value);
-                break;
-            case 'co':
-                result = this.calculateCOAQI(value);
-                break;
-            case 'so2':
-                result = this.calculateSO2AQI(value);
-                break;
-            case 'no2':
-                result = this.calculateNO2AQI(value);
-                break;
-            case 'bc':
-                result = null;
-                break;
-            default:
-                throw new Error('invalid parameter given for AQI calculation');            
-        }
-        return result;
+        const index = PARAMETER_INDEX_MAP[parameter];
+        // TODO: better solution to identify 'bc', which does not have an EPA index
+        if (index === null) return null;
+        if (index === undefined) throw new Error('invalid parameter given for AQI calculation');
+        
+        return this.calculateAQIByIndex(value, index);
     }
 
-    public calculatePM25AQI(value: number): number {
-        return this.calculateParameterAQI(value, PM25_INDEX, 1)
-    }
-
-    public calculatePM10AQI(value: number): number {
-        return this.calculateParameterAQI(value, PM10_INDEX, 0)
-    }
-
-    public calculateO3AQI(value: number): number {
-        return this.calculateParameterAQI(value, O3_INDEX, 3)
-    }
-
-    public calculateCOAQI(value: number): number {
-        return this.calculateParameterAQI(value, CO_INDEX, 1)
-    }
-
-    public calculateSO2AQI(value: number): number {
-        return this.calculateParameterAQI(value, SO2_INDEX, 0)
-    }
-
-    public calculateNO2AQI(value: number): number {
-        return this.calculateParameterAQI(value, NO2_INDEX, 0)
-    }
-
-    private calculateParameterAQI(value: number, index: BaseIndex, decimal: number): number {
-        const truncatedVal = this.truncateAtDecimal(value, decimal);
+    private calculateAQIByIndex(value: number, index: BaseIndex): number {
+        const truncatedVal = this.truncateAtDecimal(value, index.decimalPlaces);
         let calculatedAqi: number;
         let foundMatching = Object.keys(index.levels).some(level => {
             const min = index.levels[level][0],
@@ -84,7 +34,7 @@ export class CalculationService {
             }
         });
         if (!foundMatching)
-            return this.handleUnmatchedLevel(truncatedVal, index, decimal);
+            return this.handleUnmatchedLevel(truncatedVal, index, index.decimalPlaces);
         return Math.round(calculatedAqi);
     }
 
@@ -103,6 +53,7 @@ export class CalculationService {
     }
 
     private handleUnmatchedLevel(value: number, index: BaseIndex, decimal: number): number {
+        // TODO: improve handling of edge cases
         if (value >= index.levels.hazardous2[1]) // if greater than greatest measurement, return highest AQI (500)
             return AQI_LEVELS.hazardous2[1];
         if (value <= 0) // if less than or equal to 0, return lowest AQI (0)

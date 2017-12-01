@@ -5,6 +5,7 @@ export const O3_INDEX: BaseIndex = {
     parameter: 'o3',
     unit: 'ppm',
     hours: 8,
+    decimalPlaces: 3,
     levels: {
         good: [0, 0.054],
         moderate: [0.055, 0.070],

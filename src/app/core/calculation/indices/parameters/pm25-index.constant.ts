@@ -5,6 +5,7 @@ export const PM25_INDEX: BaseIndex = {
     parameter: 'pm25',
     unit: 'µg/m³',
     hours: 24,
+    decimalPlaces: 1,
     levels: {
         good: [0, 12.0],
         moderate: [12.1, 35.4],

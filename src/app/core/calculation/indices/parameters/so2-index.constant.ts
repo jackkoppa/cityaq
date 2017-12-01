@@ -5,6 +5,7 @@ export const SO2_INDEX: BaseIndex = {
     parameter: 'so2',
     unit: 'ppb',
     hours: 1,
+    decimalPlaces: 0,
     levels: {
         good: [0, 35],
         moderate: [36, 75],

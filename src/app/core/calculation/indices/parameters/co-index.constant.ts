@@ -5,6 +5,7 @@ export const CO_INDEX: BaseIndex = {
     parameter: 'co',
     unit: 'ppm',
     hours: 8,
+    decimalPlaces: 1,
     levels: {
         good: [0.0, 4.4],
         moderate: [4.5, 9.4],

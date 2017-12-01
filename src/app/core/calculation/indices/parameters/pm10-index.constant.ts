@@ -5,6 +5,7 @@ export const PM10_INDEX: BaseIndex = {
     parameter: 'pm10',
     unit: 'µg/m³',
     hours: 24,
+    decimalPlaces: 0,
     levels: {
         good: [0, 54],
         moderate: [55, 154],
