@@ -13,7 +13,7 @@ export const SO2_INDEX: BaseIndex = {
         unhealthy: [186, 304],
         // TODO: EPA specifically states that beyond 200 AQI for SO2, 24-hour concentrations should be used
         // currently not setup to handle multiple concentration periods; 
-        // consider changing implementation to do so
+        // will change implementation to consider time periods & indicate non-matching periods
         veryUnhealthy: [305, 604],
         hazardous1: [605, 804],
         hazardous2: [805, 1004]        
