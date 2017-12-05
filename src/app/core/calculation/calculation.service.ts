@@ -14,6 +14,7 @@ export class CalculationService {
     public calculateAQIByParameter(value: number, parameter: Parameter): number {
         const index = PARAMETER_INDEX_MAP[parameter];
         // TODO: better solution to identify 'bc', which does not have an EPA index
+        // should be handled during calculation rewrite, with multi-step validation
         if (index === null) return null;
         if (index === undefined) throw new Error('invalid parameter given for AQI calculation');
         
