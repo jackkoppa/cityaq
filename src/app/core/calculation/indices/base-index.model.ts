@@ -1,11 +1,17 @@
 // https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
 import { Parameter } from '../../api/openaq/parameter.model';
+import { AveragingPeriod } from '../../api/openaq/latest/averaging-period.model'
+import { MeasurementUnit } from '../physical/measurement-unit.model';
+
 import { Level } from './level.model';
 
 export interface BaseIndex {
-    parameter: Parameter;
-    unit: string;
-    hours: number;
+    unit: MeasurementUnit;
     decimalPlaces: number;
-    levels: Level;    
+    averagingPeriodLevels: AveragingPeriodLevel[]
+}
+
+interface AveragingPeriodLevel {
+    averagingPeriod: AveragingPeriod;
+    levels: Level;
 }
