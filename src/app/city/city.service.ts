@@ -159,6 +159,6 @@ export class CityService {
         parameter: Parameter,
         concentration: number 
     ): number {
-        return this.calculationService.calculateAQIByParameter(concentration, parameter);
+        return 0; //this.calculationService.calculateAQIByParameter(concentration, parameter);
     }
 }
