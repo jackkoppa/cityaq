@@ -13,4 +13,5 @@ export interface CalculationArguments {
     index: BaseIndex;
     includeAllMessages: boolean;
     allMessages: CalculationMessage[];
+    AQI: number;
 }

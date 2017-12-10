@@ -33,15 +33,14 @@ export class CalculationService {
             parameter: parameter,
             averagingPeriod: averagingPeriod,
             unit: unit,
-            index: null,
             includeAllMessages: includeAllMessages,
-            allMessages: []
+            index: null,
+            allMessages: [],
+            AQI: null
         }
         args = this.validateCalculationArguments(args);
-        return {
-            AQI: 0,
-            message: null
-        }
+        args = this.executeCalculation(args);
+        return this.getCalculationResponse(args);
     }
 
     public calculateAPIByLatest(latest: LatestMeasurement, includeAllMessages: boolean = false): CalculationResponse {
@@ -55,7 +54,21 @@ export class CalculationService {
 
     private validateCalculationArguments(args: CalculationArguments): CalculationArguments {
         args = this.validateParameter(args);
+        args = this.validateUnit(args);
+        args = this.validateAveragingPeriod(args);
         return args;
+    }
+
+    private executeCalculation(args: CalculationArguments): CalculationArguments {
+        return args;
+    }
+
+    private getCalculationResponse(args: CalculationArguments): CalculationResponse {
+        return {
+            AQI: args.AQI,
+            message: args.allMessages[0],
+            allMessages: args.includeAllMessages ? args.allMessages : undefined
+        }
     }
 
     private validateParameter(args: CalculationArguments): CalculationArguments {
@@ -74,8 +87,49 @@ export class CalculationService {
     }
 
     private validateAveragingPeriod(args: CalculationArguments): CalculationArguments {
-
+        if (!args.averagingPeriod || !args.averagingPeriod.value || !args.averagingPeriod.unit) {
+            args = this.setDefaultAveragingPeriod(args);
+            return args;
+        }
+        const matchingAveragingPeriod = args.index.averagingPeriodLevels.find(level => {
+            return level.averagingPeriod.unit === args.averagingPeriod.unit &&
+                level.averagingPeriod.value === args.averagingPeriod.value;
+        });
+        if (!matchingAveragingPeriod)
+            args = this.setClosestAveragingPeriod(args);
         return args;
+    }
+
+    private setDefaultAveragingPeriod(args: CalculationArguments): CalculationArguments {
+        CalculationHelper.newMessage(args, MessageSeverity.Medium, `No averaging period given; default index period used`);
+        args.averagingPeriod = args.index.averagingPeriodLevels[0].averagingPeriod;
+        return args;
+    }
+
+    private setClosestAveragingPeriod(args: CalculationArguments): CalculationArguments {
+        const averagingPeriodsByDifferenceFromTarget = args.index.averagingPeriodLevels.sort((a, b) => {
+            const aDiff = this.differenceFromTarget(a.averagingPeriod, args);
+            const bDiff = this.differenceFromTarget(b.averagingPeriod, args);
+            if (aDiff > bDiff) 
+                return -1;
+            if (aDiff < bDiff)
+                return 1;
+            return 0; 
+        });
+        const closestAveragingPeriod = averagingPeriodsByDifferenceFromTarget[0].averagingPeriod;
+        if (closestAveragingPeriod.unit !== args.averagingPeriod.unit) {
+            CalculationHelper.newMessage(args, MessageSeverity.High, `Measurement averaging period unit of` +
+                `${args.averagingPeriod.unit} does not match index unit of ${closestAveragingPeriod.unit}`);
+        }
+        CalculationHelper.newMessage(args, MessageSeverity.Medium, `Using index averaging period of ` +
+            `${closestAveragingPeriod.value} ${closestAveragingPeriod.unit} ` +
+            `, since given averaging period of ${args.averagingPeriod.value} ${args.averagingPeriod.unit} does not exist in the index`);
+        args.averagingPeriod = averagingPeriodsByDifferenceFromTarget[0].averagingPeriod;
+        return args;
+    }
+
+    private differenceFromTarget(averagingPeriod: AveragingPeriod, args: CalculationArguments): number {
+        return Math.abs(averagingPeriod.value - args.averagingPeriod.value);
     }
 
 
