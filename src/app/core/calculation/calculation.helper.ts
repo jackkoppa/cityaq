@@ -10,4 +10,8 @@ export class CalculationHelper {
         });
         return args;
     }
+
+    static truncateAtDecimal(value: number, decimal: number): number {
+        return +(Math.floor(value * (Math.pow(10, decimal))) / Math.pow(10, decimal)).toFixed(decimal);
+    }
 }
