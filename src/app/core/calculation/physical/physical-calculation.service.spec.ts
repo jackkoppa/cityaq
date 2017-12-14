@@ -6,6 +6,7 @@ import { BaseIndex } from '../indices/base-index.model';
 import { SO2_INDEX } from '../indices/parameters/so2-index.constant';
 import { O3_INDEX } from '../indices/parameters/o3-index.constant';
 import { MeasurementUnit } from '../../api/openaq/measurement-unit.model';
+import { NO2_INDEX } from '../indices/parameters/no2-index.constant';
 
 describe('PhysicalCalculationService', () => {
     let physicalCalculationService: PhysicalCalculationService;
@@ -20,8 +21,9 @@ describe('PhysicalCalculationService', () => {
                 averagingPeriod: undefined,
                 unit: undefined,
                 index: undefined,
-                includeAllMessages: undefined,
-                allMessages: []
+                includeAllMessages: undefined,                
+                allMessages: [],
+                AQI: undefined
             }
         });
 
@@ -30,8 +32,12 @@ describe('PhysicalCalculationService', () => {
             ['so2',         SO2_INDEX, [[   'ppm',      12,         'ppb',          12000],
                                         [   'ppm',      13,         'ppb',          13000],
                                         [   'µg/m³',    2.62,       'ppb',          1]]],
+
             ['o3',          O3_INDEX,  [[   'ppb',      5000,       'ppm',          5],
-                                        [   'µg/m³',    2000,       'ppm',          1]]]
+                                        [   'µg/m³',    2000,       'ppm',          0.981]]],
+
+            ['no2',         NO2_INDEX, [[   'ppm',      12,      'ppb',             12000],
+                                        [   'µg/m³',    1.88,       'ppb',          1]]]
         ];
         testArgs.forEach(testCase => {
             let [parameter, index, testValues] = testCase;
@@ -43,7 +49,7 @@ describe('PhysicalCalculationService', () => {
 
                 testValues.forEach(testValue => {
                     let [givenUnit, givenConc, expectedUnit, expectedConc] = testValue;
-                    describe(`when converting from a concentration of ${givenConc} ${givenUnit} to ${expectedUnit}`, () => {                        
+                    describe(`when converting from a concentration of ${givenConc} ${givenUnit} to ${index.unit}`, () => {                        
                         beforeEach(() => {
                             args.concentration = givenConc;
                             args.unit = givenUnit;
@@ -57,9 +63,8 @@ describe('PhysicalCalculationService', () => {
                             expect(result.unit).toBe(expectedUnit);
                         });
                     });
-                })
-            })
+                });
+            });
         });
-
     });
 });

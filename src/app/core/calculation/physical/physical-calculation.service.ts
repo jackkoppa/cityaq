@@ -18,6 +18,7 @@ export class PhysicalCalculationService {
         const concentration = args.concentration;
         const parameter = args.parameter;
         let newConcentration: number;
+        // TODO: refactor ugly switch statement to use... object?
         switch (givenUnit) {
             case 'ppm':
                 if (indexUnit === 'ppb')
@@ -44,7 +45,7 @@ export class PhysicalCalculationService {
             args = CalculationHelper.newMessage(args, MessageSeverity.High, `Unable to convert ${givenUnit} to index unit of ${indexUnit}`);
             args.concentration = null;
         } else {
-            args.concentration = newConcentration;
+            args.concentration = CalculationHelper.truncateAtDecimal(newConcentration, args.index.decimalPlaces);
             args.unit = indexUnit;
         }
         return args;
@@ -57,7 +58,7 @@ export class PhysicalCalculationService {
     private convertToDensity(ppb: number, parameter: Parameter): number {
         const molecularWeight: number = MOLECULAR_WEIGHTS[parameter];
         return molecularWeight &&
-            (ppb * molecularWeight * STP.pressureInAtm) / (STP.gasConstantForKAndAtm * STP.temperatureInK)
+            (ppb * molecularWeight * STP.pressureInAtm) / (STP.gasConstantForKAndAtm * STP.temperatureInK);
     }
 
     private convertToVolumeRatio(density: number, parameter: Parameter): number {
