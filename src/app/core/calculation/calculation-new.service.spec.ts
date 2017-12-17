@@ -1,10 +1,58 @@
 import { CalculationService } from './calculation-new.service';
 
 import { Parameter } from '../api/openaq/parameter.model';
+import { PhysicalCalculationService } from './physical/physical-calculation.service';
+import { AveragingPeriod } from '../api/openaq/latest/averaging-period.model';
+import { MeasurementUnit } from '../api/openaq/measurement-unit.model';
+import { CalculationResponse, CalculationMessage } from './calculation-response.models';
 
 describe('CalculationService', () => {
+    let harness: Harness;
     let calculationService: CalculationService;
-    // beforeEach(() => calculationService = new CalculationService());
+    beforeEach(() => {
+        harness = new Harness();
+        calculationService = harness.createService();
+    });
+
+    describe('calculateAQI', () => {
+        let concentration: number,        
+            parameter: Parameter,
+            averagingPeriod: AveragingPeriod,
+            unit: MeasurementUnit,
+            includeAllMessages: boolean,
+            expectedAQI: number,
+            expectedMsg: CalculationMessage;
+        
+        describe('given no argument for includeAllMessages', () => {
+
+            let testCases: [number, Parameter, AveragingPeriod, MeasurementUnit, number, CalculationMessage][] = [
+                //concentration parameter   averagingPeriod             unit    expectedAQI     expectedMsg     
+                [12,            'no2',     { value: 1, unit: 'hours'},  'ppm',  11,             undefined ]
+            ]
+            testCases.forEach(test => {
+                [concentration, parameter, averagingPeriod, unit, expectedAQI, expectedMsg] = test;
+
+                let response: CalculationResponse;                     
+               
+
+                describe(`given a concentration of ${concentration} for parameter ${parameter}`, () => {
+                    beforeEach(() => response =  calculationService.calculateAQI(
+                        concentration,
+                        parameter,
+                        averagingPeriod,
+                        unit
+                    ));
+
+                    it(`should return an AQI of ${expectedAQI}`, () => {                        
+                        expect(response.AQI).toBe(expectedAQI);
+                    });
+                    it(`should return a message of ${expectedMsg}`, () => {
+                        expect(response.message).toBe(expectedMsg);
+                    })
+                });
+            });
+        });        
+    });
 
     // describe('calculateAQIByParameter', () => {
     //     let testParameters: { name: Parameter, testValues: [number, number][]}[] = [
@@ -133,3 +181,19 @@ describe('CalculationService', () => {
     //     });
     // });
 });
+
+class Harness {
+    physicalCalculationService: PhysicalCalculationService = <PhysicalCalculationService>{};
+
+    constructor() {
+        this.mockCommonMethods();
+    }
+
+    createService(): CalculationService {
+        return new CalculationService(this.physicalCalculationService);
+    }
+
+    mockCommonMethods(): void {
+        this.physicalCalculationService.attemptUnitConversion = (args) => args;
+    }
+}

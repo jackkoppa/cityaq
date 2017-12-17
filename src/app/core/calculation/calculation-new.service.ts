@@ -14,6 +14,7 @@ import {
 import { PARAMETER_INDEX_MAP } from './indices/parameters/parameter-index-map.constant';
 import { PhysicalCalculationService } from './physical/physical-calculation.service';
 import { CalculationHelper } from './calculation.helper';
+import { AQI_LEVELS } from './indices/aqi-levels.constant';
 
 @Injectable()
 export class CalculationService {
@@ -60,6 +61,26 @@ export class CalculationService {
     }
 
     private executeCalculation(args: CalculationArguments): CalculationArguments {
+        args = this.getAQIByIndex(args);
+        return args;
+    }
+    
+    private getAQIByIndex(args: CalculationArguments): CalculationArguments {
+        const truncatedConc = CalculationHelper.truncateAtDecimal(args.concentration, args.index.decimalPlaces);
+        let currentLevels = args.index.averagingPeriodLevels.find(level => level.averagingPeriod.value === args.averagingPeriod.value).levels;        
+        let calculatedAQI: number;
+        let foundMatching = Object.keys(currentLevels).some(level => {
+            const min = currentLevels[level][0],
+                max = currentLevels[level][1],
+                aqiMin = AQI_LEVELS[level][0],
+                aqiMax = AQI_LEVELS[level][1];
+            if (min <= truncatedConc && truncatedConc <= max) {
+                calculatedAQI = this.linearCalculation(truncatedConc, min, max, aqiMin, aqiMax);
+                return true;
+            }
+        });
+        // TODO: handle non-matching cases
+        if (foundMatching) args.AQI = Math.round(calculatedAQI);
         return args;
     }
 
@@ -130,6 +151,16 @@ export class CalculationService {
 
     private differenceFromTarget(averagingPeriod: AveragingPeriod, args: CalculationArguments): number {
         return Math.abs(averagingPeriod.value - args.averagingPeriod.value);
+    }
+
+    private linearCalculation(
+        value: number,
+        min: number,
+        max: number,
+        aqiMin: number,
+        aqiMax: number
+    ): number {
+        return (value - min) * (aqiMax - aqiMin) / (max - min) + aqiMin;
     }
 
 
