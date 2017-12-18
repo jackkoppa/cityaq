@@ -26,22 +26,25 @@ describe('CalculationService', () => {
         describe('given no argument for includeAllMessages', () => {
 
             let testCases: [number, Parameter, AveragingPeriod, MeasurementUnit, number, CalculationMessage][] = [
-                //concentration parameter   averagingPeriod             unit    expectedAQI     expectedMsg     
-                [12,            'no2',     { value: 1, unit: 'hours'},  'ppm',  11,             undefined ]
+                //concentration parameter   averagingPeriod                 unit    expectedAQI     expectedMsg     
+                [12,            'no2',      { value: 1, unit: 'hours'},     'ppm',  11,             undefined ],
+                [12,            'co',       { value: 8, unit: 'hours'},     'ppm',  143,            undefined ],
             ]
             testCases.forEach(test => {
-                [concentration, parameter, averagingPeriod, unit, expectedAQI, expectedMsg] = test;
-
+                
                 let response: CalculationResponse;                     
-               
-
+                
+                
                 describe(`given a concentration of ${concentration} for parameter ${parameter}`, () => {
-                    beforeEach(() => response =  calculationService.calculateAQI(
-                        concentration,
-                        parameter,
-                        averagingPeriod,
-                        unit
-                    ));
+                    beforeEach(() => {
+                        [concentration, parameter, averagingPeriod, unit, expectedAQI, expectedMsg] = test;
+                        response =  calculationService.calculateAQI(
+                            concentration,
+                            parameter,
+                            averagingPeriod,
+                            unit
+                        )
+                    });
 
                     it(`should return an AQI of ${expectedAQI}`, () => {                        
                         expect(response.AQI).toBe(expectedAQI);
