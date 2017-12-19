@@ -15,43 +15,62 @@ describe('CalculationService', () => {
     });
 
     describe('calculateAQI', () => {
-        let concentration: number,        
-            parameter: Parameter,
-            averagingPeriod: AveragingPeriod,
-            unit: MeasurementUnit,
-            includeAllMessages: boolean,
-            expectedAQI: number,
-            expectedMsg: CalculationMessage;
+        let response: CalculationResponse;
+        let expectedMsg: CalculationMessage;
         
         describe('given no argument for includeAllMessages', () => {
 
-            let testCases: [number, Parameter, AveragingPeriod, MeasurementUnit, number, CalculationMessage][] = [
-                //concentration parameter   averagingPeriod                 unit    expectedAQI     expectedMsg     
-                [12,            'no2',      { value: 1, unit: 'hours'},     'ppm',  11,             undefined ],
-                [12,            'co',       { value: 8, unit: 'hours'},     'ppm',  143,            undefined ],
-            ]
-            testCases.forEach(test => {
-                
-                let response: CalculationResponse;                     
-                
-                
-                describe(`given a concentration of ${concentration} for parameter ${parameter}`, () => {
-                    beforeEach(() => {
-                        [concentration, parameter, averagingPeriod, unit, expectedAQI, expectedMsg] = test;
-                        response =  calculationService.calculateAQI(
-                            concentration,
-                            parameter,
-                            averagingPeriod,
-                            unit
-                        )
-                    });
+            describe('with correct averagingPeriods & units', () => {
+                let baselineTestCases: [Parameter, AveragingPeriod, MeasurementUnit, [number, number][]][] = [
+                    //parameter     averagingPeriod                 unit        concentration   expectedAQI 
+                    ['pm25',        { value: 24, unit: 'hours' },   'µg/m³',   [[0,             0],
+                                                                                [1.123456,      5],
+                                                                                [12.1,          51],
+                                                                                [55.499,        150],
+                                                                                [55.5,          151],
+                                                                                [170,           220],
+                                                                                [330,           380],
+                                                                                [500.499,       500]]], 
 
-                    it(`should return an AQI of ${expectedAQI}`, () => {                        
-                        expect(response.AQI).toBe(expectedAQI);
+                    ['pm10',        { value: 24, unit: 'hours' },   'µg/m³',   [[0,             0],
+                                                                                [54.99,         50],
+                                                                                [55,            51],
+                                                                                [161.111,       104],
+                                                                                [354,           200],
+                                                                                [400,           266],
+                                                                                [480,           370],
+                                                                                [604,           500]]]  
+                    // [12,            'no2',      { value: 1, unit: 'hours'},     'ppm',  11,             undefined ],
+                    // [12,            'co',       { value: 8, unit: 'hours'},     'ppm',  143,            undefined ],
+                ]
+                baselineTestCases.forEach(test => { 
+                    let [parameter, averagingPeriod, unit, inputExpectedPairs] = test;
+                    describe(`for the ${parameter} parameter`, () => {
+                        test[3].forEach(pair => {
+                            let [concentration, expectedAQI] = pair;                         
+
+                            describe(`given a concentration of ${concentration}`, () => {
+                                beforeEach(() => {
+                                    [parameter, averagingPeriod, unit, inputExpectedPairs] = test;
+                                    [concentration, expectedAQI] = pair;
+                                    response =  calculationService.calculateAQI(
+                                        concentration,
+                                        parameter,
+                                        averagingPeriod,
+                                        unit
+                                    );
+                                });
+                                it(`should return an AQI of ${expectedAQI}`, () => {                        
+                                    expect(response.AQI).toBe(expectedAQI);
+                                });
+                                it(`should return a message of ${expectedMsg}`, () => {
+                                    expect(response.message).toBe(expectedMsg);
+                                });
+                            });
+
+                        });
+                    
                     });
-                    it(`should return a message of ${expectedMsg}`, () => {
-                        expect(response.message).toBe(expectedMsg);
-                    })
                 });
             });
         });        
