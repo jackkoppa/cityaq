@@ -24,6 +24,7 @@ describe('CalculationService', () => {
                 // TODO: need to use something like https://github.com/gburghardt/jasmine-data_driven_tests
                 // so that each loop doesn't require setting each variable twice 
                 // (once for naming the spec, once in a beforeEach for data accuracy)
+                // instead of a forEach, should be able to use `using`
                 let baselineTestCases: [Parameter, AveragingPeriod, MeasurementUnit, [number, number][]][] = [
                     //parameter     averagingPeriod                 unit        concentration   expectedAQI 
                     ['pm25',        { value: 24, unit: 'hours' },   'µg/m³',   [[0,             0],
