@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { CityModule } from './city/city.module';
@@ -18,6 +21,7 @@ import { SearchModule } from './search/search.module';
         BrowserModule,
         HttpModule,
         ReactiveFormsModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         CityModule,
         CompareModule,
         CoreModule,
