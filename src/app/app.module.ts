@@ -21,7 +21,7 @@ import { SearchModule } from './search/search.module';
         BrowserModule,
         HttpModule,
         ReactiveFormsModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
         CityModule,
         CompareModule,
         CoreModule,
