@@ -16,5 +16,5 @@
     "theme_color": "#7e57c2",
     "background_color": "#7e57c2",
     "display": "standalone",
-    "start_url": "https://jackkoppa.github.io/cityaq"
+    "start_url": "."
 }
