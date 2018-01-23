@@ -18,7 +18,7 @@ export class BannerComponent implements OnInit {
     }
 
     public openMenu(): void {
-        this.messagingService.notify('Menu is under development :)');
+        this.messagingService.notify('Menu is under development :+1:');
     }
 
     private setColors(): void {
