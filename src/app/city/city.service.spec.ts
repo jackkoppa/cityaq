@@ -1,6 +1,6 @@
 import { CityService } from './city.service';
 
-import { CalculationService } from '../core/calculation/calculation.service';
+import { CalculationService } from '../core/calculation/calculation-new.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { NamingService } from '../core/naming/naming.service';
 

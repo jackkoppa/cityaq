@@ -4,7 +4,8 @@ import { Coordinates } from '../core/api/openaq/coordinates.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
-import { CalculationService } from '../core/calculation/calculation.service';
+import { CalculationService } from '../core/calculation/calculation-new.service';
+import { CalculationResponse, CalculationMessage } from '../core/calculation/calculation-response.models';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { NamingService } from '../core/naming/naming.service';
 import { SearchedCity } from '../search/searched-city.model';
@@ -104,18 +105,18 @@ export class CityService {
         latestResponse: LatestResponse
     ): ParameterAverage {
         const latestMeasurements = this.getLatestMeasurementsByParameter(parameter, latestResponse);
-        const concentration = this.getConcentrationAvgByParameter(parameter, latestMeasurements);
-        const unit = this.getUnit(latestMeasurements);
-        const AQI = this.getAQIByParameterAndConcentration(parameter, concentration);
-        const className = this.getAQIClass(AQI);
+        const calculationResponses = this.getCalculationResponsesFromMeasurements(latestMeasurements);
+        const calculationResponse = this.getAverageCalculationResponse(calculationResponses);
+        const className = this.getAQIClass(calculationResponse.AQI);
         const dataPoints = latestMeasurements.length;
         return {
             parameter: parameter,
-            concentration: concentration,
-            unit: unit,
-            AQI: AQI,
+            concentration: calculationResponse.concentration,
+            unit: calculationResponse.unit,
+            AQI: calculationResponse.AQI,
             class: className,
-            dataPoints: dataPoints
+            dataPoints: dataPoints,
+            message: calculationResponse.message // TODO: also include allMessages, to be handled here or in the consuming component
         }
     }
 
@@ -132,33 +133,56 @@ export class CityService {
         return latestMeasurements;
     }
 
-    private getConcentrationAvgByParameter(
-        parameter: Parameter,
-        latestMeasurements: LatestMeasurement[]
-    ): number {
-        const concentrations: number[] = latestMeasurements
-            .map(measurement => measurement.value);
-        return concentrations.reduce((sum, aqi) => sum + aqi, 0) / concentrations.length;
+    private getCalculationResponsesFromMeasurements(measurements: LatestMeasurement[]): CalculationResponse[] {
+        return measurements.map(measurement => this.calculationService.calculateAPIByLatest(measurement));
     }
 
-    private getUnit(latestMeasurements: LatestMeasurement[]): string {
-        let unit: string;
-        const discrepancy: boolean = latestMeasurements.some(measurement => {
-            if (unit && unit != measurement.unit) return true;
-            else unit = measurement.unit;
-        });
-        if (discrepancy) {
-            const units = latestMeasurements.map(measurement => measurement.unit).toString()
-            throw new Error(`Tried to calculate averages of different units for parameter ${latestMeasurements[0].parameter}, with units ${units}`)
-        } else {
-            return unit;
-        }    
+    private getAverageCalculationResponse(calculationResponses: CalculationResponse[]): CalculationResponse {
+        const avgAQI = calculationResponses.reduce((sum, response) => sum + response.AQI, 0) / calculationResponses.length;
+        const allMessages = calculationResponses.reduce((messages: CalculationMessage[], response) => messages.concat(response.allMessages), []);
+
+        const checkedUnit = calculationResponses[0].unit; // TODO: potentially handle more than one unit, here or in CalculationService
+        const checkedMessage = calculationResponses[0].message;
+        const filteredResponses = calculationResponses.filter(response => response.unit === checkedUnit);
+        const avgConcentration = filteredResponses.reduce((sum, response) => sum + response.concentration, 0) / filteredResponses.length;
+
+        return {
+            AQI: avgAQI,
+
+            unit: checkedUnit,
+            concentration: avgConcentration,
+            message: checkedMessage,
+            allMessages: allMessages
+        }
     }
+
+    // private getConcentrationAvg(
+    //     parameter: Parameter,
+    //     latestMeasurements: LatestMeasurement[]
+    // ): number {
+    //     const concentrations: number[] = latestMeasurements
+    //         .map(measurement => measurement.value);
+    //     return concentrations.reduce((sum, aqi) => sum + aqi, 0) / concentrations.length;
+    // }
+
+    // private getUnit(latestMeasurements: LatestMeasurement[]): string {
+    //     let unit: string;
+    //     const discrepancy: boolean = latestMeasurements.some(measurement => {
+    //         if (unit && unit != measurement.unit) return true;
+    //         else unit = measurement.unit;
+    //     });
+    //     if (discrepancy) {
+    //         const units = latestMeasurements.map(measurement => measurement.unit).toString()
+    //         throw new Error(`Tried to calculate averages of different units for parameter ${latestMeasurements[0].parameter}, with units ${units}`)
+    //     } else {
+    //         return unit;
+    //     }    
+    // }
     
-    private getAQIByParameterAndConcentration(
-        parameter: Parameter,
-        concentration: number 
-    ): number {
-        return 0; //this.calculationService.calculateAQIByParameter(concentration, parameter);
-    }
+    // private getAQIByParameterAndConcentration(
+    //     parameter: Parameter,
+    //     concentration: number 
+    // ): number {
+    //     return 0; //this.calculationService.calculateAQIByParameter(concentration, parameter);
+    // }
 }

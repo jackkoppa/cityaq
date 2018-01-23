@@ -70,11 +70,14 @@ export class CalculationService {
         let currentLevels = args.index.averagingPeriodLevels.find(level => level.averagingPeriod.value === args.averagingPeriod.value).levels;        
         let calculatedAQI: number;
         let foundMatching = Object.keys(currentLevels).some(level => {
-            const min = currentLevels[level][0],
-                max = currentLevels[level][1],
-                aqiMin = AQI_LEVELS[level][0],
-                aqiMax = AQI_LEVELS[level][1];
-            if (min <= truncatedConc && truncatedConc <= max) {
+            const min = currentLevels[level] && currentLevels[level][0],
+                max = currentLevels[level] && currentLevels[level][1],
+                aqiMin = AQI_LEVELS[level] && AQI_LEVELS[level][0],
+                aqiMax = AQI_LEVELS[level] && AQI_LEVELS[level][1];
+            if (typeof min === 'number' && 
+                min <= truncatedConc &&
+                typeof max === 'number' 
+                && truncatedConc <= max) {
                 calculatedAQI = this.linearCalculation(truncatedConc, min, max, aqiMin, aqiMax);
                 return true;
             }
@@ -87,6 +90,9 @@ export class CalculationService {
     private getCalculationResponse(args: CalculationArguments): CalculationResponse {
         return {
             AQI: args.AQI,
+
+            unit: args.unit,
+            concentration: args.concentration,
             message: args.allMessages[0],
             allMessages: args.includeAllMessages ? args.allMessages : undefined
         }
@@ -94,6 +100,7 @@ export class CalculationService {
 
     private validateParameter(args: CalculationArguments): CalculationArguments {
         const index = PARAMETER_INDEX_MAP[args.parameter];
+        // TODO: cases like this should throw, since the rest of the methods will break; e.g. when trying a BC location
         if (index === null) 
             args = CalculationHelper.newMessage(args, MessageSeverity.Low, `No EPA index is available for ${args.parameter}`);
         if (index === undefined)

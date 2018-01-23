@@ -1,4 +1,6 @@
 import { Parameter } from '../core/api/openaq/parameter.model';
+import { CalculationMessage } from '../core/calculation/calculation-response.models';
+
 
 export interface ParameterAverage {
     parameter: Parameter,
@@ -6,5 +8,6 @@ export interface ParameterAverage {
     unit: string,
     AQI: number,
     class: string,
-    dataPoints: number
+    dataPoints: number,
+    message: CalculationMessage
 }
