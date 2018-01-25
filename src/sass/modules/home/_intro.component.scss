@@ -15,7 +15,7 @@ aq-intro {
 
     .text-content {
         height: 100%;
-        margin-bottom: calc(#{$skyline-foreground-height} + 15px);
+        padding-bottom: calc(#{$skyline-foreground-height} + 15px);
         position: relative;
         z-index: 5;
 
