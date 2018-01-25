@@ -15,7 +15,7 @@ before_script:
 script:
   - npm run ci-test
   - npm run ci-coveralls
-  - npm run ci-deploy
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run ci-deploy; fi
 
 notifications:
   email:
