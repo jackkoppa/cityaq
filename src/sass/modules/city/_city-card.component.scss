@@ -1,3 +1,5 @@
+$card-content-row-height: 60px;
+
 mat-card.city-card {
     margin: 10px;    
     padding: 0;
@@ -66,9 +68,9 @@ mat-card.city-card mat-card-content {
     transition: max-height 0.5s ease-out;
 
     &.expanded {
-        &.rows-1 { max-height: 85px; } 
-        &.rows-2 { max-height: 145px; } 
-        &.rows-3 { max-height: 225px; }         
+        @for $i from 1 through 4 {
+            &.rows-#{$i} { max-height: 25px + $card-content-row-height * $i; } 
+        }    
     }
 
     .parameter-averages {

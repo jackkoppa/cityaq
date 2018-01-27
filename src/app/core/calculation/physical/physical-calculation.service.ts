@@ -39,11 +39,10 @@ export class PhysicalCalculationService {
                     newConcentration = this.convertToVolumeRatio(concentration, parameter);
                 break;
             default:
-                args = CalculationHelper.newMessage(args, MessageSeverity.High, `Invalid unit given for measurement: ${givenUnit}`);
+                throw new Error(`Invalid unit given for measurement: ${givenUnit}`);
         }
         if (newConcentration == null) {
-            args = CalculationHelper.newMessage(args, MessageSeverity.High, `Unable to convert ${givenUnit} to index unit of ${indexUnit}`);
-            args.concentration = null;
+            throw new Error(`Unable to convert ${givenUnit} to index unit of ${indexUnit}`);
         } else {
             args.concentration = CalculationHelper.truncateAtDecimal(newConcentration, args.index.decimalPlaces);
             args.unit = indexUnit;

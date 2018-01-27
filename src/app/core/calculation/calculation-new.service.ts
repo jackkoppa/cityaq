@@ -39,8 +39,12 @@ export class CalculationService {
             allMessages: [],
             AQI: null
         }
-        args = this.validateCalculationArguments(args);
-        args = this.executeCalculation(args);
+        try {
+            args = this.validateCalculationArguments(args);
+            args = this.executeCalculation(args);
+        } catch (error) {
+            args.allMessages = [{severity: MessageSeverity.High, text: error}];
+        }
         return this.getCalculationResponse(args);
     }
 
@@ -58,6 +62,12 @@ export class CalculationService {
         args = this.validateUnit(args);
         args = this.validateAveragingPeriod(args);
         return args;
+    }
+
+    private setFailedDefaultArguments(args: CalculationArguments): CalculationArguments {
+        return Object.assign(args, {
+            
+        })
     }
 
     private executeCalculation(args: CalculationArguments): CalculationArguments {
@@ -102,9 +112,9 @@ export class CalculationService {
         const index = PARAMETER_INDEX_MAP[args.parameter];
         // TODO: cases like this should throw, since the rest of the methods will break; e.g. when trying a BC location
         if (index === null) 
-            args = CalculationHelper.newMessage(args, MessageSeverity.Low, `No EPA index is available for ${args.parameter}`);
+            throw new Error(`No EPA index is available for ${args.parameter}`);
         if (index === undefined)
-            args = CalculationHelper.newMessage(args, MessageSeverity.High, `Invalid parameter: ${args.parameter}`);
+            throw new Error(`Invalid parameter: ${args.parameter}`);
         args.index = index;
         return args;
     }
@@ -129,7 +139,7 @@ export class CalculationService {
     }
 
     private setDefaultAveragingPeriod(args: CalculationArguments): CalculationArguments {
-        CalculationHelper.newMessage(args, MessageSeverity.Medium, `No averaging period given; default index period used`);
+        args = CalculationHelper.newMessage(args, MessageSeverity.Medium, `No averaging period given; default index period used`);
         args.averagingPeriod = args.index.averagingPeriodLevels[0].averagingPeriod;
         return args;
     }
@@ -146,10 +156,10 @@ export class CalculationService {
         });
         const closestAveragingPeriod = averagingPeriodsByDifferenceFromTarget[0].averagingPeriod;
         if (closestAveragingPeriod.unit !== args.averagingPeriod.unit) {
-            CalculationHelper.newMessage(args, MessageSeverity.High, `Measurement averaging period unit of` +
+            args = CalculationHelper.newMessage(args, MessageSeverity.High, `Measurement averaging period unit of` +
                 `${args.averagingPeriod.unit} does not match index unit of ${closestAveragingPeriod.unit}`);
         }
-        CalculationHelper.newMessage(args, MessageSeverity.Medium, `Using index averaging period of ` +
+        args = CalculationHelper.newMessage(args, MessageSeverity.Medium, `Using index averaging period of ` +
             `${closestAveragingPeriod.value} ${closestAveragingPeriod.unit} ` +
             `, since given averaging period of ${args.averagingPeriod.value} ${args.averagingPeriod.unit} does not exist in the index`);
         args.averagingPeriod = averagingPeriodsByDifferenceFromTarget[0].averagingPeriod;
