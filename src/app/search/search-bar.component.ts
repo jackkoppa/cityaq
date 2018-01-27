@@ -29,8 +29,8 @@ export class SearchBarComponent implements OnInit {
     @Input() searching: boolean = false;
 
     public searchForm: FormGroup;
+    public filteredCities: Observable<CitiesResponse>;
     private initialSearch: boolean = false;
-    private filteredCities: Observable<CitiesResponse>;
 
     constructor(
         private fb: FormBuilder,
