@@ -3,6 +3,7 @@ $card-content-row-height: 60px;
 mat-card.city-card {
     margin: 10px;    
     padding: 0;
+    transition: margin-left 0.5s ease-out;
 
     .city-map-background {
         background-size: cover;
@@ -29,7 +30,7 @@ mat-card.city-card {
 }
 
 mat-card.city-card mat-card-header {   
-    transition: background-color 0.5s;
+    transition: background-color map-get($transition-speeds, 'fast');
 
     .mat-card-header-text { display: none; }
     
@@ -65,7 +66,7 @@ mat-card.city-card mat-card-header {
 mat-card.city-card mat-card-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out;
+    transition: max-height map-get($transition-speeds, 'fast') ease-out;
 
     &.expanded {
         @for $i from 1 through 4 {

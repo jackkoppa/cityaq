@@ -1,4 +1,9 @@
-<mat-card class="city-card">
+<mat-card class="city-card"
+    (panend)="onPanEnd($event)"
+    (panright)="onPan($event)"
+    (panleft)="onPan($event)"
+    (swiperight)="onSwipe($event)"
+    [style.left.px]="x">
     <div>
         <div class="city-map-background"
             *ngIf="staticMapsURL"

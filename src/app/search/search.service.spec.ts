@@ -1,10 +1,16 @@
 import { SearchService } from './search.service';
 
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
+import { MessagingService } from '../shared/messaging/messaging.service';
+import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
 
 describe('SearchService', () => {
+    let harness: Harness;
     let searchService: SearchService;
-    beforeEach(() => searchService = new SearchService());
+    beforeEach(() => {
+        harness = new Harness();
+        searchService = harness.createService();
+    });
 
     const testCitiesResponses: CitiesResponse[] = [
         [
@@ -253,3 +259,21 @@ describe('SearchService', () => {
 
     });
 });
+
+
+class Harness {
+    messagingService: MessagingService = <MessagingService>{};
+    locationsHandlerService: LocationsHandlerService = <LocationsHandlerService>{};
+
+    constructor() {
+        this.mockCommonMethods();
+    }
+
+    createService(): SearchService {
+        return new SearchService(this.messagingService, this.locationsHandlerService);
+    }
+
+    mockCommonMethods(): void {
+        
+    }
+}

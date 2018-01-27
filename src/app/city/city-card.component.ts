@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
+import * as Hammer from 'hammerjs';
 
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
@@ -22,13 +23,13 @@ import { LatestCityMeasurements } from './latest-city-measurements.model';
 })
 export class CityCardComponent implements OnInit {
     @Input() searchedCity: SearchedCity;
-    latestResponse: LatestResponse;
-    //aqis: ParameterAverage[] = [];
-    parameterAverages: ParameterAverage[] = [];
-    overallAQI: number;
-    overallAQIClass: string;
-    staticMapsURL: any = '';
-    expanded: boolean = false;
+    public latestResponse: LatestResponse;
+    public parameterAverages: ParameterAverage[] = [];
+    public overallAQI: number;
+    public overallAQIClass: string;
+    public staticMapsURL: any = '';
+    public expanded: boolean = false;
+    public x: number = 0;
 
     get contentClass(): string {
         return this.expanded ? 'expanded ' + this.getRowsClass() : 'closed';
@@ -55,6 +56,18 @@ export class CityCardComponent implements OnInit {
 
     public toggleContent(): void {
         this.expanded = !this.expanded;
+    }
+
+    public onPan(event: any): void {
+        this.x = event.deltaX;
+    }
+
+    public onPanEnd(event: any): void {
+        setTimeout(() => this.x = 0, 0);
+    }
+
+    public onSwipe(event: any): void {
+        console.log('this was a swipe!');
     }
 
     private getRowsClass(): string {

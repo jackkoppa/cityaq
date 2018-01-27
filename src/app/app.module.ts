@@ -5,12 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import 'hammerjs';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { CityModule } from './city/city.module';
 import { CoreModule } from './core/core.module';
-import { APP_ROUTES } from './core/routes.constant';
+import { APP_ROUTES } from './core/routing/routes.constant';
 import { HomeModule } from './home/home.module';
 import { SearchModule } from './search/search.module';
 

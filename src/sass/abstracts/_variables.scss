@@ -50,6 +50,16 @@ $z-index-levels: (
     'popup-3': 90
 ) !default;
 
+//// animation speeds
+/// @prop {String} keys - Keys are animation speed names
+/// @prop {Map} values - Values are the time of an animation in seconds
+$transition-speeds: (
+    'slow': 2.0s,
+    'medium': 1.0s,
+    'fast': 0.5s,
+    'very-fast': 0.25s
+) !default;
+
 //// breakpoints
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels
