@@ -1,21 +1,5 @@
-<form [formGroup]="searchForm">
-    <mat-form-field class="cities-input">
-        <input 
-            matInput
-            placeholder="City"
-            aria-label="City"
-            formControlName="searchInput"
-            [matAutocomplete]="auto"
-            (focus)="setSearchStarted()"
-            (keyup.enter)="attemptSearch()"
-            aq-uppercase>   
-        <mat-progress-bar *ngIf="searching" 
-            color="accent"
-            mode="indeterminate"></mat-progress-bar>     
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="attemptSearch()">
-            <mat-option *ngFor="let city of filteredCities | async" [value]="city.city">
-                <span>{{city.city | uppercase}}</span>
-            </mat-option>
-        </mat-autocomplete>        
-    </mat-form-field>    
-</form>
+<aq-search-bar 
+    [allCities]="allCities"
+    [searching]="searching"></aq-search-bar>
+<aq-city-cards-list 
+    [searchedCities]="searchedCities"></aq-city-cards-list>

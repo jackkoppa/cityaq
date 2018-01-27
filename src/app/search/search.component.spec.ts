@@ -1,4 +1,4 @@
-import { SearchComponent  } from './search.component';
+import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
 

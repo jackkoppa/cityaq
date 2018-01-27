@@ -1,8 +1,8 @@
-import { Routes } from "@angular/router";
-import { CompareComponent } from "../compare/compare.component";
+import { Routes } from '@angular/router';
+import { SearchComponent } from '../search/search.component';
 
 export const APP_ROUTES: Routes = [
-    { path: 'compare', component: CompareComponent },
-    { path: '',   redirectTo: '/compare', pathMatch: 'full' },
-    { path: '**',   redirectTo: '/compare' }
+    { path: 'search', component: SearchComponent },
+    { path: '',   redirectTo: '/search', pathMatch: 'full' },
+    { path: '**',   redirectTo: '/search' }
 ]

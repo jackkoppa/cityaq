@@ -1,5 +1,1 @@
-@each $level, $height in $z-index-levels {
-    .z-#{$level} {
-        z-index: $height;
-    }
-}
+// styles for full app layout
