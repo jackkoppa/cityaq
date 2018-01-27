@@ -3,6 +3,6 @@
     <div *ngIf="!searchStarted"
         [@slideOut]>
         <aq-intro></aq-intro>
-    </div>    
-    <aq-compare (searchStarted)="setSearchStarted($event)"></aq-compare>
+    </div> 
+    <router-outlet></router-outlet>
 </div>

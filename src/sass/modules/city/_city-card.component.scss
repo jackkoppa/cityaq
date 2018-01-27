@@ -12,13 +12,13 @@ mat-card.city-card {
         position: absolute;
         top: 0;
         width: 100%;
-        z-index: 1;
+        z-index: map-get($z-index-levels, 'background');
     }
 
     mat-card-header,
     mat-card-content {
         position: relative;
-        z-index: 10;
+        z-index: map-get($z-index-levels, 'midground-1');
         margin: 0;
     }
 

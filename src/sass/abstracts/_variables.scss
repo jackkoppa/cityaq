@@ -33,6 +33,23 @@ $white: rgb(255, 255, 255) !default;
 $max-width: 1180px !default;
 
 
+//// z-index levels
+/// @prop {String} keys - Keys are z-index levels mapped to a given value
+/// @prop {Map} values - Values are numeric z-index heights
+$z-index-levels: (
+    'background': 0,
+    'base': 1,
+    'midground-1': 10,
+    'midground-2': 20,
+    'midground-3': 30,
+    'foreground-1': 40,
+    'foreground-2': 50,
+    'foreground-3': 60,
+    'popup-1': 70,
+    'popup-2': 80,
+    'popup-3': 90
+) !default;
+
 //// breakpoints
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels

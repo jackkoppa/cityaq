@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { SlideOutAnimation } from '../shared/animations/slide-out-animation.constant';
 
@@ -9,10 +10,10 @@ import { SlideOutAnimation } from '../shared/animations/slide-out-animation.cons
 })
 export class HomeComponent {
     searchStarted: boolean = false;
-
-    constructor() { };
-
-    public setSearchStarted(started: boolean): void {
-        this.searchStarted = started;
-    }
+    
+    constructor(
+        private router: ActivatedRoute
+    ) { 
+       
+    };
 }

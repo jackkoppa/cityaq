@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { CitiesHandlerService } from '../core/handlers/cities-handler.service';
@@ -11,7 +11,6 @@ import { CompareService } from './compare.service';
     templateUrl: './compare.component.html'
 })
 export class CompareComponent implements OnInit {
-    @Output() searchStarted: EventEmitter<boolean> = new EventEmitter<boolean>();
     allCities: CitiesResponse = [];
     searchedCities: SearchedCity[] = [];
 
@@ -31,9 +30,5 @@ export class CompareComponent implements OnInit {
 
     public addSearchedCity(searchedCity: SearchedCity): void {
         this.searchedCities.unshift(searchedCity);
-    }
-
-    public setSearchStarted(started: boolean): void {
-        this.searchStarted.emit(started);
     }
 }

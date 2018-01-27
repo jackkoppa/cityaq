@@ -17,7 +17,7 @@ aq-intro {
         height: 100%;
         padding-bottom: calc(#{$skyline-foreground-height} + 15px);
         position: relative;
-        z-index: 5;
+        z-index: map-get($z-index-levels, 'midground-1');
 
         h1 { 
             margin-top: 0; 
@@ -38,15 +38,15 @@ aq-intro {
 
         &.skyline-foreground {
             background-image: url('../assets/icons/skyline-foreground.svg');
-            z-index: 10;
+            z-index: map-get($z-index-levels, 'midground-2');
         }
         &.skyline-midground {
             background-image: url('../assets/icons/skyline-midground.svg');
-            z-index: 2;
+            z-index: map-get($z-index-levels, 'base');
         }
         &.skyline-background {
             background-image: url('../assets/icons/skyline-background.svg');
-            z-index: 1;
+            z-index: map-get($z-index-levels, 'background');
         }
     }
 }
