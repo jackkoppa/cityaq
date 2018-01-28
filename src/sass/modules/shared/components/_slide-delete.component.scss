@@ -1,9 +1,17 @@
 $delete-button-width: 75px !default;
 
-.slide-delete-wrapper {
-    background-color: $dark-grey;
+.slide-delete-wrapper {    
     display: block;
     position: relative;
+
+    .slide-delete-background {
+        background-color: $dark-grey;
+        position: absolute;
+        height: 100%;
+        width: calc(100% - #{map-get($gutters, 'md') * 2});
+        left: map-get($gutters, 'md');
+        z-index: map-get($z-index-levels, 'background');
+    }
 
     .delete-button {
         align-items: center;
