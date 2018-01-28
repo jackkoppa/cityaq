@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import 'hammerjs';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';

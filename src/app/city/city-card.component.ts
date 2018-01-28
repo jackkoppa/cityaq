@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
-import * as Hammer from 'hammerjs';
 
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';

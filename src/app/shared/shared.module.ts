@@ -5,6 +5,7 @@ import { DirectivesModule } from './directives/directives.module';
 import { MaterialModule } from './material/material.module';
 import { MessagingModule } from './messaging/messaging.module';
 import { PipesModule } from './pipes/pipes.module';
+import { GesturesModule } from './gestures/gestures.module';
 
 @NgModule({
     imports: [
@@ -12,14 +13,16 @@ import { PipesModule } from './pipes/pipes.module';
         DirectivesModule,
         MaterialModule,
         MessagingModule,
-        PipesModule
+        PipesModule,
+        GesturesModule
     ],
     exports: [
         BrowserAnimationsModule,
         DirectivesModule,
         MaterialModule,
         MessagingModule,
-        PipesModule
+        PipesModule,
+        GesturesModule
     ]
 })
 export class SharedModule {}
