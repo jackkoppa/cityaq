@@ -1,28 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ComponentsModule } from './components/components.module';
 import { DirectivesModule } from './directives/directives.module';
+import { GesturesModule } from './gestures/gestures.module';
 import { MaterialModule } from './material/material.module';
 import { MessagingModule } from './messaging/messaging.module';
 import { PipesModule } from './pipes/pipes.module';
-import { GesturesModule } from './gestures/gestures.module';
 
 @NgModule({
     imports: [
         BrowserAnimationsModule,
+        ComponentsModule,
         DirectivesModule,
+        GesturesModule,
         MaterialModule,
         MessagingModule,
-        PipesModule,
-        GesturesModule
+        PipesModule
     ],
     exports: [
         BrowserAnimationsModule,
+        ComponentsModule,
         DirectivesModule,
+        GesturesModule,
         MaterialModule,
         MessagingModule,
-        PipesModule,
-        GesturesModule
+        PipesModule
     ]
 })
 export class SharedModule {}

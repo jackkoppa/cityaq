@@ -1,0 +1,15 @@
+<div class="slide-delete-wrapper">
+    <div class="delete-button left">
+        <mat-icon>delete</mat-icon>
+    </div>
+    <div class="slidable"
+        (panright)="onPan($event)"
+        (panleft)="onPan($event)"
+        (panend)="onPanEnd($event)"
+        [style.left.px]="x">
+        <ng-content></ng-content>
+    </div>
+    <div class="delete-button right">
+        <mat-icon>delete</mat-icon>
+    </div>
+</div>

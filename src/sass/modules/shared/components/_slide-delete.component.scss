@@ -1,0 +1,35 @@
+$delete-button-width: 75px !default;
+
+.slide-delete-wrapper {
+    background-color: $dark-grey;
+    display: block;
+    position: relative;
+
+    .delete-button {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        width: $delete-button-width;
+        z-index: map-get($z-index-levels, 'background');
+
+           
+        $directions: 'left' 'right';
+        @each $direction in $directions {
+            &.#{$direction} { 
+                #{$direction}: map-get($gutters, 'md');
+            }
+        }
+
+        mat-icon {
+            color: $white;
+        }
+    }
+    
+    .slidable {
+        position: relative;
+        z-index: map-get($z-index-levels, 'foreground-1');
+    }
+}

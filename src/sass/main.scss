@@ -44,7 +44,9 @@
     'modules/home/banner.component',
     'modules/home/intro.component',
     'modules/home/home.component',    
-    'modules/search/search.component';
+    'modules/search/search.component',
+    'modules/shared/components/slide-delete.component',
+    'modules/shared/messaging/messaging.service';
 
 // 8. Shame (should eventually be empty)
 @import

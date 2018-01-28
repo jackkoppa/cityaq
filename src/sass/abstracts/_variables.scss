@@ -33,6 +33,18 @@ $white: rgb(255, 255, 255) !default;
 $max-width: 1180px !default;
 
 
+//// gutters
+/// @prop {String} keys - Keys are names for gutter sizes
+/// @prop {Map} values - Values are gutter sizes in px
+$gutters: (
+    'xs': 5px,
+    'sm': 10px,
+    'md': 15px,
+    'lg': 20px,
+    'xl': 25px
+) !default;
+
+
 //// z-index levels
 /// @prop {String} keys - Keys are z-index levels mapped to a given value
 /// @prop {Map} values - Values are numeric z-index heights
