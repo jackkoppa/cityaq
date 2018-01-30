@@ -6,8 +6,6 @@ import {
 
 import 'hammerjs';
 
-import { SwipeDeleteDirective } from './swipe-delete.directive';
-
 declare var Hammer: any;
   
 export class MyHammerConfig extends HammerGestureConfig  {
@@ -20,8 +18,6 @@ export class MyHammerConfig extends HammerGestureConfig  {
 }
 
 @NgModule({
-    exports: [SwipeDeleteDirective],
-    declarations: [SwipeDeleteDirective],
     providers: [{
         // hammer instantion with custom config
         provide: HAMMER_GESTURE_CONFIG,

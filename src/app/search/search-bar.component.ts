@@ -19,6 +19,7 @@ import { SearchService } from './search.service';
 import { SearchedCity } from './searched-city.model';
 import { QueryParams } from '../core/routing/params.models';
 import { ParamsHelper } from '../core/routing/params.helper';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: 'aq-search-bar',
@@ -26,7 +27,8 @@ import { ParamsHelper } from '../core/routing/params.helper';
 })
 export class SearchBarComponent implements OnInit {
     @Input() allCities: CitiesResponse = [];
-    @Input() searching: boolean = false;
+    @Input() searchingTrigger: Subject<boolean>;
+    public searching: boolean = false;
 
     public searchForm: FormGroup;
     public filteredCities: Observable<CitiesResponse>;
@@ -39,11 +41,17 @@ export class SearchBarComponent implements OnInit {
         private searchService: SearchService,
         private locationsHandlerService: LocationsHandlerService,
         private messagingService: MessagingService
-    ) { };
+    ) { 
+        
+    };
 
     public ngOnInit(): void {
         this.newForm();
-        this.filterCitiesOnInputChange();
+        this.filterCitiesOnInputChange()
+        this.searchingTrigger.subscribe(searchingInParent => {
+            if (this.searching && !searchingInParent) this.clearSearchInput();
+            this.searching = searchingInParent;
+        });
     }
 
     public attemptSearch(): void {

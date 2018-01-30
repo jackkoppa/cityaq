@@ -12,6 +12,7 @@ import { ParamsHelper } from '../core/routing/params.helper';
 import { SearchedCity } from '../search/searched-city.model';
 
 import { SearchService } from './search.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: 'aq-search',
@@ -20,7 +21,7 @@ import { SearchService } from './search.service';
 export class SearchComponent implements OnInit {
     public allCities: CitiesResponse = [];
     public searchedCities: SearchedCity[] = [];
-    public searching: boolean = false;
+    public searchingTrigger: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         private route: ActivatedRoute,
@@ -55,15 +56,15 @@ export class SearchComponent implements OnInit {
     }
 
     private addNewCities(objectParams: ObjectParams, updatedSearchedCities: SearchedCity[]): Observable<SearchedCity[]> {
-        objectParams.cityNames && objectParams.cityNames
+        const newCityNames = objectParams.cityNames && objectParams.cityNames
             .filter(cityName => !updatedSearchedCities.find(searchedCity => searchedCity.city === cityName))
-        if (!objectParams.cityNames || objectParams.cityNames.length <= 0) {
+        if (!newCityNames || newCityNames.length <= 0) {
             return Observable.of(updatedSearchedCities);
         } else {
-            this.searching = true;
+            this.searchingTrigger.next(true)
             return Observable.forkJoin(objectParams.cityNames
                     .map(cityName => this.searchService.search(cityName, this.allCities))
-                ).do(searchedCities => this.searching = false);                
+                ).do(searchedCities => this.searchingTrigger.next(false));                
         }
     }
 }
