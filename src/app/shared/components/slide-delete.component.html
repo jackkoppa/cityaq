@@ -10,7 +10,8 @@
         (panright)="onPan($event)"
         (panleft)="onPan($event)"
         (panend)="onPanEnd($event)"        
-        [style.left.px]="x">
+        [style.left.px]="x"
+        [ngClass]="transitionClass">
         <ng-content></ng-content>
     </div>
 </div>
