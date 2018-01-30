@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 const TRANSITION_TRANSFORM: string = 'transition-transform';
-const TRANSITION_BG: string = 'transition-background-position';
 
 const FOREGROUND_RATIO: number = 1.25;
 const MIDGROUND_RATIO: number = 0.75;
@@ -13,25 +12,25 @@ const BACKGROUND_RATIO: number = 0.25;
 })
 export class OnboardingComponent {
     public carouselTransition: string = TRANSITION_TRANSFORM;
-    public skylineTransition: string = TRANSITION_BG;
+    public skylineTransition: string = TRANSITION_TRANSFORM;
     public x: number = 0;
     
     private carouselStartX: number = 0;
 
     public get carouselX(): string {
-        return `translateX(${this.x}px)`
+        return this.pxToTranslateX(this.x)
     };
 
-    public get skylineForegroundX(): number {
-        return this.x * FOREGROUND_RATIO;
+    public get skylineForegroundX(): string {
+        return this.pxToTranslateX(this.x * FOREGROUND_RATIO);
     }
 
-    public get skylineMidgroundX(): number {
-        return this.x * MIDGROUND_RATIO;
+    public get skylineMidgroundX(): string {
+        return this.pxToTranslateX(this.x * MIDGROUND_RATIO);
     }
 
-    public get skylineBackgroundX(): number {
-        return this.x * BACKGROUND_RATIO;
+    public get skylineBackgroundX(): string {
+        return this.pxToTranslateX(this.x * BACKGROUND_RATIO);
     }
 
     constructor() { }
@@ -49,9 +48,12 @@ export class OnboardingComponent {
 
     public onPanEnd(event: any): void {
         event.preventDefault();
-        this.carouselTransition = TRANSITION_TRANSFORM;
-        this.skylineTransition = TRANSITION_BG;
+        this.carouselTransition = this.skylineTransition = TRANSITION_TRANSFORM;
         this.calculateEndX();
+    }
+
+    private pxToTranslateX(pixels: number): string {
+        return `translateX(${pixels}px)`
     }
 
     private calculateEndX(): void {

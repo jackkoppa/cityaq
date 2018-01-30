@@ -7,6 +7,10 @@ $skyline-foreground-height: $skyline-height * 0.6;
 /// @type Number
 $carousel-slides: 2;
 
+// to make sure that all skyline divs are wide enough to transform at parallax rates
+/// @type Number
+$max-parallax-ratio: 1.25;
+
 
 .onboarding {
     bottom: 0;
@@ -21,7 +25,7 @@ $carousel-slides: 2;
         z-index: map-get($z-index-levels, 'midground-1');
 
         mat-card.onboarding-slide {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.7);
             flex: 1 1;
             float: left;
             margin: map-get($gutters, 'xl');
@@ -55,9 +59,10 @@ $carousel-slides: 2;
         background-position: center bottom;
         bottom: 0;
         height: 100%;
-        left: 0;
+        left: -100vw;
         position: absolute;
-        width: 100%;
+        // add 2 extra widths for excess scrolling on either end
+        width: calc(100vw * #{$carousel-slides + 2} * #{$max-parallax-ratio});
     
         &.skyline-foreground {
             background-image: url('../assets/icons/skyline-foreground.svg');
