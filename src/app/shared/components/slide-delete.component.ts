@@ -1,5 +1,6 @@
 import { 
     Component,
+    Input,
     Output,
     EventEmitter,
     HostListener,
@@ -16,7 +17,11 @@ const DELAY_CORRECTION_PX: number = 20;
     templateUrl: './slide-delete.component.html'
 })
 export class SlideDeleteComponent {
+    @Input() deleteCmd: string;
+    @Output() deleteTriggered: EventEmitter<string> = new EventEmitter<string>();
+    public buttonPositions: string[] = ['left','right'];
     public x: number = 0;
+
     private startX: number = 0;
 
     constructor(
@@ -44,6 +49,10 @@ export class SlideDeleteComponent {
         else
             this.x = 0;
         this.setX();
+    }
+
+    public triggerDelete(): void {
+        this.deleteTriggered.emit(this.deleteCmd);
     }
 
     private aboveThreshold(velocityX: number): boolean {

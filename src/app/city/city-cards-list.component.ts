@@ -22,4 +22,8 @@ export class CityCardsListComponent implements OnInit {
     ngOnInit(): void {
         
     }
+
+    public deleteCity(cityName: string): void {
+        console.log(`deleting ${cityName}`);
+    }
 }
