@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/jackkoppa/cityaq.svg?branch=master)](https://travis-ci.org/jackkoppa/cityaq)
 [![Coverage Status](https://coveralls.io/repos/github/jackkoppa/cityaq/badge.svg?branch=master)](https://coveralls.io/github/jackkoppa/cityaq?branch=master)
 ## Background
-Angular PWA to compare simple air quality data for different cities, using data from the [OpenAQ](https://openaq.org/) API. A quick, mobile-first reference for current air quality information around the world, with native-like ease of use & offline availability. 
+Angular PWA to compare simple air quality data for different cities, using the [OpenAQ](https://openaq.org/) API. A quick, mobile-first reference for current air quality information around the world, with native-like ease of use & offline availability. 
 * Strongly typed OpenAQ API implementation using TypeScript
 * Service Workers for moderate offline usage & adherence to [PWA guidelines](https://developers.google.com/web/progressive-web-apps/) (users prompted to install web app on Android browsers)
 * Angular Material for UI components
