@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { OnboardingComponent } from './onboarding.component';
 import { OnboardingSlideOneComponent } from './onboarding-slide-one.component';
 import { OnboardingSlideTwoComponent } from './onboarding-slide-two.component';
+import { OnboardingSlideThreeComponent } from './onboarding-slide-three.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { OnboardingSlideTwoComponent } from './onboarding-slide-two.component';
     declarations: [
         OnboardingComponent,
         OnboardingSlideOneComponent,
-        OnboardingSlideTwoComponent
+        OnboardingSlideTwoComponent,
+        OnboardingSlideThreeComponent
     ],
     exports: [OnboardingComponent]
 })

@@ -5,7 +5,7 @@ $skyline-height: 160px;
 $skyline-foreground-height: $skyline-height * 0.6;
 
 /// @type Number
-$carousel-slides: 2;
+$carousel-slides: 3;
 
 // to make sure that all skyline divs are wide enough to transform at parallax rates
 /// @type Number
@@ -58,7 +58,7 @@ $max-parallax-ratio: 1.25;
         background-repeat: repeat-x;
         background-position: center bottom;
         bottom: 0;
-        height: 100%;
+        height: 50%;
         left: -100vw;
         position: absolute;
         // add 2 extra widths for excess scrolling on either end

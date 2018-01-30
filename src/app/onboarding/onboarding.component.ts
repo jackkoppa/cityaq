@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
+const SLIDE_COUNT: number = 3;
 const TRANSITION_TRANSFORM: string = 'transition-transform';
-const SLIDE_COUNT: number = 2;
 const FOREGROUND_RATIO: number = 1.25;
 const MIDGROUND_RATIO: number = 0.75;
 const BACKGROUND_RATIO: number = 0.25;
