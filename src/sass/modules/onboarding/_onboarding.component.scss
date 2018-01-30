@@ -22,6 +22,7 @@ $max-parallax-ratio: 1.25;
         display: flex;   
         position: relative;
         width: calc(100vw * #{$carousel-slides});
+        will-change: transform;
         z-index: map-get($z-index-levels, 'midground-1');
 
         mat-card.onboarding-slide {
@@ -63,6 +64,7 @@ $max-parallax-ratio: 1.25;
         position: absolute;
         // add 2 extra widths for excess scrolling on either end
         width: calc(100vw * #{$carousel-slides + 2} * #{$max-parallax-ratio});
+        will-change: transform;
     
         &.skyline-foreground {
             background-image: url('../assets/icons/skyline-foreground.svg');
