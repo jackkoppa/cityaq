@@ -1,8 +1,5 @@
 <aq-banner></aq-banner>
 <div class="wrapper">
-    <div *ngIf="!searchStarted"
-        [@slideOut]>
-        <aq-intro></aq-intro>
-    </div> 
     <router-outlet></router-outlet>
+    <aq-onboarding *ngIf="!userOnboarded"></aq-onboarding>
 </div>

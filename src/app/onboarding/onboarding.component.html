@@ -1,0 +1,21 @@
+<div class="onboarding"
+    (panstart)="onPanStart($event)"
+    (panright)="onPan($event)"
+    (panleft)="onPan($event)"
+    (panend)="onPanEnd($event)">
+    <div class="onboarding-carousel" 
+        [ngClass]="carouselTransition"
+        [style.transform]="carouselX">
+        <aq-onboarding-slide-one></aq-onboarding-slide-one>
+        <aq-onboarding-slide-two></aq-onboarding-slide-two>
+    </div>
+    <div class="skyline skyline-foreground" 
+        [ngClass]="skylineTransition"
+        [style.backgroundPositionX.px]="skylineForegroundX"></div>
+    <div class="skyline skyline-midground" 
+        [ngClass]="skylineTransition"
+        [style.backgroundPositionX.px]="skylineMidgroundX"></div>
+    <div class="skyline skyline-background"
+        [ngClass]="skylineTransition"
+        [style.backgroundPositionX.px]="skylineBackgroundX"></div>
+</div>

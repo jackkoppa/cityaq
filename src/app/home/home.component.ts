@@ -9,7 +9,7 @@ import { SlideOutAnimation } from '../shared/animations/slide-out-animation.cons
     animations: [SlideOutAnimation]
 })
 export class HomeComponent {
-    searchStarted: boolean = false;
+    userOnboarded: boolean = false;
     
     constructor(
         private router: ActivatedRoute

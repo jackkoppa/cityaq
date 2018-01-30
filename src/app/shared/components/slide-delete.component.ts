@@ -11,7 +11,7 @@ import {
 const VELOCITY_THRESHOLD: number = 0.25;
 const DELETE_BUTTON_WIDTH: number = 75;
 const DELAY_CORRECTION_PX: number = 20;
-const TRANSITION_CLASS: string = 'transition-left';
+const TRANSITION_LEFT: string = 'transition-left';
 
 @Component({
     selector: 'aq-slide-delete',
@@ -21,7 +21,7 @@ export class SlideDeleteComponent {
     @Input() deleteCmd: string;
     @Output() deleteTriggered: EventEmitter<string> = new EventEmitter<string>();
     public buttonPositions: string[] = ['left','right'];
-    public transitionClass: string = TRANSITION_CLASS;
+    public transitionClass: string = TRANSITION_LEFT;
     public x: number = 0;
 
     private startX: number = 0;
@@ -47,7 +47,7 @@ export class SlideDeleteComponent {
 
     public onPanEnd(event: any): void {
         event.preventDefault();
-        this.transitionClass = TRANSITION_CLASS;
+        this.transitionClass = TRANSITION_LEFT;
         if (this.newMovementExceedingButtonWidth())
             this.x = this.x >= 0 ? DELETE_BUTTON_WIDTH : DELETE_BUTTON_WIDTH * -1;
         else

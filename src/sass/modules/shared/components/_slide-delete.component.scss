@@ -44,7 +44,3 @@ $delete-button-width: 75px !default;
         z-index: map-get($z-index-levels, 'foreground-1');
     }
 }
-
-.transition-left {
-    transition: left map-get($transition-speeds, 'very-fast');
-}

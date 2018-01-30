@@ -1,9 +1,9 @@
 $card-content-row-height: 60px;
 
 mat-card.city-card {
-    margin: 10px;    
+    margin: map-get($gutters, 'sm');    
     padding: 0;
-    transition: margin-left 0.5s ease-out;
+    transition: margin-left map-get($transition-speeds, 'fast') ease-out;
 
     .city-map-background {
         background-size: cover;

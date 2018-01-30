@@ -1,0 +1,75 @@
+/// @type Length
+$skyline-height: 160px;
+
+/// @type Length
+$skyline-foreground-height: $skyline-height * 0.6;
+
+/// @type Number
+$carousel-slides: 2;
+
+
+.onboarding {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+
+    .onboarding-carousel {    
+        align-items: stretch;
+        display: flex;   
+        position: relative;
+        width: calc(100vw * #{$carousel-slides});
+        z-index: map-get($z-index-levels, 'midground-1');
+
+        mat-card.onboarding-slide {
+            background-color: rgba(255, 255, 255, 0.8);
+            flex: 1 1;
+            float: left;
+            margin: map-get($gutters, 'xl');
+            padding: map-get($gutters, 'md');
+            position: relative;
+            width: calc(100vw - (#{map-get($gutters, 'xl') * 2}));
+        }
+        
+        .text-content {
+            height: 100%;
+            padding-bottom: #{$skyline-foreground-height - (map-get($gutters, 'xl'))};
+            position: relative;
+            z-index: map-get($z-index-levels, 'midground-1');
+        
+            h2 { 
+                font-weight: 400;
+                margin: 0;
+                text-transform: uppercase;
+            }
+            h3 { 
+                font-weight: 400;
+                margin-bottom: 0; 
+                text-transform: lowercase;
+            }
+        }
+    }  
+    
+    .skyline {
+        background-size: auto $skyline-height;
+        background-repeat: repeat-x;
+        background-position: center bottom;
+        bottom: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        width: 100%;
+    
+        &.skyline-foreground {
+            background-image: url('../assets/icons/skyline-foreground.svg');
+            z-index: map-get($z-index-levels, 'midground-2');
+        }
+        &.skyline-midground {
+            background-image: url('../assets/icons/skyline-midground.svg');
+            z-index: map-get($z-index-levels, 'base');
+        }
+        &.skyline-background {
+            background-image: url('../assets/icons/skyline-background.svg');
+            z-index: map-get($z-index-levels, 'background');
+        }
+    }
+}

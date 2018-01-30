@@ -12,6 +12,7 @@ import { CityModule } from './city/city.module';
 import { CoreModule } from './core/core.module';
 import { APP_ROUTES } from './core/routing/routes.constant';
 import { HomeModule } from './home/home.module';
+import { OnboardingModule } from './onboarding/onboarding.module';
 import { SearchModule } from './search/search.module';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { SearchModule } from './search/search.module';
         CityModule,
         CoreModule,
         HomeModule,
+        OnboardingModule,
         SearchModule
     ],
     providers: [],

@@ -1,0 +1,11 @@
+.transition-left {
+    transition: left map-get($transition-speeds, 'very-fast');
+}
+
+.transition-transform {
+    transition: transform map-get($transition-speeds, 'fast');
+}
+
+.transition-background-position {
+    transition: background-position map-get($transition-speeds, 'fast');
+}
