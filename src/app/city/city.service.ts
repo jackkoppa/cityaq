@@ -66,7 +66,6 @@ export class CityService {
             longitude: 0
         };
         searchedCity.locationsResponse.some(location => {
-            console.log(location);
             if (this.hasLatLong(location.coordinates)) {
                 latLong.latitude = location.coordinates.latitude;
                 latLong.longitude = location.coordinates.longitude;

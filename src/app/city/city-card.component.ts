@@ -46,7 +46,6 @@ export class CityCardComponent implements OnInit {
     
     
     ngOnInit() {
-        console.log('searchedCity:', this.searchedCity);
         this.getLatestCityMeasurements()
             .subscribe(latest => this.setAveragesAndClasses(latest));
         this.cityService.getStaticMapsImageFileURL(this.searchedCity)
@@ -63,10 +62,6 @@ export class CityCardComponent implements OnInit {
 
     public onPanEnd(event: any): void {
         setTimeout(() => this.x = 0, 0);
-    }
-
-    public onSwipe(event: any): void {
-        console.log('this was a swipe!');
     }
 
     private getRowsClass(): string {

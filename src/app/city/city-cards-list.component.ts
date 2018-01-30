@@ -30,7 +30,6 @@ export class CityCardsListComponent implements OnInit {
     }
 
     public deleteCity(cityName: string): void {
-        console.log(`deleting ${cityName}`);
         this.removeCityFromParams(cityName);
     }
 

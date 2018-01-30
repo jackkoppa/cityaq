@@ -25,7 +25,6 @@ export class SwipeDeleteDirective {
     @HostListener('panleft', ['$event'])
     private onPan(event: any): void {
         event.preventDefault();
-        console.log(event.deltaX, event.velocityX, event.angle, event.direction)
         if (Math.abs(event.velocityX) >= VELOCITY_THRESHOLD) {
             this.x = this.calculateNewX(event.deltaX);
             this.setX();
