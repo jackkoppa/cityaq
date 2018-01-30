@@ -5,7 +5,8 @@
     (panend)="onPanEnd($event)">
     <div class="onboarding-carousel" 
         [ngClass]="carouselTransition"
-        [style.transform]="carouselX">
+        [style.transform]="carouselX"
+        #carousel>
         <aq-onboarding-slide-one></aq-onboarding-slide-one>
         <aq-onboarding-slide-two></aq-onboarding-slide-two>
     </div>
