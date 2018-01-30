@@ -11,13 +11,41 @@ import { LocationsResponse } from '../core/api/openaq/locations/locations-respon
 import { MessagingService } from '../shared/messaging/messaging.service';
 
 import { SearchedCity } from './searched-city.model';
+import { Subject } from 'rxjs/Subject';
+import { QueryParams, ObjectParams } from '../core/routing/params.models';
+import { ParamsHelper } from '../core/routing/params.helper';
+import { SearchingStatus } from './searching-status.model';
 
 @Injectable()
 export class SearchService {
+    
+    private triggerSearchingStatus: Subject<SearchingStatus> = new Subject<SearchingStatus>();
+    
+    public get searchingStatus(): Observable<SearchingStatus> {
+        return this.triggerSearchingStatus;
+    };
+
     constructor(
         private messagingService: MessagingService,
         private locationsHandlerService: LocationsHandlerService
     ) { }
+
+    public setStatusFocused(): void {
+        this.triggerSearchingStatus.next(SearchingStatus.Focused);
+    }
+
+    public setStatusBlurred(): void {
+        this.triggerSearchingStatus.next(SearchingStatus.Blurred);
+    }
+
+    public setStatusStarted(): void {
+        this.triggerSearchingStatus.next(SearchingStatus.Started);
+    }
+
+    public setStatusFinished(): void {
+        this.triggerSearchingStatus.next(SearchingStatus.Finished);
+    }
+
 
     public search(cityName: string, allCities: SearchedCity[]): Observable<SearchedCity> {
         const city = allCities.find(city => city.city === cityName);
@@ -57,6 +85,16 @@ export class SearchService {
             allCities.slice(0, 5); 
     }
 
+    public updateCities(
+        queryParams: QueryParams,
+        searchedCities: SearchedCity[],
+        allCities: SearchedCity[]
+     ): Observable<SearchedCity[]> {
+        const objectParams = ParamsHelper.queryToObject(queryParams);
+        let updatedSearchedCities = this.removeOldCities(objectParams, searchedCities) || [];
+        return this.addNewCities(objectParams, updatedSearchedCities, allCities);
+    }
+
     private filterCitiesWhenNameExists(
         cityName: string,
         allCities: CitiesResponse
@@ -64,5 +102,30 @@ export class SearchService {
         const filteredCities: CitiesResponse = allCities.filter(city =>
             city.city.toLowerCase().indexOf(cityName.toLowerCase()) === 0);
         return filteredCities.slice(0, 5);
+    }
+
+    private removeOldCities(
+        objectParams: ObjectParams,
+        searchedCities: SearchedCity[]
+    ): SearchedCity[] {
+        return searchedCities
+            .filter(searchedCity => objectParams.cityNames && objectParams.cityNames.find(cityName => cityName === searchedCity.city));
+    }
+
+    private addNewCities(
+        objectParams: ObjectParams,
+        updatedSearchedCities: SearchedCity[],
+        allCities: SearchedCity[]
+    ): Observable<SearchedCity[]> {
+        const newCityNames = objectParams.cityNames && objectParams.cityNames
+            .filter(cityName => !updatedSearchedCities.find(searchedCity => searchedCity.city === cityName))
+        if (!newCityNames || newCityNames.length <= 0) {
+            return Observable.of(updatedSearchedCities);
+        } else {
+            this.setStatusStarted()
+            return Observable.forkJoin(objectParams.cityNames
+                    .map(cityName => this.search(cityName, allCities))
+                ).do(searchedCities => this.setStatusFinished());                
+        }
     }
 }

@@ -21,7 +21,6 @@ import { Subject } from 'rxjs/Subject';
 export class SearchComponent implements OnInit {
     public allCities: CitiesResponse = [];
     public searchedCities: SearchedCity[] = [];
-    public searchingTrigger: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         private route: ActivatedRoute,
@@ -33,7 +32,8 @@ export class SearchComponent implements OnInit {
         this.loadCities()
             .then(() => {
                 this.route.queryParams
-                    .subscribe(queryParams => this.updateCities(<QueryParams>queryParams)
+                    .subscribe(queryParams => this.searchService
+                        .updateCities(<QueryParams>queryParams, this.searchedCities, this.allCities)
                         .subscribe(searchedCities => this.searchedCities = searchedCities));
             });
     }
@@ -42,29 +42,5 @@ export class SearchComponent implements OnInit {
         return this.citiesHandlerService.getAllCities()
             .toPromise()
             .then(cities => this.allCities = cities.sort(this.searchService.sortCities));            
-    }
-
-    private updateCities(queryParams: QueryParams): Observable<SearchedCity[]> {
-        const objectParams = ParamsHelper.queryToObject(queryParams);
-        let updatedSearchedCities = this.removeOldCities(objectParams) || [];
-        return this.addNewCities(objectParams, updatedSearchedCities);
-    }
-
-    private removeOldCities(objectParams: ObjectParams): SearchedCity[] {
-        return this.searchedCities
-            .filter(searchedCity => objectParams.cityNames && objectParams.cityNames.find(cityName => cityName === searchedCity.city));
-    }
-
-    private addNewCities(objectParams: ObjectParams, updatedSearchedCities: SearchedCity[]): Observable<SearchedCity[]> {
-        const newCityNames = objectParams.cityNames && objectParams.cityNames
-            .filter(cityName => !updatedSearchedCities.find(searchedCity => searchedCity.city === cityName))
-        if (!newCityNames || newCityNames.length <= 0) {
-            return Observable.of(updatedSearchedCities);
-        } else {
-            this.searchingTrigger.next(true)
-            return Observable.forkJoin(objectParams.cityNames
-                    .map(cityName => this.searchService.search(cityName, this.allCities))
-                ).do(searchedCities => this.searchingTrigger.next(false));                
-        }
     }
 }

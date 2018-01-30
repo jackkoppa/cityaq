@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -13,13 +14,13 @@ import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model'
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { LocationsResponse } from '../core/api/openaq/locations/locations-response.model';
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
+import { ParamsHelper } from '../core/routing/params.helper';
+import { QueryParams } from '../core/routing/params.models';
 import { MessagingService } from '../shared/messaging/messaging.service';
 
 import { SearchService } from './search.service';
 import { SearchedCity } from './searched-city.model';
-import { QueryParams } from '../core/routing/params.models';
-import { ParamsHelper } from '../core/routing/params.helper';
-import { Subject } from 'rxjs/Subject';
+import { SearchingStatus } from './searching-status.model';
 
 @Component({
     selector: 'aq-search-bar',
@@ -42,16 +43,15 @@ export class SearchBarComponent implements OnInit {
         private locationsHandlerService: LocationsHandlerService,
         private messagingService: MessagingService
     ) { 
-        
+        this.searchService.searchingStatus.subscribe(status => {
+            if (this.searching && status === SearchingStatus.Finished) this.clearSearchInput();
+            this.searching = status === SearchingStatus.Started;
+        })
     };
 
     public ngOnInit(): void {
         this.newForm();
-        this.filterCitiesOnInputChange()
-        this.searchingTrigger.subscribe(searchingInParent => {
-            if (this.searching && !searchingInParent) this.clearSearchInput();
-            this.searching = searchingInParent;
-        });
+        this.filterCitiesOnInputChange();
     }
 
     public attemptSearch(): void {
@@ -66,6 +66,10 @@ export class SearchBarComponent implements OnInit {
             this.messagingService.error('Please select a valid city from the dropdown');
             this.searching = false;
         }
+    }
+
+    public onFocus(): void {
+        this.searchService.setStatusFocused();
     }
     
     private newForm(): void {

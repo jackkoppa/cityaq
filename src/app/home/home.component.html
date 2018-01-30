@@ -1,5 +1,6 @@
 <aq-banner></aq-banner>
 <div class="wrapper">
     <router-outlet></router-outlet>
-    <aq-onboarding *ngIf="!userOnboarded"></aq-onboarding>
+    <aq-onboarding *ngIf="!userOnboarded"
+        [@fade]></aq-onboarding>
 </div>
