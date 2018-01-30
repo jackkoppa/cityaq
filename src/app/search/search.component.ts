@@ -45,13 +45,13 @@ export class SearchComponent implements OnInit {
 
     private updateCities(queryParams: QueryParams): Observable<SearchedCity[]> {
         const objectParams = ParamsHelper.queryToObject(queryParams);
-        let updatedSearchedCities = this.removeOldCities(objectParams);
+        let updatedSearchedCities = this.removeOldCities(objectParams) || [];
         return this.addNewCities(objectParams, updatedSearchedCities);
     }
 
     private removeOldCities(objectParams: ObjectParams): SearchedCity[] {
         return this.searchedCities
-            .filter(searchedCity => objectParams.cityNames.find(cityName => cityName === searchedCity.city));
+            .filter(searchedCity => objectParams.cityNames && objectParams.cityNames.find(cityName => cityName === searchedCity.city));
     }
 
     private addNewCities(objectParams: ObjectParams, updatedSearchedCities: SearchedCity[]): Observable<SearchedCity[]> {

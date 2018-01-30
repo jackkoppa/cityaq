@@ -53,7 +53,7 @@ export class SearchBarComponent implements OnInit {
             this.allCities
         );
         if (cityName) {
-            this.navigateToNewCity(cityName);
+            this.addCityToParams(cityName);
         } else {
             this.messagingService.error('Please select a valid city from the dropdown');
             this.searching = false;
@@ -74,7 +74,7 @@ export class SearchBarComponent implements OnInit {
             .map(cityName => this.searchService.filterCities(cityName, this.allCities));
     }
 
-    private navigateToNewCity(cityName: string): void {
+    private addCityToParams(cityName: string): void {
         const queryParams = Object.assign({}, <QueryParams>this.route.snapshot.queryParams);
         const objectParams = ParamsHelper.queryToObject(queryParams);
         objectParams.cityNames = objectParams.cityNames || [];
