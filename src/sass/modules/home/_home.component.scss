@@ -3,4 +3,5 @@
 .onboarding-wrapper {
     position: fixed;
     bottom: 0;
+    z-index: map-get($z-index-levels, 'foreground-1');
 }

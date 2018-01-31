@@ -16,18 +16,19 @@ $carousel-slides: 3;
 $max-parallax-ratio: 1.25;
 
 .onboarding {
-    bottom: 0;
-    position: absolute;
+    bottom: 0;    
+    padding-top: map-get($gutters, 'xl') * 2;
+    position: relative;
     width: 100%;
+    background: linear-gradient(0deg, $white, $white 85%, rgba($white, 0));
 
     .onboarding-carousel {    
-        align-items: flex-end;
+        align-items: flex-end;        
         display: flex;   
         position: relative;
         width: calc(100vw * #{$carousel-slides});
         will-change: transform;
         z-index: map-get($z-index-levels, 'midground-1');
-
         mat-card.onboarding-slide {
             background-color: rgba(255, 255, 255, 0.7);
             flex: 1 1;
