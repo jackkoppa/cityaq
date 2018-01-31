@@ -1,24 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ColorName } from '../core/naming/color-name.model';
 import { COLOR_VALUES } from '../core/naming/color-values.constant';
-import { MessagingService } from '../shared/messaging/messaging.service';
+import { FadeAnimation } from '../shared/animations/fade-animation.constant';
 
 @Component({
     selector: 'aq-banner',
-    templateUrl: './banner.component.html'
+    templateUrl: './banner.component.html',
+    animations: [FadeAnimation]
 })
 export class BannerComponent implements OnInit {
-    colors: ColorName[] = [];
+    @Input() menuVisible: boolean = false;
+    @Output() toggleMenu: EventEmitter<void> = new EventEmitter<void>();
+    public colors: ColorName[] = [];
 
-    constructor(private messagingService: MessagingService) { };
+    constructor() { };
 
-    ngOnInit() {
+    public ngOnInit() {
         this.setColors();
     }
 
-    public openMenu(): void {
-        this.messagingService.notify('Menu is under development :+1:');
+    public triggerToggleMenu(): void {
+        this.toggleMenu.emit();
     }
 
     private setColors(): void {

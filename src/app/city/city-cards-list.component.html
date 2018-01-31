@@ -1,4 +1,4 @@
-<div *ngFor="let city of searchedCities" [@fadeSlide]>
+<div *ngFor="let city of searchedCities" [@fadeSlideDown]>
     <aq-slide-delete [deleteCmd]="city.city"
         (deleteTriggered)="deleteCity($event)">
         <aq-city-card [searchedCity]="city"></aq-city-card>

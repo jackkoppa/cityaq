@@ -14,12 +14,16 @@
         right: 0;
         margin: 0 auto;
 
+        .banner-icon {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
     }
 
     .banner-color {
         flex: 1 auto;
         height: 20px;
-        //box-shadow: 1px 1px 10px -1px $dark-grey;
         position: relative;
     }
 }

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { SearchedCity } from '../search/searched-city.model';
-import { FadeSlideAnimation } from '../shared/animations/fade-slide-animation.constant';
+import { FadeSlideDownAnimation } from '../shared/animations/fade-slide-down-animation.constant';
 import { QueryParams } from '../core/routing/params.models';
 import { ParamsHelper } from '../core/routing/params.helper';
 
@@ -13,7 +13,7 @@ import { ParamsHelper } from '../core/routing/params.helper';
     selector: 'aq-city-cards-list',
     templateUrl: './city-cards-list.component.html',
     animations: [
-        FadeSlideAnimation
+        FadeSlideDownAnimation
     ]
 })
 export class CityCardsListComponent implements OnInit {

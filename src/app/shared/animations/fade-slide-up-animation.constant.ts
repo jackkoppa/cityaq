@@ -1,12 +1,12 @@
 import { trigger, transition, style, animate, AnimationTriggerMetadata } from '@angular/animations';
 
-export const FadeSlideAnimation: AnimationTriggerMetadata = trigger(
-    'fadeSlide',
+export const FadeSlideUpAnimation: AnimationTriggerMetadata = trigger(
+    'fadeSlideUp',
     [
         transition(
             ':enter', 
             [
-                style({transform: 'translateY(-100%)', opacity: 0}),
+                style({transform: 'translateY(100%)', opacity: 0}),
                 animate('300ms', style({transform: 'translateY(0)', 'opacity': 1}))
             ]
         ),
@@ -14,7 +14,7 @@ export const FadeSlideAnimation: AnimationTriggerMetadata = trigger(
             ':leave', 
             [
                 style({transform: 'translateY(0)', 'opacity': 1}),
-                animate('300ms', style({transform: 'translateY(-100%)', 'opacity': 0}))              
+                animate('300ms', style({transform: 'translateY(100%)', 'opacity': 0}))              
             ]
         )
     ]

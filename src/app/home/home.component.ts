@@ -12,7 +12,8 @@ import { QueryParams } from '../core/routing/params.models';
     animations: [FadeAnimation]
 })
 export class HomeComponent {
-    userOnboarded: boolean = false;
+    public userOnboarded: boolean = false;
+    public menuVisible: boolean = false;
     
     constructor(
         private route: ActivatedRoute,
@@ -25,4 +26,8 @@ export class HomeComponent {
             if (status === SearchingStatus.Focused) this.userOnboarded = true;
         });
     };
+
+    public toggleMenu(): void {
+        this.menuVisible = !this.menuVisible;
+    }
 }
