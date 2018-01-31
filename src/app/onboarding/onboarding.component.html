@@ -3,13 +3,16 @@
     (panright)="onPan($event)"
     (panleft)="onPan($event)"
     (panend)="onPanEnd($event)">
-    <div class="onboarding-carousel" 
+    <div class="onboarding-carousel"
         [ngClass]="carouselTransition"
         [style.transform]="carouselX"
         #carousel>
-        <aq-onboarding-slide-one></aq-onboarding-slide-one>
-        <aq-onboarding-slide-two></aq-onboarding-slide-two>
-        <aq-onboarding-slide-three></aq-onboarding-slide-three>
+        <aq-onboarding-slides></aq-onboarding-slides>
+    </div>
+    <div class="onboarding-carousel background-only"
+        [ngClass]="carouselTransition"
+        [style.transform]="carouselX">
+        <aq-onboarding-slides [backgroundOnly]="true"></aq-onboarding-slides>
     </div>
     <div class="skyline skyline-foreground" 
         [ngClass]="skylineTransition"

@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 
 import { OnboardingComponent } from './onboarding.component';
+
 import { OnboardingSlideOneComponent } from './onboarding-slide-one.component';
+import { OnboardingSlidesComponent } from './onboarding-slides.component';
 import { OnboardingSlideTwoComponent } from './onboarding-slide-two.component';
 import { OnboardingSlideThreeComponent } from './onboarding-slide-three.component';
 
@@ -15,6 +17,7 @@ import { OnboardingSlideThreeComponent } from './onboarding-slide-three.componen
     ],
     declarations: [
         OnboardingComponent,
+        OnboardingSlidesComponent,
         OnboardingSlideOneComponent,
         OnboardingSlideTwoComponent,
         OnboardingSlideThreeComponent

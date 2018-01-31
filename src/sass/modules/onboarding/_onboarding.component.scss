@@ -20,17 +20,41 @@ $max-parallax-ratio: 1.25;
     padding-top: map-get($gutters, 'xl') * 2;
     position: relative;
     width: 100%;
-    background: linear-gradient(0deg, $white, $white 85%, rgba($white, 0));
 
-    .onboarding-carousel {    
-        align-items: flex-end;        
-        display: flex;   
-        position: relative;
+    .onboarding-carousel {         
         width: calc(100vw * #{$carousel-slides});
-        will-change: transform;
-        z-index: map-get($z-index-levels, 'midground-1');
+        
+        &:not(.background-only) {
+            position: relative;
+            will-change: transform;
+            z-index: map-get($z-index-levels, 'midground-3');  
+            
+            mat-card.onboarding-slide {
+                background-color: rgba($white, 0.7);
+            }
+        }
+
+        &.background-only {
+            left: 0;
+            position: absolute;
+            bottom: 0;
+            z-index: map-get($z-index-levels, 'base');
+
+            mat-card.onboarding-slide {
+                background-color: rgba($white, 1);
+            }
+
+            .text-content {
+                visibility: none;
+            }
+        }
+
+        aq-onboarding-slides {
+            align-items: flex-end;        
+            display: flex;
+        }
+
         mat-card.onboarding-slide {
-            background-color: rgba(255, 255, 255, 0.7);
             flex: 1 1;
             float: left;
             margin: 0 map-get($gutters, 'xl') $bottom-to-foreground-peaks;
@@ -43,7 +67,7 @@ $max-parallax-ratio: 1.25;
             height: 100%;
             padding-bottom: map-get($gutters, 'md');
             position: relative;
-            z-index: map-get($z-index-levels, 'midground-1');
+            z-index: map-get($z-index-levels, 'midground-3');
         
             h2 { 
                 font-weight: 400;
@@ -72,15 +96,15 @@ $max-parallax-ratio: 1.25;
     
         &.skyline-foreground {
             background-image: url('../assets/icons/skyline-foreground.svg');
-            z-index: map-get($z-index-levels, 'midground-2');
+            z-index: map-get($z-index-levels, 'foreground-1');
         }
         &.skyline-midground {
             background-image: url('../assets/icons/skyline-midground.svg');
-            z-index: map-get($z-index-levels, 'base');
+            z-index: map-get($z-index-levels, 'midground-2');
         }
         &.skyline-background {
             background-image: url('../assets/icons/skyline-background.svg');
-            z-index: map-get($z-index-levels, 'background');
+            z-index: map-get($z-index-levels, 'midground-1');
         }
     }
 }
