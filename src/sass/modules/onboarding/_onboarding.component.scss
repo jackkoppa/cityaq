@@ -4,6 +4,10 @@ $skyline-height: 160px;
 /// @type Length
 $skyline-foreground-height: $skyline-height * 0.6;
 
+// card should only be covered by the very tallest peaks on the foreground image
+/// @type Length
+$bottom-to-foreground-peaks: 84px;
+
 /// @type Number
 $carousel-slides: 3;
 
@@ -18,7 +22,7 @@ $max-parallax-ratio: 1.25;
     width: 100%;
 
     .onboarding-carousel {    
-        align-items: stretch;
+        align-items: flex-end;
         display: flex;   
         position: relative;
         width: calc(100vw * #{$carousel-slides});
@@ -29,7 +33,7 @@ $max-parallax-ratio: 1.25;
             background-color: rgba(255, 255, 255, 0.7);
             flex: 1 1;
             float: left;
-            margin: map-get($gutters, 'xl');
+            margin: 0 map-get($gutters, 'xl') $bottom-to-foreground-peaks;
             padding: map-get($gutters, 'md');
             position: relative;
             width: calc(100vw - (#{map-get($gutters, 'xl') * 2}));
@@ -37,7 +41,7 @@ $max-parallax-ratio: 1.25;
         
         .text-content {
             height: 100%;
-            padding-bottom: #{$skyline-foreground-height - (map-get($gutters, 'xl'))};
+            padding-bottom: map-get($gutters, 'md');
             position: relative;
             z-index: map-get($z-index-levels, 'midground-1');
         
