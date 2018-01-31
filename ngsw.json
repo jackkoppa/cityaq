@@ -9,8 +9,8 @@
       "urls": [
         "https://jackkoppa.github.io/cityaq/favicon.ico",
         "https://jackkoppa.github.io/cityaq/index.html",
-        "https://jackkoppa.github.io/cityaq/inline.80b9f3f73f6f3f05d8ed.bundle.js",
-        "https://jackkoppa.github.io/cityaq/main.7d4e432151d89ddaa29c.bundle.js",
+        "https://jackkoppa.github.io/cityaq/inline.ba5f862b4158454bb966.bundle.js",
+        "https://jackkoppa.github.io/cityaq/main.ec6eebffe9972db7211d.bundle.js",
         "https://jackkoppa.github.io/cityaq/polyfills.74b809925dee18bd9f89.bundle.js",
         "https://jackkoppa.github.io/cityaq/styles.36b0119223383ce4cc1e.bundle.css"
       ],
@@ -43,9 +43,9 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://jackkoppa.github.io/cityaq/inline.80b9f3f73f6f3f05d8ed.bundle.js": "3efc7680faa91562dda9fb758fcf5173b4c686de",
+    "https://jackkoppa.github.io/cityaq/inline.ba5f862b4158454bb966.bundle.js": "30cb912e1187719c9f655ca52c9f4a2d110a2a84",
     "https://jackkoppa.github.io/cityaq/assets/icons/android-chrome-192x192.png": "76dc21254d918a58935f63a94cbaef03547a334d",
-    "https://jackkoppa.github.io/cityaq/main.7d4e432151d89ddaa29c.bundle.js": "f9235686b08f68259205f39eb26fae3bba19acb0",
+    "https://jackkoppa.github.io/cityaq/main.ec6eebffe9972db7211d.bundle.js": "44b8aa479883ca4355384006244ac4cc12b572ff",
     "https://jackkoppa.github.io/cityaq/assets/icons/android-chrome-512x512.png": "a0da42b588ea1c8bde8f9c37dd80d2022206d4fc",
     "https://jackkoppa.github.io/cityaq/polyfills.74b809925dee18bd9f89.bundle.js": "0b0af365e031b7cbba789493d311e94192720c68",
     "https://jackkoppa.github.io/cityaq/assets/icons/apple-touch-icon.png": "c86ca307bb7c66e6f8d61195c2fb0c408457c5e6",
@@ -53,7 +53,7 @@
     "https://jackkoppa.github.io/cityaq/assets/icons/browserconfig.xml": "b17de24c6ea168f1962f54671448ca36ffc4ff20",
     "https://jackkoppa.github.io/cityaq/favicon.ico": "17c1d25413a32f449d5e81154062c8225f555ed5",
     "https://jackkoppa.github.io/cityaq/assets/icons/favicon-16x16.png": "0809c4ca90fc62cb5fc44def5fd60320fb7dbf49",
-    "https://jackkoppa.github.io/cityaq/index.html": "59f3dda03a3f0e64839a33d173c92dbc683df037",
+    "https://jackkoppa.github.io/cityaq/index.html": "0138a2d2c2e0670b7c56e8d6b50a61e30629b015",
     "https://jackkoppa.github.io/cityaq/assets/icons/favicon-32x32.png": "87c37e8db549e146135ec9e88cbe9f928b6c5c9b",
     "https://jackkoppa.github.io/cityaq/assets/icons/favicon.ico": "17c1d25413a32f449d5e81154062c8225f555ed5",
     "https://jackkoppa.github.io/cityaq/assets/icons/mstile-144x144.png": "5d941d2f918fc4b27ef08a7d1bf2c349849edd04",
