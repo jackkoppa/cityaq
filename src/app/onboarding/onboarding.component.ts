@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 const SLIDE_COUNT: number = 3;
 const TRANSITION_TRANSFORM: string = 'transition-transform';
+const MOMENTUM_MULTIPLIER: number = 100; // this * px/ms, gives additional "momentum" at end of pan
+const MOMENTUM_THRESHOLD: number = 1.05; // if velocity on last pan event is greater, will automatically move to targeted slide
 const FOREGROUND_RATIO: number = 1.25;
 const MIDGROUND_RATIO: number = 0.75;
 const BACKGROUND_RATIO: number = 0.25;
@@ -16,10 +18,12 @@ export class OnboardingComponent implements AfterViewInit {
     public carouselTransition: string = TRANSITION_TRANSFORM;
     public skylineTransition: string = TRANSITION_TRANSFORM;
     public x: number = 0;
-    
+
     private slideWidth: number = 0;    
     private currentSlidePosition: number = 0;
     private carouselStartX: number = 0;
+    private allVelocities: number[] = [];
+    private endVelocity: number = 0;
 
     public get carouselX(): string {
         return this.pxToTranslateX(this.x)
@@ -48,46 +52,71 @@ export class OnboardingComponent implements AfterViewInit {
         this.slideWidth = this.carouselElement && (this.carouselElement.offsetWidth / SLIDE_COUNT) || 0;
         this.carouselTransition = this.skylineTransition = '';
         this.carouselStartX = this.x;
+        this.allVelocities = [];
         this.currentSlidePosition = Math.ceil(this.carouselStartX / this.slideWidth * -1)
     }
 
     public onPan(event: any): void {
         event.preventDefault();
         this.x = event.deltaX + this.carouselStartX;
+        this.allVelocities.push(event.velocityX);      
     }
 
     public onPanEnd(event: any): void {
         event.preventDefault();
-        this.carouselTransition = this.skylineTransition = TRANSITION_TRANSFORM;
+        this.endVelocity = event.velocityX;
+        this.carouselTransition = this.skylineTransition = TRANSITION_TRANSFORM;        
+        this.x = this.calculateXAfterMomentum();
         this.x = this.calculateEndX();
-        //console.log(this.x, this.currentSlidePosition, this.slideWidth, this.carouselStartX);
     }
 
     private pxToTranslateX(pixels: number): string {
         return `translateX(${pixels}px)`
     }
 
+    private calculateXAfterMomentum(): number {
+        //console.log(this.velocityX);
+        const maxVelocity = Math.max(...this.allVelocities);
+        const minVelocity = Math.min(...this.allVelocities);
+        const calcPanVelocity = this.endVelocity >= 0 ? maxVelocity : minVelocity;
+        const calcFinalVelocity = Math.abs(calcPanVelocity) >= Math.abs(this.endVelocity) ? calcPanVelocity : this.endVelocity;
+        console.log(calcFinalVelocity);
+        if (Math.abs(calcFinalVelocity) >= MOMENTUM_THRESHOLD)
+            return calcFinalVelocity >= 0 ? this.getCoordBySlidePosition(-1) : this.getCoordBySlidePosition(1);
+
+        return this.x + (this.endVelocity * MOMENTUM_MULTIPLIER);
+    }
+
     private calculateEndX(): number {
-        console.log(this.x, this.currentSlidePosition, this.slideWidth)
-        let endX: number = 0
-        
-        console.log(((this.currentSlidePosition - 1) * this.slideWidth * -1) - (this.slideWidth / 2));
-        console.log(((this.currentSlidePosition + 1) * this.slideWidth * -1) - (this.slideWidth / 2));
+        let endX: number = 0        
 
-        
-
-        if (this.x >= ((this.currentSlidePosition - 1) * this.slideWidth * -1) - (this.slideWidth / 2))
-            endX = (this.currentSlidePosition - 1) * this.slideWidth * -1;
-        else if (this.x < ((this.currentSlidePosition - 1) * this.slideWidth * -1) - (this.slideWidth / 2) && 
-            this.x >= ((this.currentSlidePosition) * this.slideWidth * -1) - (this.slideWidth / 2)) 
-            endX = this.currentSlidePosition * this.slideWidth * -1;
+        if (this.targetPreviousSlide())
+            endX = this.getCoordBySlidePosition(-1);
+        else if (this.targetThisSlide()) 
+            endX = this.getCoordBySlidePosition(0);
         else 
-            endX = (this.currentSlidePosition + 1) * this.slideWidth * -1;
-
-        console.log(`endX: ${endX}`)
+            endX = this.getCoordBySlidePosition(1);
 
         if (endX > 0) return 0;
         if (endX < this.slideWidth * (SLIDE_COUNT - 1) * -1) return this.slideWidth * (SLIDE_COUNT - 1) * -1;
         return endX;
     }
+
+    private targetPreviousSlide(): boolean {
+        return this.x >= this.getTargetBySlidePosition(-1);
+    }
+    
+    private targetThisSlide(): boolean {
+        return this.x < this.getTargetBySlidePosition(-1) && 
+            this.x >= this.getTargetBySlidePosition(0)
+    }
+    
+    private getCoordBySlidePosition(slidePosition: number): number {
+        return  (this.currentSlidePosition + slidePosition) * this.slideWidth * -1
+    }
+
+    private getTargetBySlidePosition(slidePositionTarget: number): number {
+        return ((this.currentSlidePosition + slidePositionTarget) * this.slideWidth * -1) - (this.slideWidth / 2)
+    }
+
 }
