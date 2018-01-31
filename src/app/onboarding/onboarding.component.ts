@@ -4,6 +4,7 @@ const SLIDE_COUNT: number = 3;
 const TRANSITION_TRANSFORM: string = 'transition-transform';
 const MOMENTUM_MULTIPLIER: number = 100; // this * px/ms, gives additional "momentum" at end of pan
 const MOMENTUM_THRESHOLD: number = 1.05; // if velocity on last pan event is greater, will automatically move to targeted slide
+
 const FOREGROUND_RATIO: number = 1.25;
 const MIDGROUND_RATIO: number = 0.75;
 const BACKGROUND_RATIO: number = 0.25;
@@ -75,12 +76,12 @@ export class OnboardingComponent implements AfterViewInit {
     }
 
     private calculateXAfterMomentum(): number {
-        //console.log(this.velocityX);
+        // use largest velocity achieved during this pan event, that matched direction of final velocity
         const maxVelocity = Math.max(...this.allVelocities);
         const minVelocity = Math.min(...this.allVelocities);
         const calcPanVelocity = this.endVelocity >= 0 ? maxVelocity : minVelocity;
         const calcFinalVelocity = Math.abs(calcPanVelocity) >= Math.abs(this.endVelocity) ? calcPanVelocity : this.endVelocity;
-        console.log(calcFinalVelocity);
+        
         if (Math.abs(calcFinalVelocity) >= MOMENTUM_THRESHOLD)
             return calcFinalVelocity >= 0 ? this.getCoordBySlidePosition(-1) : this.getCoordBySlidePosition(1);
 
