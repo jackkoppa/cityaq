@@ -15,7 +15,6 @@ $carousel-slides: 3;
 /// @type Number
 $max-parallax-ratio: 1.25;
 
-
 .onboarding {
     bottom: 0;
     position: absolute;
@@ -64,7 +63,7 @@ $max-parallax-ratio: 1.25;
         background-position: center bottom;
         bottom: 0;
         height: 50%;
-        left: -100vw;
+        left: #{-100vw * $max-parallax-ratio};
         position: absolute;
         // add 2 extra widths for excess scrolling on either end
         width: calc(100vw * #{$carousel-slides + 2} * #{$max-parallax-ratio});

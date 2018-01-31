@@ -2,7 +2,8 @@
     (toggleMenu)="toggleMenu()"></aq-banner>
 <div class="wrapper">
     <router-outlet></router-outlet>
-    <div *ngIf="!userOnboarded || menuVisible"
+    <div class="onboarding-wrapper"
+        *ngIf="!userOnboarded || menuVisible"
         [@fade]>
         <aq-onboarding ></aq-onboarding>
     </div>
