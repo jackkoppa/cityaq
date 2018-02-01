@@ -37,7 +37,7 @@ export class CityCardsListComponent implements OnInit {
         const queryParams = Object.assign({}, <QueryParams>this.route.snapshot.queryParams);
         const objectParams = ParamsHelper.queryToObject(queryParams);
         objectParams.cityNames = objectParams.cityNames || [];
-        objectParams.cityNames = objectParams.cityNames.filter(paramCityName => paramCityName !== cityName);
+        objectParams.cityNames = objectParams.cityNames.filter(paramCityName => paramCityName !== cityName) || undefined;
         this.router.navigate(['/search'], {
             queryParams: ParamsHelper.objectToQuery(objectParams)
         });

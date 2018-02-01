@@ -16,10 +16,10 @@ export class ParamsHelper {
     }
     
     static splitString(val: string, splitChar: string = DEFUALT_SPLIT): string[] {
-        return val && val.split(splitChar);
+        return val && val.split(splitChar) || undefined;
     }
 
     static joinArray(val: string[], splitChar: string = DEFUALT_SPLIT): string {
-        return val && val.join(splitChar);
+        return val && val.join(splitChar) || undefined;
     }
 }
