@@ -1,7 +1,7 @@
 // styles for link elements
 
 a {
-    color: $brand-color;
+    color: $aqi-accent-color;
     text-decoration: none;
 
     @include on-event {

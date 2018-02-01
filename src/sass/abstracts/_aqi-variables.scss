@@ -6,7 +6,7 @@ $epa-aqi-colors: (
     red:    ( name: 'red',      primary: rgb(255, 0, 0),    text: $dark-grey ),
     purple: ( name: 'purple',   primary: rgb(143, 63, 151), text: $white ),
     maroon: ( name: 'maroon',   primary: rgb(126, 0, 35),   text: $white )
-);
+) !default;
 
 // alternative colors, as close to EPA as possible while following Material Design pallettes: https://material.io/color/
 $material-aqi-colors: (
@@ -16,7 +16,10 @@ $material-aqi-colors: (
     red:    ( name: 'red',      primary: rgb(213, 0, 0),    text: $white ),
     purple: ( name: 'purple',   primary: rgb(126, 87, 194), text: $white ),
     maroon: ( name: 'maroon',   primary: rgb(136, 14, 79),  text: $white )
-);
+) !default;
 
 // choose which color set to use here
 $aqi-colors: $material-aqi-colors !default;
+
+$aqi-primary-color: map-get(map-get($aqi-colors, green), primary);
+$aqi-accent-color: map-get(map-get($aqi-colors, purple), primary);
