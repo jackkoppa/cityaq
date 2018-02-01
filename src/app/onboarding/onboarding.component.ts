@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
 
 import { FadeAnimation } from '../shared/animations/fade-animation.constant';
 
@@ -16,7 +16,7 @@ const BACKGROUND_RATIO: number = 0.25;
     templateUrl: './onboarding.component.html',
     animations: [FadeAnimation];
 })
-export class OnboardingComponent implements AfterViewInit {
+export class OnboardingComponent implements AfterContentInit {
     @ViewChild('carousel') carousel: ElementRef;
     carouselElement: HTMLDivElement;
     public carouselTransition: string = TRANSITION_TRANSFORM;
@@ -55,7 +55,7 @@ export class OnboardingComponent implements AfterViewInit {
 
     constructor() { }
 
-    public ngAfterViewInit(): void {
+    public ngAfterContentInit(): void {
         this.carouselElement = this.carousel && this.carousel.nativeElement;
         this.resetMeasurements();
     }
