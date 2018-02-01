@@ -6,7 +6,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { BannerComponent } from './banner.component';
 import { HomeComponent } from './home.component';
-import { IntroComponent } from './intro.component';
 
 @NgModule({
     imports: [
@@ -16,8 +15,7 @@ import { IntroComponent } from './intro.component';
     ],
     declarations: [
         BannerComponent,
-        HomeComponent,
-        IntroComponent
+        HomeComponent
     ],
     exports: [
         HomeComponent
