@@ -3,5 +3,5 @@ export const environment = {
     openaqApiUrl: 'https://api.openaq.org/v1/',
     mapsApiUrl: 'https://maps.googleapis.com/maps/api/',
     staticMapsKey: 'AIzaSyBJ4wQTemqdOaXFsAmZotfakpevljfN2iY',
-    randomizedMapsLongitude: false
+    randomizedMapsLongitude: true
 };
