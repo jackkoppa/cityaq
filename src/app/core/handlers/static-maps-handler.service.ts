@@ -34,14 +34,23 @@ export class StaticMapsHandlerService {
 
     public getImageByLatLong(latitude: number, longitude: number): Observable<File> {
         const request: StaticMapsRequest = Object.assign({}, DefaultStaticMapsApiRequest);
-        request.center = latitude.toString() + ',' + (longitude + this.latOffset()).toString();
+        request.center = latitude.toString() + ',' + (longitude + this.latOffset(latitude, longitude)).toString();
         request.markers += '|' + latitude.toString() + ',' + longitude.toString();
         request.key = environment.staticMapsKey;
         return this.staticMapsApi.getImage(request);        
     }
 
-    private latOffset(): number {
+    private latOffset(latitude: number, longitude: number): number {
         if (!environment.randomizedMapsLongitude) return 0;
-        return LONG_OFFSET + ((Math.random() >= 0.5 ? -1 : 1) * Math.random() * LONG_OFFSET);
+
+        const latDecimal = Math.ceil(latitude) - latitude;
+        const longDecimal = Math.ceil(longitude) - longitude;
+
+        return LONG_OFFSET + ((latDecimal >= 0.5 ? -1 : 1) * longDecimal * LONG_OFFSET)
+
+        // removing fully randomized center points, in favor of location-generated "randomization"
+        // location-generated means that each location will always have its same, unique center point; 
+        // much better for caching each image
+        // return LONG_OFFSET + ((Math.random() >= 0.5 ? -1 : 1) * Math.random() * LONG_OFFSET);
     }
 }

@@ -45,10 +45,19 @@
         "name": "latest",
         "urls": ["https://api.openaq.org/v1/latest"],
         "cacheConfig": {
-            "maxSize": 2,
+            "maxSize": 20,
             "maxAge": "3d",
             "timeout": "3s",
             "strategy": "freshness"
+        }
+    },{
+        "name": "staticmap",
+        "urls": ["https://maps.googleapis.com/maps/api/staticmap"],
+        "cacheConfig": {
+            "maxSize": 20,
+            "maxAge": "365d",
+            "timeout": "5s",
+            "strategy": "performance"
         }
     }]
 }
