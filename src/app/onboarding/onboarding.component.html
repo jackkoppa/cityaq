@@ -5,12 +5,14 @@
     (panend)="onPanEnd($event)">
     
     <button mat-mini-fab class="carousel-button carousel-left"
+        color="accent"
         (click)="goToPreviousSlide()"
         *ngIf="hasPreviousSlide"
         [@fade]>
         <mat-icon aria-label="Previous Slide">chevron_left</mat-icon>
     </button>
     <button mat-mini-fab class="carousel-button carousel-right"
+        color="accent"
         (click)="goToNextSlide()"
         *ngIf="hasNextSlide"
         [@fade]>
