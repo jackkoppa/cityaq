@@ -15,11 +15,21 @@ $carousel-slides: 3;
 /// @type Number
 $max-parallax-ratio: 1.25;
 
+
 .onboarding {
     bottom: 0;    
     padding-top: map-get($gutters, 'xl') * 2;
     position: relative;
     width: 100%;
+    
+    .carousel-button {
+        position: absolute;
+        bottom: #{$skyline-height - 40px};
+        z-index: map-get($z-index-levels, 'foreground-3');
+    
+        &.carousel-left { left: map-get($gutters, 'sm'); }
+        &.carousel-right { right: map-get($gutters, 'sm'); } 
+    }    
 
     .onboarding-carousel {         
         width: calc(100vw * #{$carousel-slides});
@@ -58,10 +68,10 @@ $max-parallax-ratio: 1.25;
         mat-card.onboarding-slide {
             flex: 1 1;
             float: left;
-            margin: 0 map-get($gutters, 'xl') $bottom-to-foreground-peaks;
-            padding: map-get($gutters, 'md');
+            margin: 0 #{map-get($gutters, 'md') * 2} $bottom-to-foreground-peaks;
+            padding: #{map-get($gutters, 'md') * 2};
             position: relative;
-            width: calc(100vw - (#{map-get($gutters, 'xl') * 2}));
+            width: calc(100vw - (#{map-get($gutters, 'md') * 4}));
         }
         
         .text-content {

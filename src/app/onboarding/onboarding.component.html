@@ -3,16 +3,30 @@
     (panright)="onPan($event)"
     (panleft)="onPan($event)"
     (panend)="onPanEnd($event)">
+    
+    <button mat-mini-fab class="carousel-button carousel-left"
+        (click)="goToPreviousSlide()"
+        *ngIf="hasPreviousSlide"
+        [@fade]>
+        <mat-icon aria-label="Previous Slide">chevron_left</mat-icon>
+    </button>
+    <button mat-mini-fab class="carousel-button carousel-right"
+        (click)="goToNextSlide()"
+        *ngIf="hasNextSlide"
+        [@fade]>
+        <mat-icon aria-label="Next Slide">chevron_right</mat-icon>
+    </button>
+
     <div class="onboarding-carousel"
         [ngClass]="carouselTransition"
         [style.transform]="carouselX"
         #carousel>
-        <aq-onboarding-slides></aq-onboarding-slides>
+        <aq-onboarding-slides></aq-onboarding-slides>        
     </div>
     <div class="onboarding-carousel background-only"
         [ngClass]="carouselTransition"
         [style.transform]="carouselX">
-        <aq-onboarding-slides></aq-onboarding-slides>
+        <aq-onboarding-slides></aq-onboarding-slides>        
     </div>
     <div class="skyline skyline-foreground" 
         [ngClass]="skylineTransition"

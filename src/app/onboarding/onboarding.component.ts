@@ -1,5 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
+import { FadeAnimation } from '../shared/animations/fade-animation.constant';
+
 const SLIDE_COUNT: number = 3;
 const TRANSITION_TRANSFORM: string = 'transition-transform';
 const MOMENTUM_MULTIPLIER: number = 100; // this * px/ms, gives additional "momentum" at end of pan
@@ -11,7 +13,8 @@ const BACKGROUND_RATIO: number = 0.25;
 
 @Component({
     selector: 'aq-onboarding',
-    templateUrl: './onboarding.component.html'
+    templateUrl: './onboarding.component.html',
+    animations: [FadeAnimation];
 })
 export class OnboardingComponent implements AfterViewInit {
     @ViewChild('carousel') carousel: ElementRef;
@@ -42,19 +45,25 @@ export class OnboardingComponent implements AfterViewInit {
         return this.pxToTranslateX(this.x * BACKGROUND_RATIO);
     }
 
+    public get hasPreviousSlide(): boolean {
+        return this.carouselStartX <= this.slideWidth * -1;
+    }
+
+    public get hasNextSlide(): boolean {
+        return this.carouselStartX > this.slideWidth * (SLIDE_COUNT - 1) * -1;
+    }
+
     constructor() { }
 
     public ngAfterViewInit(): void {
         this.carouselElement = this.carousel && this.carousel.nativeElement;
+        this.resetMeasurements();
     }
 
     public onPanStart(event: any): void {
-        event.preventDefault();
-        this.slideWidth = this.carouselElement && (this.carouselElement.offsetWidth / SLIDE_COUNT) || 0;
+        event.preventDefault();        
         this.carouselTransition = this.skylineTransition = '';
-        this.carouselStartX = this.x;
-        this.allVelocities = [];
-        this.currentSlidePosition = Math.ceil(this.carouselStartX / this.slideWidth * -1)
+        this.resetMeasurements();
     }
 
     public onPan(event: any): void {
@@ -69,10 +78,28 @@ export class OnboardingComponent implements AfterViewInit {
         this.carouselTransition = this.skylineTransition = TRANSITION_TRANSFORM;        
         this.x = this.calculateXAfterMomentum();
         this.x = this.calculateEndX();
+        this.resetMeasurements();
+    }
+
+    public goToPreviousSlide(): void {
+        this.x = this.getCoordBySlidePosition(-1);
+        this.resetMeasurements();
+    }
+
+    public goToNextSlide(): void {
+        this.x = this.getCoordBySlidePosition(1);
+        this.resetMeasurements();
     }
 
     private pxToTranslateX(pixels: number): string {
         return `translateX(${pixels}px)`
+    }
+
+    private resetMeasurements(): void {
+        this.slideWidth = this.carouselElement && (this.carouselElement.offsetWidth / SLIDE_COUNT) || 0;
+        this.carouselStartX = this.x;
+        this.allVelocities = [];
+        this.currentSlidePosition = Math.ceil(this.carouselStartX / this.slideWidth * -1);
     }
 
     private calculateXAfterMomentum(): number {
