@@ -23,10 +23,10 @@ $max-parallax-ratio: 1.25;
 
     .onboarding-carousel {         
         width: calc(100vw * #{$carousel-slides});
+        will-change: transform;
         
         &:not(.background-only) {
             position: relative;
-            will-change: transform;
             z-index: map-get($z-index-levels, 'midground-3');  
             
             mat-card.onboarding-slide {
@@ -42,10 +42,11 @@ $max-parallax-ratio: 1.25;
 
             mat-card.onboarding-slide {
                 background-color: rgba($white, 1);
+                box-shadow: none;
             }
 
             .text-content {
-                visibility: none;
+                visibility: hidden;
             }
         }
 
