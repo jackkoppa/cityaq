@@ -23,5 +23,32 @@
                 "/assets/**"
             ]
         }
+    }],
+    "dataGroups": [{
+        "name": "cities",
+        "urls": ["https://api.openaq.org/v1/cities"],
+        "cacheConfig": {
+            "maxSize": 2,
+            "maxAge": "14d",
+            "strategy": "performance"
+        }
+    },{
+        "name": "locations",
+        "urls": ["https://api.openaq.org/v1/locations"],
+        "cacheConfig": {
+            "maxSize": 20,
+            "maxAge": "3d",
+            "timeout": "3s",
+            "strategy": "freshness"
+        }
+    },{
+        "name": "latest",
+        "urls": ["https://api.openaq.org/v1/latest"],
+        "cacheConfig": {
+            "maxSize": 2,
+            "maxAge": "3d",
+            "timeout": "3s",
+            "strategy": "freshness"
+        }
     }]
 }

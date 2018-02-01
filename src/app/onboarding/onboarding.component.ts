@@ -14,7 +14,7 @@ const BACKGROUND_RATIO: number = 0.25;
 @Component({
     selector: 'aq-onboarding',
     templateUrl: './onboarding.component.html',
-    animations: [FadeAnimation];
+    animations: [FadeAnimation]
 })
 export class OnboardingComponent implements AfterContentInit {
     @ViewChild('carousel') carousel: ElementRef;
