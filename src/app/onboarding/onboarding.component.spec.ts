@@ -3,6 +3,7 @@ import { OnboardingComponent } from './onboarding.component';
 import { DebugElement, NO_ERRORS_SCHEMA }    from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By }              from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { GesturesModule } from '../shared/gestures/gestures.module';
 
@@ -14,7 +15,8 @@ describe('IntroComponent', () => {
             declarations: [OnboardingComponent],
             schemas: [NO_ERRORS_SCHEMA],
             // more of an integration than unit test; Hammerjs is required by OnboardingComponent, with the config in GesturesModule
-            imports: [GesturesModule] 
+            // BrowserAnimationsModule required for @fade properties
+            imports: [GesturesModule, BrowserAnimationsModule] 
         });
         fixture = TestBed.createComponent(OnboardingComponent);
         onboardingComponent = fixture.componentInstance;
