@@ -19,7 +19,9 @@ class Adapter {
      * Wrapper around the `Request` constructor.
      */
     newRequest(input, init) {
-        return new Request(input, Object.assign(init, {mode: 'cors'}));
+        var newInit = init || {};
+        var assignedInit = Object.assign(newInit, {mode: 'cors'});
+        return new Request(input, assignedInit);
     }
     /**
      * Wrapper around the `Response` constructor.
