@@ -63,7 +63,7 @@ export class CityCardComponent implements OnInit {
     public onPanEnd(event: any): void {
         setTimeout(() => this.x = 0, 0);
     }
-
+    
     private getRowsClass(): string {
         return 'rows-' + Math.ceil(this.parameterAverages.length / 2)
     }
