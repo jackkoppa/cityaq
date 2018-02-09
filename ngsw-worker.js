@@ -2126,7 +2126,11 @@ class Driver {
                 // This is the first time this client ID has been seen. Whether the SW is in a
                 // state to handle new clients depends on the current readiness state, so check
                 // that first.
-                if (this.state !== DriverReadyState.NORMAL) {
+                
+                /*
+                * Commenting out to test "fix" for offline access to non-index routes
+                */
+                /*if (this.state !== DriverReadyState.NORMAL) {
                     // It's not safe to serve new clients in the current state. It's possible that
                     // this is an existing client which has not been mapped yet (see below) but
                     // even if that is the case, it's invalid to make an assignment to a known
@@ -2134,7 +2138,9 @@ class Driver {
                     // undefined here to let the caller know that no assignment is possible at
                     // this time.
                     return null;
-                }
+                }*/
+                
+                
                 // It's safe to handle this request. Two cases apply. Either:
                 // 1) the browser assigned a client ID at the time of the navigation request, and
                 //    this is truly the first time seeing this client, or
@@ -2161,9 +2167,14 @@ class Driver {
         else {
             // No client ID was associated with the request. This must be a navigation request
             // for a new client. First check that the SW is accepting new clients.
-            if (this.state !== DriverReadyState.NORMAL) {
+            
+            
+            /*
+            * Commenting out to test "fix" for offline access to non-index routes
+            */
+            /*if (this.state !== DriverReadyState.NORMAL) {
                 return null;
-            }
+            }*/
             // Serve it with the latest version, and assume that the client will actually get
             // associated with that version on the next request.
             // First validate the current state.
