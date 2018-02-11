@@ -5,6 +5,15 @@
 */
 
 const replace = require('replace-in-file');
+
+const existing = {
+    files: 'dist/ngsw-worker.js',
+    from: /this\.state = DriverReadyState\.EXISTING_CLIENTS_ONLY;/g,
+    to: '/*this.state = DriverReadyState.EXISTING_CLIENTS_ONLY;*/ ' + 
+        '// removing EXISTING_CLIENTS_ONLY state, as it behaves incorrectly in offline GitHub pages testing'
+
+}
+
 const baseHref = {
     files: 'dist/ngsw.json',
     from: /\"index\": \"https:\/\/jackkoppa\.github\.io\/cityaq\/index\.html\",/g,
@@ -19,6 +28,13 @@ const serviceWorkerURLFix = {
         '// overriding default @angular/service-worker URL behavior, to handle routing bug angular/angular #21636'
 }
 
+try {
+    const existingInstances = replace.sync(existing);
+    console.log('Replacements of EXISTING_CLIENTS_ONLY states: ', existingInstances.join(', '));
+}
+catch(error) {
+    console.error('Error occurred while replacing EXISTING_CLIENTS_ONLY states: ', error);    
+}
 
 try {
     const baseHrefInstances = replace.sync(baseHref);
