@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+
 import { Coordinates } from '../core/api/openaq/coordinates.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
 import { CalculationService } from '../core/calculation/calculation-new.service';
 import { CalculationResponse, CalculationMessage } from '../core/calculation/calculation-response.models';
+import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
 import { NamingService } from '../core/naming/naming.service';
 import { SearchedCity } from '../search/searched-city.model';
+import { MessagingService } from '../shared/messaging/messaging.service';
+import { ServiceWorkerHelper } from '../shared/service-worker/service-worker.helper';
 
 import { ParameterAverage } from './individual-aqi.model';
 import { LatestCityMeasurements } from './latest-city-measurements.model';
@@ -19,8 +24,29 @@ export class CityService {
     constructor(
         private calculationService: CalculationService,
         private namingService: NamingService,
-        private staticMapsHandlerService: StaticMapsHandlerService
+        private staticMapsHandlerService: StaticMapsHandlerService,
+        private latestHandlerService: LatestHandlerService,
+        private messagingService: MessagingService
     ) {}
+
+    public getLatestCityMeasurements(searchedCity: SearchedCity): Observable<LatestResponse> {
+        return this.latestHandlerService
+            .getLatestByCityAndCountry(searchedCity.city, searchedCity.country)
+            .catch(err => {
+                if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
+                    this.messagingService.warnDismissable(
+                        `Currently offline, and no measurements have been saved for ${searchedCity.city.toUpperCase()}. ` + 
+                        `Measurements will be loaded when connection is restored`
+                    );
+                } else {
+                    this.messagingService.errorDismissable(
+                        `Failed to retrieve measurement data for ${searchedCity.city.toUpperCase()} from OpenAQ`,
+                        [`Search error for ${searchedCity.city}: `, searchedCity, err]
+                    );
+                }
+                return Observable.of(null);
+            });
+    }
 
     public getStaticMapsImageFileURL(searchedCity: SearchedCity): Promise<any> {
         const coordinates = this.getLatLong(searchedCity);
@@ -28,6 +54,16 @@ export class CityService {
             .getImageByLatLong(coordinates.latitude, coordinates.longitude)
             .toPromise()
             .then(res => this.createImageFromBlob(res))
+            .catch(err => {
+                if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
+                    console.warn(`Currently offline, and no background been saved for ${searchedCity.city.toUpperCase()}. ` +
+                        `Background will be loaded when connection is restored`)
+                } else {
+                    console.error(`Failed to retrieve background for ${searchedCity.city.toUpperCase()} ` + 
+                    `from Google Static Maps`, err);
+                }
+                return Promise.resolve(null);
+            });
     }
 
     public getParameterAverages(searchedCity: SearchedCity, latestResponse: LatestResponse): ParameterAverage[] {
@@ -154,34 +190,4 @@ export class CityService {
             allMessages: allMessages
         }
     }
-
-    // private getConcentrationAvg(
-    //     parameter: Parameter,
-    //     latestMeasurements: LatestMeasurement[]
-    // ): number {
-    //     const concentrations: number[] = latestMeasurements
-    //         .map(measurement => measurement.value);
-    //     return concentrations.reduce((sum, aqi) => sum + aqi, 0) / concentrations.length;
-    // }
-
-    // private getUnit(latestMeasurements: LatestMeasurement[]): string {
-    //     let unit: string;
-    //     const discrepancy: boolean = latestMeasurements.some(measurement => {
-    //         if (unit && unit != measurement.unit) return true;
-    //         else unit = measurement.unit;
-    //     });
-    //     if (discrepancy) {
-    //         const units = latestMeasurements.map(measurement => measurement.unit).toString()
-    //         throw new Error(`Tried to calculate averages of different units for parameter ${latestMeasurements[0].parameter}, with units ${units}`)
-    //     } else {
-    //         return unit;
-    //     }    
-    // }
-    
-    // private getAQIByParameterAndConcentration(
-    //     parameter: Parameter,
-    //     concentration: number 
-    // ): number {
-    //     return 0; //this.calculationService.calculateAQIByParameter(concentration, parameter);
-    // }
 }

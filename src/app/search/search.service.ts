@@ -52,7 +52,7 @@ export class SearchService {
     public search(cityName: string, allCities: SearchedCity[]): Observable<SearchedCity> {
         const city = allCities.find(city => city.city === cityName);
         if (!city || !city.country) {
-            this.messagingService.warn(`${cityName.toUpperCase()} is not in the list of available OpenAQ cities`, 'slow');
+            this.messagingService.warn(`${cityName.toUpperCase()} is not tracked by OpenAQ`, 'slow');
             return Observable.of(null);
         }
         const country = city.country;
@@ -65,13 +65,13 @@ export class SearchService {
             .catch(err => {
                 if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
                     this.messagingService.warnDismissable(
-                        `You are currently offline, and no measurements have been saved for ${cityName.toUpperCase()}\n` + 
-                        `Measurements will be loaded when connection is restored`
+                        `Currently offline, and no location information has been saved for ${cityName.toUpperCase()}.` + 
+                        `Location will be loaded when connection is restored`
                     );
                 } else {
                     this.messagingService.errorDismissable(
-                        `Failed to retrieve data for ${cityName.toUpperCase()} from OpenAQ`,
-                        [`Search error for ${cityName}, ${city}: `, err]
+                        `Failed to retrieve location data for ${cityName.toUpperCase()} from OpenAQ`,
+                        [`Search error for ${cityName}: `, city, err]
                     );
                 }
                 return Observable.of(null);

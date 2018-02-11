@@ -28,7 +28,6 @@ export class CityCardComponent implements OnInit {
     public overallAQIClass: string;
     public staticMapsURL: any = '';
     public expanded: boolean = false;
-    public x: number = 0;
 
     get contentClass(): string {
         return this.expanded ? 'expanded ' + this.getRowsClass() : 'closed';
@@ -46,7 +45,7 @@ export class CityCardComponent implements OnInit {
     
     
     ngOnInit() {
-        this.getLatestCityMeasurements()
+        this.cityService.getLatestCityMeasurements(this.searchedCity)
             .subscribe(latest => this.setAveragesAndClasses(latest));
         this.cityService.getStaticMapsImageFileURL(this.searchedCity)
             .then(url => this.staticMapsURL = url);
@@ -55,22 +54,9 @@ export class CityCardComponent implements OnInit {
     public toggleContent(): void {
         this.expanded = !this.expanded;
     }
-
-    public onPan(event: any): void {
-        this.x = event.deltaX;
-    }
-
-    public onPanEnd(event: any): void {
-        setTimeout(() => this.x = 0, 0);
-    }
     
     private getRowsClass(): string {
         return 'rows-' + Math.ceil(this.parameterAverages.length / 2)
-    }
-    
-    private getLatestCityMeasurements(): Observable<LatestResponse> {
-        return this.latestHandlerService
-            .getLatestByCityAndCountry(this.searchedCity.city, this.searchedCity.country);
     }
 
     private setAveragesAndClasses(latest: LatestResponse): void {
