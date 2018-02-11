@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "index": "https://jackkoppa.github.io/cityaq/index.html",
+  "index": "https://jackkoppa.github.io/cityaq/index.html", 
   "assetGroups": [
     {
       "name": "app",

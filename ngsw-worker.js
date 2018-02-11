@@ -441,7 +441,7 @@ class AssetGroup {
         const parsed = this.adapter.parseUrl(url, this.scope.registration.scope);
         if (parsed.origin === this.origin) {
             // The URL is relative to the SW's origin domain.
-            return parsed.path;
+            /*return parsed.path;*/ return url; // overriding default @angular/service-worker URL behavior, to handle routing bug angular/angular #21636
         }
         else {
             return url;
