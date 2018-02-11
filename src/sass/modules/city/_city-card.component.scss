@@ -70,12 +70,19 @@ mat-card.city-card mat-card-content {
 
     &.expanded {
         @for $i from 1 through 4 {
-            &.rows-#{$i} { max-height: 25px + $card-content-row-height * $i; } 
+            &.rows-#{$i} { max-height: (map-get($gutters, 'md') * 3) + $card-content-row-height * $i; } 
         }    
+    }
+
+    .mat-icon.timestamp-indicator {
+        bottom: map-get($gutters, 'md');
+        position: absolute;
+        right: map-get($gutters, 'md');
     }
 
     .parameter-averages {
         display: flex;
         flex-wrap: wrap;
+        padding-bottom: map-get($gutters, 'md') * 2;
     }
 }

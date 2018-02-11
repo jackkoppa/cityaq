@@ -28,6 +28,7 @@ export class CityCardComponent implements OnInit {
     public overallAQIClass: string;
     public staticMapsURL: any = '';
     public expanded: boolean = false;
+    public retrievedMsg: string;
 
     get contentClass(): string {
         return this.expanded ? 'expanded ' + this.getRowsClass() : 'closed';
@@ -66,6 +67,21 @@ export class CityCardComponent implements OnInit {
             this.latestResponse
         );
         this.overallAQI = this.cityService.getOverallAQI(this.parameterAverages);
-        this.overallAQIClass = this.cityService.getAQIClass(this.overallAQI);        
+        this.overallAQIClass = this.cityService.getAQIClass(this.overallAQI);   
+        this.setRetrievedMsg(latest);     
+    }
+
+    private setRetrievedMsg(latest: LatestResponse): void {
+        const timestamps: string[] = [];
+        const measurements = latest.map(latestIndividual => {
+            return latestIndividual.measurements;
+        });
+        measurements.forEach(measurement => {
+            measurement.forEach(latestMeasurement => (latestMeasurement && latestMeasurement.lastUpdated) ? 
+                timestamps.push(latestMeasurement.lastUpdated) : null)
+        });
+        const dates = timestamps.map(timestamp => Math.round(new Date(timestamp).getTime()));
+        const newest = Math.max(...dates);
+        this.retrievedMsg = `Retrieved ${new Date(newest).toLocaleString()}`;
     }
 }

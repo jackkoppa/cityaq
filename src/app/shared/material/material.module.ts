@@ -8,7 +8,8 @@ import {
     MatIconModule,
     MatInputModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule    
+    MatProgressSpinnerModule,
+    MatTooltipModule    
  } from '@angular/material';
 
 @NgModule({
@@ -20,7 +21,8 @@ import {
         MatIconModule,
         MatInputModule,
         MatProgressBarModule,
-        MatProgressSpinnerModule 
+        MatProgressSpinnerModule,
+        MatTooltipModule 
     ],
     exports: [
         MatAutocompleteModule,
@@ -30,7 +32,8 @@ import {
         MatIconModule,
         MatInputModule,
         MatProgressBarModule,
-        MatProgressSpinnerModule 
+        MatProgressSpinnerModule,
+        MatTooltipModule 
     ]
 })
 export class MaterialModule {}

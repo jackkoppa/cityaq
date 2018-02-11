@@ -17,6 +17,12 @@
         </button>
     </mat-card-header>
     <mat-card-content class="bg-0-7-white" [ngClass]="contentClass">
+        <mat-icon aria-label="Date retrieved" 
+            class="timestamp-indicator"
+            [matTooltip]="retrievedMsg"
+            matTooltipPosition="before"
+            matTooltipShowDelay="50"
+            matTooltipHideDelay="500">access_time</mat-icon>
         <div class="parameter-averages">
             <aq-parameter-average-indicator *ngFor="let average of parameterAverages"
                 [average]="average"></aq-parameter-average-indicator>
