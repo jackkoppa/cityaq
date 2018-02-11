@@ -2,21 +2,21 @@ import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/throw';
-import 'rxjs/add/observable/empty';
 
 import { CitiesRequest } from '../core/api/openaq/cities/cities-request.model';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
 import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
-import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
 import { LocationsResponse } from '../core/api/openaq/locations/locations-response.model';
+import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
+import { QueryParams, ObjectParams } from '../core/routing/params.models';
 import { MessagingService } from '../shared/messaging/messaging.service';
 
 import { SearchedCity } from './searched-city.model';
-import { Subject } from 'rxjs/Subject';
-import { QueryParams, ObjectParams } from '../core/routing/params.models';
 import { ParamsHelper } from '../core/routing/params.helper';
 import { SearchingStatus } from './searching-status.model';
+import { ServiceWorkerHelper } from '../shared/service-worker/service-worker.helper';
 
 @Injectable()
 export class SearchService {
@@ -52,11 +52,7 @@ export class SearchService {
     public search(cityName: string, allCities: SearchedCity[]): Observable<SearchedCity> {
         const city = allCities.find(city => city.city === cityName);
         if (!city || !city.country) {
-            this.messagingService.warn(
-                `${cityName.toUpperCase()} is not in the list of available OpenAQ cities`,
-                undefined,
-                'slow'
-            );
+            this.messagingService.warn(`${cityName.toUpperCase()} is not in the list of available OpenAQ cities`, 'slow');
             return Observable.of(null);
         }
         const country = city.country;
@@ -67,11 +63,17 @@ export class SearchService {
                 return city;
             })
             .catch(err => {
-                this.messagingService.error(
-                    `Failed to find data for ${cityName.toUpperCase()}`,
-                    `Search error for ${cityName}, ${city}: ${err}`,
-                    'slow'
-                );
+                if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
+                    this.messagingService.warnDismissable(
+                        `You are currently offline, and no measurements have been saved for ${cityName.toUpperCase()}\n` + 
+                        `Measurements will be loaded when connection is restored`
+                    );
+                } else {
+                    this.messagingService.errorDismissable(
+                        `Failed to retrieve data for ${cityName.toUpperCase()} from OpenAQ`,
+                        [`Search error for ${cityName}, ${city}: `, err]
+                    );
+                }
                 return Observable.of(null);
             });
     }

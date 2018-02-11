@@ -5,11 +5,6 @@
         text-align: center;
     }
 
-    &.error {
-        background-color: map-get(map-get($aqi-colors, maroon), primary);
-    }
-
-    &.warn {
-        background-color: map-get(map-get($aqi-colors, purple), primary);
-    }
+    // TODO: determine if there is a way to stylistically differentiate between error & warn, 
+    // while keeping any action buttons consistent 
 }
