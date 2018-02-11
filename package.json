@@ -9,10 +9,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "sw-build": "ng build --prod && node build/fix-url-matching",
+    "sw-build": "ng build --prod && node build/fix-sw",
     "ci-test": "ng test -cc -sr --browsers=ChromeHeadless",
     "ci-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "ci-deploy": "ng build --prod --base-href \"https://jackkoppa.github.io/cityaq/\" && node build/fix-url-matching && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/cityaq.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
+    "ci-deploy": "ng build --prod --base-href \"https://jackkoppa.github.io/cityaq/\" && node build/fix-sw && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/cityaq.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
   },
   "private": true,
   "dependencies": {
