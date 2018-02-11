@@ -1,4 +1,4 @@
-# CityAQ
+# cityAQ
 [![Build Status](https://travis-ci.org/jackkoppa/cityaq.svg?branch=master)](https://travis-ci.org/jackkoppa/cityaq)
 [![Coverage Status](https://coveralls.io/repos/github/jackkoppa/cityaq/badge.svg?branch=master)](https://coveralls.io/github/jackkoppa/cityaq?branch=master)
 ## Background
@@ -28,7 +28,7 @@ Livereloading dev server now available at `http://localhost:4200/`
 Since the Angular [`ServiceWorkerModule`](https://angular.io/api/service-worker/ServiceWorkerModule) cannot be tested using the normal Webpack dev server, run the steps above, but instead of `ng serve`, run:
 ```shell
 npm install -g http-server
-ng build --prod
+npm run sw-build
 cd dist
 http-server -p 8080
 ```
