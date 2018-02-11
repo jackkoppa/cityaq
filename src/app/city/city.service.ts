@@ -35,8 +35,8 @@ export class CityService {
             .catch(err => {
                 if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
                     this.messagingService.warnDismissable(
-                        `Currently offline, and no measurements have been saved for ${searchedCity.city.toUpperCase()}. ` + 
-                        `Measurements will be loaded when connection is restored`
+                        `Currently offline, and no measurements have been saved for ${searchedCity.city.toUpperCase()} - ` + 
+                        `will be loaded when connection is restored`
                     );
                 } else {
                     this.messagingService.errorDismissable(
@@ -56,8 +56,8 @@ export class CityService {
             .then(res => this.createImageFromBlob(res))
             .catch(err => {
                 if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
-                    console.warn(`Currently offline, and no background been saved for ${searchedCity.city.toUpperCase()}. ` +
-                        `Background will be loaded when connection is restored`)
+                    console.warn(`Currently offline, and no background been saved for ${searchedCity.city.toUpperCase()} - ` +
+                        `will be loaded when connection is restored`)
                 } else {
                     console.error(`Failed to retrieve background for ${searchedCity.city.toUpperCase()} ` + 
                     `from Google Static Maps`, err);

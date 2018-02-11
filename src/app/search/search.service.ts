@@ -65,8 +65,8 @@ export class SearchService {
             .catch(err => {
                 if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
                     this.messagingService.warnDismissable(
-                        `Currently offline, and no location information has been saved for ${cityName.toUpperCase()}.` + 
-                        `Location will be loaded when connection is restored`
+                        `Currently offline, and no location information has been saved for ${cityName.toUpperCase()} - ` + 
+                        `will be loaded when connection is restored`
                     );
                 } else {
                     this.messagingService.errorDismissable(
