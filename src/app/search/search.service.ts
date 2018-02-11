@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/empty';
 
 import { CitiesRequest } from '../core/api/openaq/cities/cities-request.model';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
@@ -49,17 +51,28 @@ export class SearchService {
 
     public search(cityName: string, allCities: SearchedCity[]): Observable<SearchedCity> {
         const city = allCities.find(city => city.city === cityName);
+        if (!city || !city.country) {
+            this.messagingService.error(
+                `${cityName.toUpperCase()} is not in the list of available OpenAQ cities`,
+                undefined,
+                'slow'
+            );
+            return Observable.of(null);
+        }
         const country = city.country;
         return this.locationsHandlerService
             .getLocationsByCityAndCountry(cityName, country)
             .map(locations => {
                 city.locationsResponse = locations;
                 return city;
-            }, error => {
+            })
+            .catch(err => {
                 this.messagingService.error(
                     `Failed to find data for ${cityName.toUpperCase()}`,
-                    `Search error for ${cityName}, ${city}: ${error}`
+                    `Search error for ${cityName}, ${city}: ${err}`,
+                    'slow'
                 );
+                return Observable.of(null);
             });
     }
 
@@ -124,8 +137,10 @@ export class SearchService {
         } else {
             this.setStatusStarted()
             return Observable.forkJoin(objectParams.cityNames
-                    .map(cityName => this.search(cityName, allCities))
-                ).do(searchedCities => this.setStatusFinished());                
+                    .map(cityName => this.search(cityName, allCities))             
+                )
+                .map(searchedCities => searchedCities.filter(searchedCity => searchedCity != null))
+                .do(searchedCities => this.setStatusFinished());                
         }
     }
 }
