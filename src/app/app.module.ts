@@ -14,6 +14,7 @@ import { APP_ROUTES } from './core/routing/routes.constant';
 import { HomeModule } from './home/home.module';
 import { OnboardingModule } from './onboarding/onboarding.module';
 import { SearchModule } from './search/search.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { SearchModule } from './search/search.module';
         CoreModule,
         HomeModule,
         OnboardingModule,
-        SearchModule
+        SearchModule,
+        SettingsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

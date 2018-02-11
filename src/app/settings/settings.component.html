@@ -1,0 +1,23 @@
+<button mat-raised-button
+    color="accent"
+    *ngIf="settingItemsVisible"
+    [@fadeSlideUp]>
+    <mat-icon aria-label="Save default cities">save</mat-icon> SAVE DEFAULT CITIES
+</button>
+<button mat-raised-button
+    color="accent"
+    *ngIf="settingItemsVisible"
+    [@fadeSlideUp]>
+    <mat-icon aria-label="Clear all cities">clear_all</mat-icon> CLEAR ALL
+</button>
+<button mat-fab
+    (click)="toggleSettingItems()">
+    <mat-icon aria-label="Open app settings"
+        class="settings-icon"
+        *ngIf="!settingItemsVisible"
+        [@fade]>storage</mat-icon>
+    <mat-icon aria-label="Close app settings"
+        class="settings-icon"
+        *ngIf="settingItemsVisible"
+        [@fade]>close</mat-icon>
+</button>

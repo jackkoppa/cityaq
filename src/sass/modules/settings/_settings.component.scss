@@ -1,0 +1,19 @@
+aq-settings {
+    align-items: flex-end;
+    bottom: map-get($gutters, 'md') * 2;
+    display: flex;
+    flex-direction: column;
+    right: map-get($gutters, 'md') * 2;
+    position: absolute;
+
+    .settings-icon {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+    }
+
+    .mat-raised-button {
+        margin-bottom: map-get($gutters, 'md');
+        padding: map-get($gutters, 'xs') map-get($gutters, 'md')
+    }
+}
