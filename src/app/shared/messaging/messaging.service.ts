@@ -17,17 +17,22 @@ export class MessagingService {
     constructor(private matSnackBar: MatSnackBar) {}
 
     public error(msg: string, consoleMsg?: string, duration: MessageDuration = 'medium'): MatSnackBarRef<SimpleSnackBar> {
-        consoleMsg && console.error(consoleMsg);
-        return this.matSnackBar.open(msg, undefined, {
-            duration: DURATION_MAP.get(duration),
-            extraClasses: ['error']
-        });                
+        return this.triggerPrompt(msg, consoleMsg, duration, 'error');           
+    }
+
+    public warn(msg: string, consoleMsg?: string, duration: MessageDuration = 'medium'): MatSnackBarRef<SimpleSnackBar> {
+        return this.triggerPrompt(msg, consoleMsg, duration, 'warn');             
     }
 
     public notify(msg: string, duration: MessageDuration = 'fast'): MatSnackBarRef<SimpleSnackBar> {
+        return this.triggerPrompt(msg, undefined, duration, undefined);
+    }
+
+    private triggerPrompt(msg: string, consoleMsg, duration: MessageDuration, severity: 'error' | 'warn'): MatSnackBarRef<SimpleSnackBar> {
+        consoleMsg && severity && console[severity](consoleMsg);
         return this.matSnackBar.open(msg, undefined, {
             duration: DURATION_MAP.get(duration),
-            extraClasses: ['notify']
+            extraClasses: [severity]
         });
     }
 }

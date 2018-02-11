@@ -1,6 +1,15 @@
 .mat-snack-bar-container {
     &.error,
+    &.warn,
     &.notify {
         text-align: center;
+    }
+
+    &.error {
+        background-color: map-get(map-get($aqi-colors, maroon), primary);
+    }
+
+    &.warn {
+        background-color: map-get(map-get($aqi-colors, purple), primary);
     }
 }

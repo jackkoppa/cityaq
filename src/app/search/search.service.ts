@@ -52,7 +52,7 @@ export class SearchService {
     public search(cityName: string, allCities: SearchedCity[]): Observable<SearchedCity> {
         const city = allCities.find(city => city.city === cityName);
         if (!city || !city.country) {
-            this.messagingService.error(
+            this.messagingService.warn(
                 `${cityName.toUpperCase()} is not in the list of available OpenAQ cities`,
                 undefined,
                 'slow'
