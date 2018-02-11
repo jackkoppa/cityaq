@@ -2235,10 +2235,8 @@ class Driver {
             // The latest manifest is broken. This means that new clients are at the mercy of the
             // network, but caches continue to be valid for previous versions. This is
             // unfortunate but unavoidable.
-            
-            // Testing removal of EXISTING_CLIENTS_ONLY state
-            // this.state = DriverReadyState.EXISTING_CLIENTS_ONLY;
-            // this.stateMessage = `Degraded due to failed initialization: ${errorToString(err)}`;
+            /*this.state = DriverReadyState.EXISTING_CLIENTS_ONLY;*/ // removing EXISTING_CLIENTS_ONLY state, as it behaves incorrectly in offline GitHub pages testing
+            this.stateMessage = `Degraded due to failed initialization: ${errorToString(err)}`;
             // Cancel the binding for these clients.
             Array.from(this.clientVersionMap.keys())
                 .forEach(clientId => this.clientVersionMap.delete(clientId));
@@ -2294,9 +2292,8 @@ class Driver {
         }
         catch (err) {
             this.debugger.log(err, `Error occurred while updating to manifest ${hash}`);
-            // Testing removal of EXISTING_CLIENTS_ONLY state
-            // this.state = DriverReadyState.EXISTING_CLIENTS_ONLY;
-            // this.stateMessage = `Degraded due to failed initialization: ${errorToString(err)}`;
+            /*this.state = DriverReadyState.EXISTING_CLIENTS_ONLY;*/ // removing EXISTING_CLIENTS_ONLY state, as it behaves incorrectly in offline GitHub pages testing
+            this.stateMessage = `Degraded due to failed initialization: ${errorToString(err)}`;
             return false;
         }
     }
