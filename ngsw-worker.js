@@ -436,16 +436,20 @@ class AssetGroup {
         }
     }
     getConfigUrl(url) {
+        // test returning only the url
+        return url;
+
+
         // If the URL is relative to the SW's own origin, then only consider the path relative to
         // the domain root. Determine this by checking the URL's origin against the SW's.
-        const parsed = this.adapter.parseUrl(url, this.scope.registration.scope);
-        if (parsed.origin === this.origin) {
-            // The URL is relative to the SW's origin domain.
-            return parsed.path;
-        }
-        else {
-            return url;
-        }
+        // const parsed = this.adapter.parseUrl(url, this.scope.registration.scope);
+        // if (parsed.origin === this.origin) {
+        //     // The URL is relative to the SW's origin domain.
+        //     return parsed.path;
+        // }
+        // else {
+        //     return url;
+        // }
     }
     /**
      * Some resources are cached without a hash, meaning that their expiration is controlled
