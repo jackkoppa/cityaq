@@ -2,11 +2,11 @@
 $skyline-height: 160px;
 
 /// @type Length
-$skyline-foreground-height: $skyline-height * 0.6;
+$skyline-foreground-height: $skyline-height * 0.65;
 
 // card should only be covered by the very tallest peaks on the foreground image
 /// @type Length
-$bottom-to-foreground-peaks: 84px;
+$bottom-to-foreground-peaks: $skyline-foreground-height - ($skyline-foreground-height * 0.2);
 
 /// @type Number
 $carousel-slides: 3;
@@ -106,6 +106,8 @@ $max-parallax-ratio: 1.25;
     
         &.skyline-foreground {
             background-image: url('../assets/icons/skyline-foreground.svg');
+            height: $skyline-foreground-height;
+
             z-index: map-get($z-index-levels, 'foreground-1');
         }
         &.skyline-midground {

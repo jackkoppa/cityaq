@@ -4,3 +4,7 @@ body {
     color: $text-color;
     font: normal 125% / 1.4 $text-font-stack;
 }
+
+@each $transform in lowercase, uppercase {
+    .#{$transform} { text-transform: $transform}
+}
