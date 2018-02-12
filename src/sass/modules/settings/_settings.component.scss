@@ -6,11 +6,17 @@ aq-settings {
     right: map-get($gutters, 'sm') * 2;
     position: absolute;
 
-    .settings-icon {
-        position: absolute;
-        top: 16px;
-        left: 16px;
+    .mat-fab {
+        height: $settings-fab-size;
+        width: $settings-fab-size;
+        
+        .settings-icon {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+        }
     }
+
 
     .mat-raised-button {
         margin-bottom: map-get($gutters, 'md');

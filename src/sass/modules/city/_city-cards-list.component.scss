@@ -1,4 +1,8 @@
 aq-city-cards-list {
     display: block;
     margin-top: -20px;
+
+    .city-cards-list-bottom-spacer {
+        height: map-get($gutters, 'sm') * 3 + $settings-fab-size;
+    }
 }

@@ -27,11 +27,12 @@ $dark-grey: rgb(68, 68, 68) !default;
 /// @type Color
 $white: rgb(255, 255, 255) !default;
 
-
 //// container
 /// @type Length
 $max-width: 1180px !default;
 
+/// @type Length
+$settings-fab-size: 56px;
 
 //// gutters
 /// @prop {String} keys - Keys are names for gutter sizes
