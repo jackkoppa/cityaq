@@ -44,7 +44,7 @@ export class SettingsComponent {
                 queryParams: ParamsHelper.objectToQuery(objectParams)
             })
             .then(() => {
-                this.messagingService.info('Cleared all cities');
+                this.messagingService.info('Cleared current view');
                 this.settingItemsVisible = false;
             });
     }
