@@ -2,7 +2,7 @@ import { Component, AfterContentInit, ViewChild, ElementRef } from '@angular/cor
 
 import { FadeAnimation } from '../shared/animations/fade-animation.constant';
 
-const SLIDE_COUNT: number = 3;
+const SLIDE_COUNT: number = 4;
 const TRANSITION_TRANSFORM: string = 'transition-transform';
 const MOMENTUM_MULTIPLIER: number = 100; // this * px/ms, gives additional "momentum" at end of pan
 const MOMENTUM_THRESHOLD: number = 1.05; // if velocity on last pan event is greater, will automatically move to targeted slide
