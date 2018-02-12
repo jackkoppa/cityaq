@@ -1,0 +1,30 @@
+.aqi-explanation-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    .aqi-explanation-item {
+        flex: 0 0 50%;
+        padding: map-get($gutters, 'xs');
+
+        .aqi-explanation-item-content {
+            padding: map-get($gutters, 'xs');
+            height: 100%;
+        }
+
+        .aqi-explanation-range,
+        .aqi-explanation-description {
+            display: block; 
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+            margin-bottom: 0; 
+            text-transform: lowercase;
+        }
+
+        .aqi-explanation-range {
+            border-bottom: 3px solid;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+}

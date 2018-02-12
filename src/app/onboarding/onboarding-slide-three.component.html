@@ -1,6 +1,14 @@
 <mat-card class="onboarding-slide">
     <div class="text-content">
-        <h2 class="text-green">Dig deeper</h2>
-        <h3>For detailed maps &amp; charts, checkout the <a href="https://openaq.org/#/map" target="_blank">OpenAQ site</a></h3>
+        <h2 class="text-green">AQI Explanation</h2>
+        <div class="aqi-explanation-wrapper">
+            <div class="aqi-explanation-item"
+                *ngFor="let option of AQIOptions">
+                <div class="aqi-explanation-item-content" [ngClass]="'bg-' + option.className">
+                    <span class="aqi-explanation-range">{{option.range[0]}} - {{option.range[1]}}</span>
+                    <span class="aqi-explanation-description">{{option.description}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </mat-card>
