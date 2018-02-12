@@ -1,8 +1,9 @@
 import { SearchService } from './search.service';
 
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
-import { MessagingService } from '../shared/messaging/messaging.service';
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
+import { MessagingService } from '../shared/messaging/messaging.service';
+import { CountryNamePipe } from '../shared/pipes/country-name.pipe';
 
 describe('SearchService', () => {
     let harness: Harness;
@@ -264,13 +265,18 @@ describe('SearchService', () => {
 class Harness {
     messagingService: MessagingService = <MessagingService>{};
     locationsHandlerService: LocationsHandlerService = <LocationsHandlerService>{};
+    countryNamePipe: CountryNamePipe = <CountryNamePipe>{}
 
     constructor() {
         this.mockCommonMethods();
     }
 
     createService(): SearchService {
-        return new SearchService(this.messagingService, this.locationsHandlerService);
+        return new SearchService(
+            this.messagingService,
+            this.locationsHandlerService,
+            this.countryNamePipe
+        );
     }
 
     mockCommonMethods(): void {
