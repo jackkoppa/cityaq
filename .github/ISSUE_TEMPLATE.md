@@ -10,6 +10,6 @@
   3.
 
 ## Specifications
-  - Version:
-  - Platform:
-  - Subsystem:
+  - Local | GitHub Pages:
+  - Browser:
+  - OS:
