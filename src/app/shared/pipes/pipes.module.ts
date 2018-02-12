@@ -12,6 +12,10 @@ import { ParameterPipe } from './parameter.pipe';
     declarations: [
         CountryNamePipe,
         ParameterPipe
+    ],
+    providers: [
+        CountryNamePipe,
+        ParameterPipe
     ]
 })
 export class PipesModule {}

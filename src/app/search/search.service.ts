@@ -12,11 +12,12 @@ import { LocationsResponse } from '../core/api/openaq/locations/locations-respon
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
 import { QueryParams, ObjectParams } from '../core/routing/params.models';
 import { MessagingService } from '../shared/messaging/messaging.service';
+import { CountryNamePipe } from '../shared/pipes/country-name.pipe';
+import { ServiceWorkerHelper } from '../shared/service-worker/service-worker.helper';
 
 import { SearchedCity } from './searched-city.model';
 import { ParamsHelper } from '../core/routing/params.helper';
 import { SearchingStatus } from './searching-status.model';
-import { ServiceWorkerHelper } from '../shared/service-worker/service-worker.helper';
 
 @Injectable()
 export class SearchService {
@@ -29,7 +30,8 @@ export class SearchService {
 
     constructor(
         private messagingService: MessagingService,
-        private locationsHandlerService: LocationsHandlerService
+        private locationsHandlerService: LocationsHandlerService,
+        private countryNamePipe: CountryNamePipe
     ) { }
 
     public setStatusFocused(): void {
@@ -92,11 +94,11 @@ export class SearchService {
     }
 
     public filterCities(
-        cityName: string,
+        searchTerm: string,
         allCities: CitiesResponse
     ): CitiesResponse {
-        return cityName ? 
-            this.filterCitiesWhenNameExists(cityName, allCities) : 
+        return searchTerm ? 
+            this.filterCitiesWhenSearchTermExists(searchTerm, allCities) : 
             allCities.slice(0, 5); 
     }
 
@@ -110,12 +112,19 @@ export class SearchService {
         return this.addNewCities(objectParams, updatedSearchedCities, allCities);
     }
 
-    private filterCitiesWhenNameExists(
-        cityName: string,
+    private filterCitiesWhenSearchTermExists(
+        searchTerm: string,
         allCities: CitiesResponse
     ): CitiesResponse {
-        const filteredCities: CitiesResponse = allCities.filter(city =>
-            city.city.toLowerCase().indexOf(cityName.toLowerCase()) === 0);
+        const filteredCities: CitiesResponse = allCities.filter(city => {
+            const searchTerms = searchTerm.trim().split(' ');
+            let allMatch = true;
+            searchTerms.forEach(term => {
+                allMatch = !!(city.city.toLowerCase().indexOf(searchTerm.toLowerCase()) === 0 ||
+                    this.countryNamePipe.transform(city.country).toLowerCase().indexOf(searchTerm.toLowerCase()) === 0);
+            });
+            return allMatch;            
+        })
         return filteredCities.slice(0, 5);
     }
 
