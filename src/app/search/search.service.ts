@@ -116,14 +116,16 @@ export class SearchService {
         searchTerm: string,
         allCities: CitiesResponse
     ): CitiesResponse {
-        const filteredCities: CitiesResponse = allCities.filter(city => {
-            const searchTerms = searchTerm.trim().split(' ');
-            let allMatch = true;
-            searchTerms.forEach(term => {
-                allMatch = !!(city.city.toLowerCase().indexOf(searchTerm.toLowerCase()) === 0 ||
-                    this.countryNamePipe.transform(city.country).toLowerCase().indexOf(searchTerm.toLowerCase()) === 0);
-            });
-            return allMatch;            
+        const filteredCities: CitiesResponse = allCities.filter(filteredCity => {
+            const city = filteredCity.city.toLowerCase();
+            const country = this.countryNamePipe.transform(filteredCity.country).toLowerCase();
+            const variations: string[] = [
+                `${city} ${country}`,
+                `${city}, ${country}`,
+                `${country} ${city}`,
+                `${country}, ${city}`
+            ]
+            return variations.some(searchFormat => searchFormat.indexOf(searchTerm.trim().toLowerCase()) === 0);            
         })
         return filteredCities.slice(0, 5);
     }
