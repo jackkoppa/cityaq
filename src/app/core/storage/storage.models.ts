@@ -6,7 +6,7 @@ export interface LocalStorage extends Storage {
     setItem(key: LocalStorageKey, data: string): void;
 }
 
-type SessionStorageKey = 'newSession'
+type SessionStorageKey = 'sessionStarted'
 
 export interface SessionStorage extends Storage {
     getItem(key: SessionStorageKey): string;

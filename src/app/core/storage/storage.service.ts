@@ -22,12 +22,12 @@ export class StorageService {
         this.favoritesChange.next(this.favorites);
     }
     
-    private get newSession(): boolean {
-        return JSON.parse(this.session.getItem('newSession')) as boolean;
+    private get sessionStarted(): boolean {
+        return JSON.parse(this.session.getItem('sessionStarted')) as boolean;
     }
 
-    private set newSession(newSession: boolean) {
-        this.session.setItem('newSession', JSON.stringify(newSession));
+    private set sessionStarted(sessionStarted: boolean) {
+        this.session.setItem('sessionStarted', JSON.stringify(sessionStarted));
     }
 
     constructor(@Inject(Window) private window: Window) {
@@ -64,4 +64,11 @@ export class StorageService {
         this.favorites = newFavorites;
     }
 
+    public get sessionStartedSnapshot(): boolean {
+        return this.sessionStarted;
+    }
+
+    public startNewSession(): void {
+        this.sessionStarted = true;
+    }
 }

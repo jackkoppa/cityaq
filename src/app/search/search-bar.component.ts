@@ -16,6 +16,7 @@ import { LocationsResponse } from '../core/api/openaq/locations/locations-respon
 import { LocationsHandlerService } from '../core/handlers/locations-handler.service';
 import { ParamsHelper } from '../core/routing/params.helper';
 import { QueryParams } from '../core/routing/params.models';
+import { StorageService } from '../core/storage/storage.service';
 import { MessagingService } from '../shared/messaging/messaging.service';
 
 import { SearchService } from './search.service';
@@ -41,7 +42,8 @@ export class SearchBarComponent implements OnInit {
         private router: Router,
         private searchService: SearchService,
         private locationsHandlerService: LocationsHandlerService,
-        private messagingService: MessagingService
+        private messagingService: MessagingService,
+        private storageService: StorageService
     ) { 
         this.searchService.searchingStatus.subscribe(status => {
             if (this.searching && status === SearchingStatus.Finished) this.clearSearchInput();
@@ -52,6 +54,7 @@ export class SearchBarComponent implements OnInit {
     public ngOnInit(): void {
         this.newForm();
         this.filterCitiesOnInputChange();
+        this.checkForFirstSession();
     }
 
     public attemptSearch(): void {
@@ -94,6 +97,17 @@ export class SearchBarComponent implements OnInit {
         this.router.navigate(['/search'], {
             queryParams: ParamsHelper.objectToQuery(objectParams)
         });
+    }
+
+    private checkForFirstSession(): void {
+        if (this.storageService.sessionStartedSnapshot !== true) {
+            const objectParams = this.storageService.favoritesSnapshot;
+            this.router
+                .navigate(['/search'], {
+                    queryParams: ParamsHelper.objectToQuery(objectParams)
+                })
+                .then(() => this.storageService.startNewSession());
+        }
     }
 
     private clearSearchInput(): void {
