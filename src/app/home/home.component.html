@@ -3,7 +3,7 @@
 <div class="wrapper">
     <router-outlet></router-outlet>
     <div class="settings-wrapper"
-        *ngIf="!menuVisible"
+        *ngIf="userOnboarded && !menuVisible"
         [@fade]>
         <aq-settings></aq-settings>
     </div>

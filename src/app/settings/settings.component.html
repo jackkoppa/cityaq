@@ -1,9 +1,16 @@
 <button mat-raised-button
     color="accent"
-    *ngIf="settingItemsVisible"
+    *ngIf="settingItemsVisible && hasFavorites"
     (click)="goToFavorites()"
     [@fadeSlideUp]>
     <mat-icon aria-label="View favorite cities">favorite</mat-icon> GO TO FAVORITES
+</button>
+<button mat-raised-button
+    color="accent"
+    *ngIf="settingItemsVisible"
+    (click)="resetFavorites()"
+    [@fadeSlideUp]>
+    <mat-icon aria-label="View favorite cities">favorite_border</mat-icon> RESET FAVORITES
 </button>
 <button mat-raised-button
     color="accent"

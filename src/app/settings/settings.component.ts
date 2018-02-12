@@ -14,12 +14,16 @@ import { MessagingService } from '../shared/messaging/messaging.service';
 })
 export class SettingsComponent {
     public settingItemsVisible: boolean = false;
+    private hasFavorites: boolean = false;
 
     constructor(
         private router: Router,
         private storageService: StorageService,
         private messagingService: MessagingService
-    ) {}
+    ) {
+        this.storageService.favoritesChange
+            .subscribe(favorites => this.hasFavorites = favorites && favorites.cityNames && favorites.cityNames.length > 0)
+    }
 
     public toggleSettingItems(): void {
         this.settingItemsVisible = !this.settingItemsVisible;
@@ -35,6 +39,12 @@ export class SettingsComponent {
                 this.messagingService.info('Now viewing favorites');
                 this.settingItemsVisible = false;
             });
+    }
+
+    public resetFavorites(): void {
+        this.storageService.removeAllFavorites();
+        this.messagingService.info('Favorites have been reset');
+        this.settingItemsVisible = false;
     }
 
     public clearAll(): void {
