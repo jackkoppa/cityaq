@@ -14,7 +14,11 @@ import { MessagingService } from '../shared/messaging/messaging.service';
 })
 export class SettingsComponent {
     public settingItemsVisible: boolean = false;
-    private hasFavorites: boolean = false;
+    private _hasFavorites: boolean = false;
+
+    public get hasFavorites(): boolean {
+        return this.hasFavorites;
+    }
 
     constructor(
         private router: Router,
@@ -22,7 +26,7 @@ export class SettingsComponent {
         private messagingService: MessagingService
     ) {
         this.storageService.favoritesChange
-            .subscribe(favorites => this.hasFavorites = favorites && favorites.cityNames && favorites.cityNames.length > 0)
+            .subscribe(favorites => this._hasFavorites = favorites && favorites.cityNames && favorites.cityNames.length > 0)
     }
 
     public toggleSettingItems(): void {

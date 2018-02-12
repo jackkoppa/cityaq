@@ -10,6 +10,7 @@ import { LocalStorage, SessionStorage } from './storage.models';
 export class StorageService {
     public favoritesChange: ReplaySubject<ObjectParams> = new ReplaySubject<ObjectParams>(1);
 
+    private readonly window: Window;
     private readonly local: LocalStorage;
     private readonly session: SessionStorage;
 
@@ -30,9 +31,10 @@ export class StorageService {
         this.session.setItem('sessionStarted', JSON.stringify(sessionStarted));
     }
 
-    constructor(@Inject(Window) private window: Window) {
-        this.local = window.localStorage as LocalStorage;
-        this.session = window.sessionStorage as SessionStorage;
+    constructor(@Inject('Window') window: any) {
+        this.window = window as Window;
+        this.local = this.window.localStorage as LocalStorage;
+        this.session = this.window.sessionStorage as SessionStorage;
         this.favoritesChange.next(this.favorites);
     }
 
