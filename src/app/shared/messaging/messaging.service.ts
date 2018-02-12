@@ -51,18 +51,18 @@ export class MessagingService {
         return this.triggerPrompt(msg, consoleMsg, undefined, dismissAction, 'warn');
     }
 
-    public notify(
+    public info(
         msg: string, 
         duration: MessageDuration = 'fast'
     ): MatSnackBarRef<SimpleSnackBar> {
-        return this.triggerPrompt(msg, undefined, duration, undefined, undefined);
+        return this.triggerPrompt(msg, undefined, duration, undefined, 'info');
     }
 
     public notifyDismissable(
         msg: string,
         dismissAction: DismissAction = 'GOT IT'
     ): MatSnackBarRef<SimpleSnackBar> {
-        return this.triggerPrompt(msg, undefined, undefined, dismissAction, undefined);
+        return this.triggerPrompt(msg, undefined, undefined, dismissAction, 'info');
     }
 
     private triggerPrompt(
@@ -70,7 +70,7 @@ export class MessagingService {
         consoleMsg: any[],        
         duration: MessageDuration,
         dismissAction: DismissAction,
-        severity: 'error' | 'warn'
+        severity: 'error' | 'warn' | 'info'
     ): MatSnackBarRef<SimpleSnackBar> {
         consoleMsg && severity && console[severity](...consoleMsg);
         return this.matSnackBar.open(msg, dismissAction, {

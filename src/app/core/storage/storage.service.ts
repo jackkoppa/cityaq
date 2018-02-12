@@ -36,6 +36,9 @@ export class StorageService {
         this.favoritesChange.next(this.favorites);
     }
 
+    public get favoritesSnapshot(): ObjectParams {
+        return this.favorites;
+    }
     
     public removeAllFavorites(): void {
         this.favorites = null;

@@ -1,9 +1,9 @@
 aq-settings {
     align-items: flex-end;
-    bottom: map-get($gutters, 'md') * 2;
+    bottom: map-get($gutters, 'sm') * 2;
     display: flex;
     flex-direction: column;
-    right: map-get($gutters, 'md') * 2;
+    right: map-get($gutters, 'sm') * 2;
     position: absolute;
 
     .settings-icon {

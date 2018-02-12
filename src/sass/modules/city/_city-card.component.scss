@@ -54,7 +54,7 @@ mat-card.city-card mat-card-header {
     }
 
     .mat-icon-button { 
-        bottom: 5px;
+        bottom: map-get($gutters, 'xs');
         position: absolute;
         height: $button-size;
         width: $button-size;

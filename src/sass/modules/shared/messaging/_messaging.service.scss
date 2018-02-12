@@ -1,8 +1,12 @@
 .mat-snack-bar-container {
     &.error,
     &.warn,
-    &.notify {
+    &.info {
         text-align: center;
+
+        .mat-simple-snackbar {
+            justify-content: center;
+        }
     }
 
     // TODO: determine if there is a way to stylistically differentiate between error & warn, 

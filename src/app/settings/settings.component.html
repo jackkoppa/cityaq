@@ -1,12 +1,14 @@
 <button mat-raised-button
     color="accent"
     *ngIf="settingItemsVisible"
+    (click)="goToFavorites()"
     [@fadeSlideUp]>
-    <mat-icon aria-label="Save default cities">save</mat-icon> SAVE AS DEFAULTS
+    <mat-icon aria-label="View favorite cities">favorite</mat-icon> GO TO FAVORITES
 </button>
 <button mat-raised-button
     color="accent"
     *ngIf="settingItemsVisible"
+    (click)="clearAll()"
     [@fadeSlideUp]>
     <mat-icon aria-label="Clear all cities">clear_all</mat-icon> CLEAR ALL
 </button>
