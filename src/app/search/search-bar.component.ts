@@ -101,7 +101,7 @@ export class SearchBarComponent implements OnInit {
 
     private checkForFirstSession(): void {
         if (this.storageService.sessionStartedSnapshot !== true) {
-            const objectParams = this.storageService.favoritesSnapshot;
+            const objectParams = this.storageService.favoritesSnapshot || { cityNames: [] };
             this.router
                 .navigate(['/search'], {
                     queryParams: ParamsHelper.objectToQuery(objectParams)

@@ -4,6 +4,10 @@ import { StorageService } from './storage.service';
 
 @NgModule({
     providers: [
+        {
+            provide: 'Window',
+            useValue: window
+        },
         StorageService
     ]
 })
