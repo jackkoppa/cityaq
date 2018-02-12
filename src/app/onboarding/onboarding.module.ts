@@ -9,6 +9,8 @@ import { OnboardingSlideOneComponent } from './onboarding-slide-one.component';
 import { OnboardingSlidesComponent } from './onboarding-slides.component';
 import { OnboardingSlideTwoComponent } from './onboarding-slide-two.component';
 import { OnboardingSlideThreeComponent } from './onboarding-slide-three.component';
+import { OnboardingSlideFourComponent } from './onboarding-slide-four.component';
+import { OnboardingSlideFiveComponent } from './onboarding-slide-five.component';
 
 @NgModule({
     imports: [
@@ -20,7 +22,9 @@ import { OnboardingSlideThreeComponent } from './onboarding-slide-three.componen
         OnboardingSlidesComponent,
         OnboardingSlideOneComponent,
         OnboardingSlideTwoComponent,
-        OnboardingSlideThreeComponent
+        OnboardingSlideThreeComponent,
+        OnboardingSlideFourComponent,
+        OnboardingSlideFiveComponent
     ],
     exports: [OnboardingComponent]
 })
