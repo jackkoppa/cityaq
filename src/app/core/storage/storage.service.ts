@@ -1,0 +1,64 @@
+import { Injectable, Inject } from '@angular/core';
+
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+
+import { ObjectParams } from '../routing/params.models';
+
+import { LocalStorage, SessionStorage } from './storage.models';
+
+@Injectable()
+export class StorageService {
+    public favoritesChange: ReplaySubject<ObjectParams> = new ReplaySubject<ObjectParams>(1);
+
+    private readonly local: LocalStorage;
+    private readonly session: SessionStorage;
+
+    private get favorites(): ObjectParams {
+        return JSON.parse(this.local.getItem('favorites')) as ObjectParams;
+    }
+
+    private set favorites(favorites: ObjectParams) {
+        this.local.setItem('favorites', JSON.stringify(favorites));
+        this.favoritesChange.next(this.favorites);
+    }
+    
+    private get newSession(): boolean {
+        return JSON.parse(this.session.getItem('newSession')) as boolean;
+    }
+
+    private set newSession(newSession: boolean) {
+        this.session.setItem('newSession', JSON.stringify(newSession));
+    }
+
+    constructor(@Inject(Window) private window: Window) {
+        this.local = window.localStorage as LocalStorage;
+        this.session = window.sessionStorage as SessionStorage;
+        this.favoritesChange.next(this.favorites);
+    }
+
+    
+    public removeAllFavorites(): void {
+        this.favorites = null;
+    }
+
+    public isFavorite(cityName: string): boolean {
+        const currentFavorites = this.favorites || { cityNames: [] };
+        return !!(currentFavorites.cityNames.find(name => name === cityName))
+    }
+
+    public addFavorite(cityName: string): void {
+        const newFavorites = this.favorites || { cityNames: [] };
+        if (!newFavorites.cityNames.find(name => name === cityName)) {
+            newFavorites.cityNames.unshift(cityName);
+            this.favorites = newFavorites;
+        }
+    }
+
+    public removeFavorite(cityName: string): void {
+        const newFavorites = this.favorites || { cityNames: [] };
+        const updatedNames = newFavorites.cityNames.filter(name => name !== cityName);
+        newFavorites.cityNames = updatedNames;
+        this.favorites = newFavorites;
+    }
+
+}

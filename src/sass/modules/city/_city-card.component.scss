@@ -1,5 +1,9 @@
 $card-content-row-height: 60px;
 
+$button-size: 25px;
+$favorite-icon-decrement: 10px;        
+$expand-icon-increment: 6px;
+
 mat-card.city-card {
     margin: map-get($gutters, 'sm');    
     padding: 0;
@@ -49,16 +53,34 @@ mat-card.city-card mat-card-header {
         h5 { font-size: 16px; }
     }
 
-    .mat-icon-button {
+    .mat-icon-button { 
         bottom: 5px;
         position: absolute;
-        right: 5px;
+        height: $button-size;
+        width: $button-size;
+        line-height: $button-size;
+        &.favorite-button {
+            background-color: $white;
+            color: $aqi-accent-color;
+            right: map-get($gutters, 'xs') + 30;
 
-        mat-icon {
-            font-size: 30px;
-            height: 30px;
-            line-height: 30px;
-            width: 30px;
+            mat-icon {
+                font-size: $button-size - $favorite-icon-decrement;
+                height: $button-size;
+                width: $button-size;
+                line-height: $button-size;
+            }
+        }
+        &.expand-button {
+            right: map-get($gutters, 'xs');
+
+            mat-icon {
+                font-size: $button-size + $expand-icon-increment;
+                height: $button-size + $expand-icon-increment;
+                width: $button-size + $expand-icon-increment;
+                line-height: $button-size + ($expand-icon-increment / 2) - 1px;
+                margin-left: 0 - ($expand-icon-increment / 2);
+            }
         }
     }
 }
@@ -75,9 +97,11 @@ mat-card.city-card mat-card-content {
     }
 
     .mat-icon.timestamp-indicator {
-        bottom: map-get($gutters, 'md');
+        bottom: map-get($gutters, 'xs');
+        height: $button-size;
         position: absolute;
-        right: map-get($gutters, 'md');
+        right: map-get($gutters, 'xs');
+        width: $button-size;
     }
 
     .parameter-averages {

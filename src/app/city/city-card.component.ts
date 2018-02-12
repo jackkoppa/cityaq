@@ -8,6 +8,7 @@ import { LatestResponse } from '../core/api/openaq/latest/latest-response.model'
 import { Parameter } from '../core/api/openaq/parameter.model';
 import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';
+import { StorageService } from '../core/storage/storage.service';
 import { FadeAnimation  } from '../shared/animations/fade-animation.constant';
 import { SearchedCity } from '../search/searched-city.model';
 
@@ -29,31 +30,46 @@ export class CityCardComponent implements OnInit {
     public staticMapsURL: any = '';
     public expanded: boolean = false;
     public retrievedMsg: string;
+    private isFavorite: boolean = false;
 
     get contentClass(): string {
         return this.expanded ? 'expanded ' + this.getRowsClass() : 'closed';
     }
 
-    get buttonIcon(): string {
+    get expandIcon(): string {
         return this.expanded ? 'expand_less' : 'expand_more';
+    }
+    
+    get favoriteIcon(): string {
+        return this.isFavorite ? 'favorite' : 'favorite_border';
     }
     
     constructor(
         private cityService: CityService,
         private latestHandlerService: LatestHandlerService,
-        private staticMapsHandlerService: StaticMapsHandlerService
+        private staticMapsHandlerService: StaticMapsHandlerService,
+        private storageService: StorageService
     ) { };
     
     
     ngOnInit() {
+        this.storageService.favoritesChange
+            .subscribe(favorites => this.isFavorite = this.storageService.isFavorite(this.searchedCity.city))
         this.cityService.getLatestCityMeasurements(this.searchedCity)
             .subscribe(latest => this.setAveragesAndClasses(latest));
         this.cityService.getStaticMapsImageFileURL(this.searchedCity)
             .then(url => this.staticMapsURL = url);
+        
     }
 
     public toggleContent(): void {
         this.expanded = !this.expanded;
+    }
+
+    public toggleFavorite(): void {
+        this.storageService.isFavorite(this.searchedCity.city) ?
+            this.storageService.removeFavorite(this.searchedCity.city) :
+            this.storageService.addFavorite(this.searchedCity.city);
     }
     
     private getRowsClass(): string {

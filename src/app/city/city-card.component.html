@@ -12,8 +12,15 @@
             <h2>{{searchedCity.city | uppercase}}</h2>
             <h5>{{searchedCity.country | countryName | uppercase}}</h5>
         </div>
-        <button mat-icon-button (click)="toggleContent()">
-            <mat-icon aria-label="Additional city options">{{buttonIcon}}</mat-icon>
+        <button class="favorite-button"
+            mat-icon-button 
+            (click)="toggleFavorite()">
+            <mat-icon aria-label="Set as a favorite city">{{favoriteIcon}}</mat-icon>
+        </button>
+        <button class="expand-button"
+            mat-icon-button 
+            (click)="toggleContent()">
+            <mat-icon aria-label="Additional city options">{{expandIcon}}</mat-icon>
         </button>
     </mat-card-header>
     <mat-card-content class="bg-0-7-white" [ngClass]="contentClass">
