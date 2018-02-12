@@ -17,7 +17,7 @@ export class SettingsComponent {
     private _hasFavorites: boolean = false;
 
     public get hasFavorites(): boolean {
-        return this.hasFavorites;
+        return this._hasFavorites;
     }
 
     constructor(
