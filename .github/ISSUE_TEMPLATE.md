@@ -1,3 +1,10 @@
+## This is a:
+```
+[ ] Bug Report
+[ ] Feature Request
+[ ] Suggestion
+```
+
 ## Expected Behavior
 
 
