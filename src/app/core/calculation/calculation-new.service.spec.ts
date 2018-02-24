@@ -9,7 +9,7 @@ import { CalculationResponse, CalculationMessage } from './calculation-response.
 const calculateAQIData = require('../../../../test/json/calculation-new.service.calculate-aqi.json');
 
 describe('CalculationService', () => {
-    console.log(calculateAQIData);
+    console.log(calculateAQIData[0].concentration, calculateAQIData[1].concentration); // testing that different rows actually generated
     let harness: Harness;
     let calculationService: CalculationService;
     beforeEach(() => {

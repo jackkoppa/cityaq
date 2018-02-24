@@ -22,13 +22,5 @@ deleteFolderRecursive('test/json');
 fs.mkdirSync('test/json');
 csv()
     .fromFile(calculationNewServiceCalculateAQI)
-    .on('json', (jsonObj) => {
-        calculateAQICases.push(jsonObj);
-    })
-    .on('done', (error) => {
-        jsonfile.writeFileSync(
-            'test/json/calculation-new.service.calculate-aqi.json',
-            calculateAQICases
-        );
-        console.log('end', calculateAQICases)
-    });
+    .on('json', (jsonObj) => calculateAQICases.push(jsonObj))
+    .on('done', (error) => jsonfile.writeFileSync('test/json/calculation-new.service.calculate-aqi.json',calculateAQICases));
