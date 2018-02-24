@@ -4,9 +4,12 @@ import { Parameter } from '../api/openaq/parameter.model';
 import { PhysicalCalculationService } from './physical/physical-calculation.service';
 import { AveragingPeriod } from '../api/openaq/latest/averaging-period.model';
 import { MeasurementUnit } from '../api/openaq/measurement-unit.model';
+
 import { CalculationResponse, CalculationMessage } from './calculation-response.models';
+const calculateAQIData = require('../../../../test/json/calculation-new.service.calculate-aqi.json');
 
 describe('CalculationService', () => {
+    console.log(calculateAQIData);
     let harness: Harness;
     let calculationService: CalculationService;
     beforeEach(() => {

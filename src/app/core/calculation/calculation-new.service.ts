@@ -1,3 +1,4 @@
+// https://www3.epa.gov/airnow/aqi-technical-assistance-document-may2016.pdf
 import { Injectable } from '@angular/core';
 
 import { AveragingPeriod } from '../api/openaq/latest/averaging-period.model';

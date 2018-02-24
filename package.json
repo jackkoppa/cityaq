@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "node test/generate-spec-data && ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "sw-build": "ng build --prod && node build/fix-sw",
@@ -43,8 +43,10 @@
     "@types/node": "~9.4.5",
     "codelyzer": "~4.1.0",
     "coveralls": "^3.0.0",
+    "csvtojson": "^1.1.9",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
+    "jsonfile": "^4.0.0",
     "karma": "~2.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-cli": "~1.0.1",
@@ -55,6 +57,7 @@
     "replace-in-file": "^3.1.1",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.6.2"
+    "typescript": "~2.6.2",
+    "write": "^1.0.3"
   }
 }
