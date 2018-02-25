@@ -1,6 +1,6 @@
-import { CalculationService } from './calculation-new.service';
+import { CalculationService } from './calculation.service';
 
-import { CalculateAQICase } from '../../../../test/spreadsheets/calculation-new.service.calculate-aqi.model';
+import { CalculateAQICase } from '../../../../test/spreadsheets/calculation.service.calculate-aqi.model';
 
 import { Parameter } from '../api/openaq/parameter.model';
 import { PhysicalCalculationService } from './physical/physical-calculation.service';
@@ -9,7 +9,7 @@ import { MeasurementUnit } from '../api/openaq/measurement-unit.model';
 
 import { CalculationResponse, CalculationMessage } from './calculation-response.models';
 
-const calculateAQICases: CalculateAQICase[] = require('../../../../test/json/calculation-new.service.calculate-aqi.json');
+const calculateAQICases: CalculateAQICase[] = require('../../../../test/json/calculation.service.calculate-aqi.json');
 
 describe('CalculationService', () => {
     let harness: Harness;

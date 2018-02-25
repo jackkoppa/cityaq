@@ -6,7 +6,7 @@ import { Coordinates } from '../core/api/openaq/coordinates.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
-import { CalculationService } from '../core/calculation/calculation-new.service';
+import { CalculationService } from '../core/calculation/calculation.service';
 import { CalculationResponse, CalculationMessage } from '../core/calculation/calculation-response.models';
 import { LatestHandlerService } from '../core/handlers/latest-handler.service';
 import { StaticMapsHandlerService } from '../core/handlers/static-maps-handler.service';

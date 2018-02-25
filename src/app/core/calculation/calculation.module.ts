@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { CalculationService } from './calculation-new.service';
+import { CalculationService } from './calculation.service';
 import { PhysicalCalculationService } from './physical/physical-calculation.service';
 
 @NgModule({
