@@ -60,7 +60,7 @@ originalOrder,testType,testDescription,concentration,parameter,averagingPeriodUn
 ,,,,,,,,,,,
 ,,,,,,,,,,,
 ,input types match expectations,border case,0,co,8,hours,ppm,FALSE,0,,
-,input types match expectations,mid-range value,2.3,co,8,hours,ppm,FALSE,24,,
+,input types match expectations,mid-range value,2.3,co,8,hours,ppm,FALSE,26,,
 ,input types match expectations,border case,4.4,co,8,hours,ppm,FALSE,50,,
 ,input types match expectations,border case,4.49,co,8,hours,ppm,FALSE,50,,
 ,input types match expectations,border case,4.5,co,8,hours,ppm,FALSE,51,,
