@@ -1,11 +1,11 @@
 export interface CalculateAQICase {
     originalOrder: number;
+    parameter: string;
     testType: string;
     testDescription: string;
     concentration: number;
-    parameter: string;
-    averagingPeriodUnit: string;
     averagingPeriodValue: number;
+    averagingPeriodUnit: string;
     unit: string;
     includeAllMessages: boolean;
     expectedAQI: number;
