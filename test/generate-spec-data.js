@@ -18,8 +18,9 @@ const deleteFolderRecursive = (path) => {
     }
 };
 const addJsonObj = (jsonObj) => {
-    // allow for organizational empty rows in CSV files, by only adding those rows that have at least one non-empty column
-    if (Object.keys(jsonObj).some(key => !!(jsonObj[key])))
+    // allow for organizational empty rows in CSV files, 
+    // by only adding those rows that have at least one non-empty, non-index column
+    if (Object.keys(jsonObj).some(key => jsonObj[key] && key !== 'originalOrder'))
         calculateAQICases.push(jsonObj)
 }
 
