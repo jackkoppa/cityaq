@@ -20,7 +20,7 @@ originalOrder,parameter,testType,testDescription,concentration,averagingPeriodVa
 19,o3,input unit does not match expected unit,ppb unit,200,8,hours,ppb,FALSE,300,,
 20,o3,input unit does not match expected unit,ppb unit,200.9,8,hours,ppb,FALSE,300,,
 21,,,,,,,,,,,
-22,o3,input unit does not match expected unit (bug in AirNow calculator),ppb unit,125,1,hours,ppb,FALSE,100,,
+22,o3,input unit does not match expected unit (bug in AirNow calculator),ppb unit,125,1,hours,ppb,FALSE,101,,
 23,o3,input unit does not match expected unit (bug in AirNow calculator),ppb unit,158,1,hours,ppb,FALSE,142,,
 24,o3,input unit does not match expected unit (bug in AirNow calculator),ppb unit,164,1,hours,ppb,FALSE,150,,
 25,o3,input unit does not match expected unit (bug in AirNow calculator),ppb unit,164.9,1,hours,ppb,FALSE,150,,

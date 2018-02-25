@@ -32,7 +32,6 @@ fs.mkdirSync(jsonDir);
 
 fs.readdirSync(spreadsheetsDir).forEach(file => {
     if (path.extname(file) === '.csv') {
-        console.log(file);
         let jsonArray = [];
         csv({checkType: true})
             .fromFile(`${spreadsheetsDir}/${file}`)
