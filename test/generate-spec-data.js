@@ -17,10 +17,15 @@ const deleteFolderRecursive = (path) => {
         fs.rmdirSync(path);
     }
 };
+const addJsonObj = (jsonObj) => {
+    // allow for organizational empty rows in CSV files, by only adding those rows that have at least one non-empty column
+    if (Object.keys(jsonObj).some(key => !!(jsonObj[key]))) 
+        calculateAQICases.push(jsonObj)
+}
 
 deleteFolderRecursive('test/json');
 fs.mkdirSync('test/json');
 csv()
     .fromFile(calculationNewServiceCalculateAQI)
-    .on('json', (jsonObj) => calculateAQICases.push(jsonObj))
+    .on('json', (jsonObj) => addJsonObj(jsonObj))
     .on('done', (error) => jsonfile.writeFileSync('test/json/calculation-new.service.calculate-aqi.json',calculateAQICases));
