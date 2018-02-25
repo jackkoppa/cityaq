@@ -40,6 +40,9 @@ testem.log
 # testing (could eventually include e2e)
 /test/json
 
+# lock files
+*~lock.*
+
 # System Files
 .DS_Store
 Thumbs.db

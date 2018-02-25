@@ -1,6 +1,6 @@
 originalOrder,testType,testDescription,concentration,parameter,averagingPeriodUnit,averagingPeriodValue,unit,includeAllMessages,expectedAQI,expectedMessage,expectedAllMessages
 1,input types match expectations,border case,0,pm25,24,hours,µg/m³,FALSE,0,,
-2,input types match expectations,mid-range value,5,pm26,25,hours,µg/m³,FALSE,21,,
+2,input types match expectations,mid-range value,5,pm25,25,hours,µg/m³,FALSE,21,,
 3,input types match expectations,border case,12,pm25,24,hours,µg/m³,FALSE,50,,
 4,input types match expectations,border case,12.09,pm25,24,hours,µg/m³,FALSE,50,,
 5,input types match expectations,border case,12.1,pm25,24,hours,µg/m³,FALSE,51,,
@@ -27,8 +27,3 @@ originalOrder,testType,testDescription,concentration,parameter,averagingPeriodUn
 26,input types match expectations,mid-range value,420,pm25,24,hours,µg/m³,FALSE,447,,
 27,input types match expectations,border case,500.4,pm25,24,hours,µg/m³,FALSE,500,,
 28,input types match expectations,border case,500.49,pm25,24,hours,µg/m³,FALSE,500,,
-29,outlier,,500.5,pm25,24,hours,µg/m³,FALSE,,,
-30,outlier,,700,pm25,24,hours,µg/m³,FALSE,,,
-31,outlier,,9999,pm25,24,hours,µg/m³,FALSE,,,
-32,outlier,,-10,pm25,24,hours,µg/m³,FALSE,,,
-33,outlier,,-9999,pm25,24,hours,µg/m³,FALSE,,,
