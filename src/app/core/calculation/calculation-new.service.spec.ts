@@ -41,7 +41,7 @@ describe('CalculationService', () => {
                         testCase.includeAllMessages
                     ));
                     it(`should return an AQI of ${testCase.expectedAQI}`, () => {
-                        expect(response.AQI).toBe(+testCase.expectedAQI);
+                        expect(response.AQI).toBe(testCase.expectedAQI);
                     });
             })
         });    

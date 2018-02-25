@@ -13,7 +13,7 @@ export const SO2_INDEX: BaseIndex = {
             good: [0, 35],
             moderate: [36, 75],
             unhealthySensitive: [76, 185],
-            unhealthy: null,
+            unhealthy: [186, 304],
             veryUnhealthy: null,
             hazardous1: null,
             hazardous2: null
@@ -28,7 +28,7 @@ export const SO2_INDEX: BaseIndex = {
             good: null,
             moderate: null,
             unhealthySensitive: null,
-            unhealthy: [186, 304],
+            unhealthy: null,
             veryUnhealthy: [305, 604],
             hazardous1: [605, 804],
             hazardous2: [805, 1004]
