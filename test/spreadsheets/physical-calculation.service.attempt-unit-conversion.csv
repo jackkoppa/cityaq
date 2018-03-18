@@ -1,5 +1,4 @@
 originalOrder,parameter,testType,concentration,unit,expectedConcentration,expectedUnit
 1,so2,converting from ppm to ppb,0,ppm,0,ppb
-1,so2,converting from ppm to ppb,10,ppm,10000,ppb
-1,so2,converting from ppm to ppb,0.5,ppm,500,ppb
-1,so2,converting from ppm to ppb,0.5,ppm,500,ppb
+2,so2,converting from ppm to ppb,10,ppm,10000,ppb
+3,so2,converting from ppm to ppb,0.5,ppm,500,ppb
