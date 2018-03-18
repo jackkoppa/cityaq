@@ -109,7 +109,6 @@ $max-parallax-ratio: 1.25;
         &.skyline-foreground {
             background-image: url('../assets/backgrounds/skyline-foreground.svg');
             height: $skyline-foreground-height;
-
             z-index: map-get($z-index-levels, 'foreground-1');
         }
         &.skyline-midground {

@@ -22,10 +22,17 @@ export class CalculationHelper {
         if (Math.abs(value) > max) throw new Error(`${value} is greater than the max JavaScript float, ` +
             `and significant digits cannot be accurately calculated`);
         value = Math.abs(+String(value).replace(".", "")); //remove decimal and make positive
-        if (value == 0) 
-            return 0;
+        if (value == 0) return 0;
         while (value != 0 && value % 10 == 0) value /= 10; //kill the 0s at the end of n
 
         return Math.floor(Math.log(value) / log10) + 1; //get number of digits
+    }
+
+    static setSignificantDigits(value: number, significantDigits: number) {
+        const log10 = Math.log(10);
+
+        if (value == 0) return 0;
+        var multiple = Math.pow(10, significantDigits - Math.floor(Math.log(value) / log10) - 1);
+        return Math.round(value * multiple) / multiple;
     }
 }

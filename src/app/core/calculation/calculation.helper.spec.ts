@@ -15,7 +15,7 @@ describe('CalculationHelper', () => {
                 [0.0034,        2],
                 [120.5e12,      4],
                 [1120.5e+12,    5],
-                [120.52e-5,    5],
+                [120.52e-5,     5],
                 [Math.PI,       16]
             ]
             testCases.forEach(testCase => {
@@ -46,5 +46,28 @@ describe('CalculationHelper', () => {
                 });
             });
         })
+    });
+
+    describe('setSignificantDigits', () => {
+
+        const testCases: [number, number, number][] = [
+            //inputValue    significantDigits   outputValue
+            [0,             1,                  0],
+            [2000,          1,                  2000],
+            [1234.567,      3,                  1230],
+            [123e5,         5,                  123.00e5],
+            [12300.456,     6,                  12300.5],
+            [12,            1,                  10],
+        ]
+        testCases.forEach(testCase => {
+            const [inputValue, significantDigits, outputValue] = testCase;
+
+            describe(`with an input value of ${inputValue}, setting to ${significantDigits} significant digits`, () => {
+                const result = CalculationHelper.setSignificantDigits(inputValue, significantDigits);
+                it(`should output ${outputValue}`, () => {
+                    expect(result).toBe(outputValue);
+                });
+            });
+        });
     });
 });

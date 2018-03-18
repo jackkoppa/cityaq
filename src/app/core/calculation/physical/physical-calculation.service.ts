@@ -7,62 +7,62 @@ import { MOLECULAR_WEIGHTS } from './molecular-weights.constant';
 import { NTP } from './ntp.constant';
 import { CalculationHelper } from '../calculation.helper';
 import { MessageSeverity } from '../calculation-response.models';
+import { PARAMETER_INDEX_MAP } from '../indices/parameters/parameter-index-map.constant';
 
 @Injectable()
 export class PhysicalCalculationService {
     public attemptUnitConversion(args: CalculationArguments): CalculationArguments {
         if (this.equivalentUnits(args)) 
             return args;
-        const givenUnit = args.unit;
-        const indexUnit = args.index.unit;
-        const concentration = args.concentration;
-        const parameter = args.parameter;
         let newConcentration: number;
-        // TODO: refactor ugly switch statement to use... object?
-        switch (givenUnit) {
-            case 'ppm':
-                if (indexUnit === 'ppb')
-                    newConcentration = 1000 * concentration;
-                if (indexUnit === 'µg/m³')
-                    newConcentration = this.convertToDensity(1000 * concentration, parameter);
-                break;
-            case 'ppb':
-                if (indexUnit === 'ppm')
-                    newConcentration = concentration / 1000;
-                if (indexUnit === 'µg/m³')
-                    newConcentration = this.convertToDensity(concentration, parameter);
-                break;
-            case 'µg/m³':
-                if (indexUnit === 'ppm')
-                    newConcentration = this.convertToVolumeRatio(concentration, parameter) * 1000;
-                if (indexUnit === 'ppb')
-                    newConcentration = this.convertToVolumeRatio(concentration, parameter);
-                break;
-            default:
-                throw new Error(`Invalid unit given for measurement: ${givenUnit}`);
+        try {
+            newConcentration = this.getNewConcentration(args);            
         }
-        if (newConcentration == null) {
-            throw new Error(`Unable to convert ${givenUnit} to index unit of ${indexUnit}`);
-        } else {
-            args.concentration = CalculationHelper.truncateAtDecimal(newConcentration, args.index.decimalPlaces);
-            args.unit = indexUnit;
+        catch (err) {
+            throw new Error(`Failed to convert given unit of ${args.unit} to ${args.index.unit}`);
         }
+        args.concentration = newConcentration;
+        args.unit = args.index.unit;
         return args;
     }
-
+    
     private equivalentUnits(args: CalculationArguments): boolean {
         return args.unit.toLowerCase() === args.index.unit.toLowerCase();
     }
 
-    private convertToDensity(ppb: number, parameter: Parameter): number {
-        const molecularWeight: number = MOLECULAR_WEIGHTS[parameter];
-        return molecularWeight &&
-            (ppb * molecularWeight * NTP.pressureInAtm) / (NTP.gasConstantForKAndAtm * NTP.temperatureInK);
+    private getNewConcentration(args: CalculationArguments): number {
+        const conversionMap: ConversionMap = {
+            'ppm': {
+                'ppb': 1000 * args.concentration,
+                'µg/m³': this.getMicrogramsByPartsPerMillion(args.concentration, args.parameter)
+            },
+            'ppb': {
+                'ppm': 0.001 * args.concentration,
+                'µg/m³': this.getMicrogramsByPartsPerMillion(args.concentration / 1000, args.parameter)
+            },
+            'µg/m³': {
+                'ppm': this.getPartsPerMillionByMicrograms(args.concentration, args.parameter),
+                'ppb': this.getPartsPerMillionByMicrograms(args.concentration, args.parameter) * 1000
+            }
+        }
+        const newConcentration = conversionMap[args.unit][args.index.unit];
+        const significantDigits = CalculationHelper.getSignificantDigitCount(args.concentration);
+        return CalculationHelper.setSignificantDigits(newConcentration, significantDigits);
     }
 
-    private convertToVolumeRatio(density: number, parameter: Parameter): number {
-        const molecularWeight: number = MOLECULAR_WEIGHTS[parameter];
-        return molecularWeight &&
-            (molecularWeight * NTP.pressureInAtm) / (density * 1000 * NTP.gasConstantForKAndAtm * NTP.temperatureInK)
+    private getMicrogramsByPartsPerMillion(partsPerMillion: number, parameter: Parameter): number {
+        const moles = (NTP.pressureInAtm * partsPerMillion / 1000000) / (NTP.gasConstantForKAndAtm * NTP.temperatureInK);
+        return moles * MOLECULAR_WEIGHTS[parameter] * 1000000;
     }
+
+    private getPartsPerMillionByMicrograms(micrograms: number, parameter: Parameter): number {
+        const moles = (micrograms * 1000000) / MOLECULAR_WEIGHTS[parameter];
+        return (moles * NTP.gasConstantForKAndAtm * NTP.temperatureInK) / (NTP.pressureInAtm * 1000000);
+    }
+}
+
+type ConversionMap = {
+    [M in MeasurementUnit]: {
+        [U in MeasurementUnit]?: number;
+    };
 }
