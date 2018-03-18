@@ -107,17 +107,17 @@ $max-parallax-ratio: 1.25;
         will-change: transform;
     
         &.skyline-foreground {
-            background-image: url('../assets/icons/skyline-foreground.svg');
+            background-image: url('../assets/backgrounds/skyline-foreground.svg');
             height: $skyline-foreground-height;
 
             z-index: map-get($z-index-levels, 'foreground-1');
         }
         &.skyline-midground {
-            background-image: url('../assets/icons/skyline-midground.svg');
+            background-image: url('../assets/backgrounds/skyline-midground.svg');
             z-index: map-get($z-index-levels, 'midground-2');
         }
         &.skyline-background {
-            background-image: url('../assets/icons/skyline-background.svg');
+            background-image: url('../assets/backgrounds/skyline-background.svg');
             z-index: map-get($z-index-levels, 'midground-1');
         }
     }
