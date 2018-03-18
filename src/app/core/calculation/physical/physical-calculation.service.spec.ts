@@ -1,12 +1,14 @@
 import { PhysicalCalculationService } from './physical-calculation.service';
 
+import { AttemptUnitConversionCase } from '../../../../../test/spreadsheets/physical-calculation.service.attempt-unit-conversion.model';
+
 import { Parameter } from '../../api/openaq/parameter.model';
 import { CalculationArguments } from '../calculation-arguments.model';
 import { BaseIndex } from '../indices/base-index.model';
-import { SO2_INDEX } from '../indices/parameters/so2-index.constant';
-import { O3_INDEX } from '../indices/parameters/o3-index.constant';
+import { PARAMETER_INDEX_MAP } from '../indices/parameters/parameter-index-map.constant';
 import { MeasurementUnit } from '../../api/openaq/measurement-unit.model';
-import { NO2_INDEX } from '../indices/parameters/no2-index.constant';
+
+const attemptUnitConversionTestCases: AttemptUnitConversionCase[] = require('../../../../../test/json/physical-calculation.service.attempt-unit-conversion.json');
 
 describe('PhysicalCalculationService', () => {
     let physicalCalculationService: PhysicalCalculationService;
@@ -27,42 +29,26 @@ describe('PhysicalCalculationService', () => {
             }
         });
 
-        let testArgs: [Parameter, BaseIndex, [MeasurementUnit, number, MeasurementUnit, number][]][] = [
-            // parameter    index           givenUnit   givenConc   expectedUnit    expectedConc         
-            ['so2',         SO2_INDEX, [[   'ppm',      12,         'ppb',          12000],
-                                        [   'ppm',      13,         'ppb',          13000],
-                                        [   'µg/m³',    2.62,       'ppb',          1]]],
+        const testCases = attemptUnitConversionTestCases;
 
-            ['o3',          O3_INDEX,  [[   'ppb',      5000,       'ppm',          5],
-                                        [   'µg/m³',    2000,       'ppm',          0.981]]],
+        testCases.forEach(testCase => {
+            describe(`when ${testCase.testType}, ` +
+                `for parameter ${testCase.parameter}, ` +
+                `with a concentration of ${testCase.concentration} ${testCase.unit}, `, () => {
 
-            ['no2',         NO2_INDEX, [[   'ppm',      12,      'ppb',             12000],
-                                        [   'µg/m³',    1.88,       'ppb',          1]]]
-        ];
-        testArgs.forEach(testCase => {
-            let [parameter, index, testValues] = testCase;
-            describe(`given ${parameter} and its index`, () => {
+                let result: CalculationArguments;
                 beforeEach(() => {
-                    args.parameter = parameter;
-                    args.index = index;
+                    args.parameter = testCase.parameter as Parameter;
+                    args.concentration = testCase.concentration;
+                    args.unit = testCase.unit as MeasurementUnit;
+                    args.index = PARAMETER_INDEX_MAP[testCase.parameter];
+                    result = physicalCalculationService.attemptUnitConversion(args)
                 });
-
-                testValues.forEach(testValue => {
-                    let [givenUnit, givenConc, expectedUnit, expectedConc] = testValue;
-                    describe(`when converting from a concentration of ${givenConc} ${givenUnit} to ${index.unit}`, () => {                        
-                        beforeEach(() => {
-                            args.concentration = givenConc;
-                            args.unit = givenUnit;
-                        });
-                        it(`should have a return object with concentration = ${expectedConc}`, () => {
-                            const result = physicalCalculationService.attemptUnitConversion(args);
-                            expect(result.concentration).toBe(expectedConc);
-                        });
-                        it(`should have a return object with unit = ${expectedUnit}`, () => {
-                            const result = physicalCalculationService.attemptUnitConversion(args);
-                            expect(result.unit).toBe(expectedUnit);
-                        });
-                    });
+                it(`should convert to a concentration of ${testCase.expectedConcentration}`, () => {
+                    expect(result.concentration).toBe(testCase.expectedConcentration);
+                });
+                it(`should convert to a unit of ${testCase.expectedUnit}`, () => {
+                    expect(result.unit).toBe(testCase.expectedUnit);
                 });
             });
         });
