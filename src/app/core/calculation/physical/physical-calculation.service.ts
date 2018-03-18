@@ -4,7 +4,7 @@ import { MeasurementUnit } from '../../api/openaq/measurement-unit.model';
 import { CalculationArguments } from '../calculation-arguments.model';
 import { Parameter } from '../../api/openaq/parameter.model';
 import { MOLECULAR_WEIGHTS } from './molecular-weights.constant';
-import { STP } from './stp.constant';
+import { NTP } from './ntp.constant';
 import { CalculationHelper } from '../calculation.helper';
 import { MessageSeverity } from '../calculation-response.models';
 
@@ -57,12 +57,12 @@ export class PhysicalCalculationService {
     private convertToDensity(ppb: number, parameter: Parameter): number {
         const molecularWeight: number = MOLECULAR_WEIGHTS[parameter];
         return molecularWeight &&
-            (ppb * molecularWeight * STP.pressureInAtm) / (STP.gasConstantForKAndAtm * STP.temperatureInK);
+            (ppb * molecularWeight * NTP.pressureInAtm) / (NTP.gasConstantForKAndAtm * NTP.temperatureInK);
     }
 
     private convertToVolumeRatio(density: number, parameter: Parameter): number {
         const molecularWeight: number = MOLECULAR_WEIGHTS[parameter];
         return molecularWeight &&
-            (molecularWeight * STP.pressureInAtm) / (density * 1000 * STP.gasConstantForKAndAtm * STP.temperatureInK)
+            (molecularWeight * NTP.pressureInAtm) / (density * 1000 * NTP.gasConstantForKAndAtm * NTP.temperatureInK)
     }
 }
