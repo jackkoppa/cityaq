@@ -83,6 +83,13 @@ export class SearchService {
     public sortCities(cityA: CitiesIndividualResponse, cityB: CitiesIndividualResponse): number {
         const a = cityA.city.toLowerCase();
         const b = cityB.city.toLowerCase();
+        const digitFirstRegEx = new RegExp(/^\d+.*$/);
+        const aDigitFirst: boolean = digitFirstRegEx.test(a);
+        const bDigitFirst: boolean = digitFirstRegEx.test(b);
+
+        if (!aDigitFirst && bDigitFirst) return -1;
+        if (aDigitFirst && !bDigitFirst) return 1;
+        
         if (a < b) return -1;
         if (a > b) return 1;
         return 0;
