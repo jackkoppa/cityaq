@@ -8,8 +8,11 @@
             [matAutocomplete]="auto"
             (keyup.enter)="attemptSearch()"
             (focus)="onFocus()"
-            (blur)="onBlur()"
-            aq-uppercase>   
+            aq-uppercase>
+        <button mat-icon-button class="cities-search-button"
+            (click)="attemptSearch()">
+            <mat-icon aria-label="Search for Cities">search</mat-icon>
+        </button>   
         <mat-progress-bar *ngIf="searching" 
             color="accent"
             mode="indeterminate"></mat-progress-bar>     
