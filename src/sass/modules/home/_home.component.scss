@@ -1,14 +1,17 @@
 // styles for home > home.component
+$header-height: 90px;
+
 .settings-wrapper {
-    position: fixed;
     bottom: 0;
+    position: fixed;
     width: 100%;
     z-index: map-get($z-index-levels, 'foreground-2');
 }
 
 .onboarding-wrapper {
-    position: fixed;
     bottom: 0;
+    max-height: calc(100vh - #{$header-height});
+    position: fixed;
     width: 100%;
     z-index: map-get($z-index-levels, 'foreground-1');
 }
