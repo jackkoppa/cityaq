@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -27,7 +27,7 @@ import { SearchingStatus } from './searching-status.model';
     selector: 'aq-search-bar',
     templateUrl: './search-bar.component.html'
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnChanges {
     @Input() allCities: CitiesResponse = [];
     @Input() searchingTrigger: Subject<boolean>;
     public searching: boolean = false;
@@ -35,6 +35,7 @@ export class SearchBarComponent implements OnInit {
     public searchForm: FormGroup;
     public filteredCities: Observable<CitiesResponse>;
     private initialSearch: boolean = false;
+    private previousForm: FormGroup;
 
     constructor(
         private fb: FormBuilder,
@@ -51,10 +52,16 @@ export class SearchBarComponent implements OnInit {
         })
     };
 
-    public ngOnInit(): void {
+    public ngOnInit(): void {        
         this.newForm();
-        this.filterCitiesOnInputChange();
         this.checkForFirstSession();
+    }
+
+    public ngOnChanges(): void {
+        if (this.searchForm !== this.previousForm) {
+            this.previousForm = this.searchForm;
+            this.filterCitiesOnInputChange(); // ensure that filtering happens against newest form
+        }
     }
 
     public attemptSearch(): void {
@@ -85,7 +92,7 @@ export class SearchBarComponent implements OnInit {
         this.filteredCities = this.searchForm
             .get('searchInput')
             .valueChanges
-            .startWith(null)
+            .startWith('')
             .map(cityName => this.searchService.filterCities(cityName, this.allCities));
     }
 
