@@ -11,6 +11,7 @@ import { FadeAnimation } from '../shared/animations/fade-animation.constant';
 })
 export class BannerComponent implements OnInit {
     @Input() menuVisible: boolean = false;
+    @Input() userOnboarded: boolean = false;
     @Output() toggleMenu: EventEmitter<void> = new EventEmitter<void>();
     public colors: ColorName[] = [];
 

@@ -2,7 +2,7 @@
     <div *ngFor="let color of colors; let first = first" 
         class="banner-color"
         [ngClass]="'bg-' + color">
-        <button mat-mini-fab *ngIf="first" (click)="triggerToggleMenu()">
+        <button mat-mini-fab *ngIf="first && userOnboarded" (click)="triggerToggleMenu()">
             <mat-icon aria-label="cityAQ Intro" 
                 class="banner-icon"
                 *ngIf="!menuVisible"
