@@ -2,12 +2,13 @@
     <mat-form-field class="cities-input">
         <input 
             matInput
-            placeholder="City"
-            aria-label="City"
+            placeholder="Search for Cities"
+            aria-label="Search for Cities"
             formControlName="searchInput"
             [matAutocomplete]="auto"
             (keyup.enter)="attemptSearch()"
             (focus)="onFocus()"
+            (blur)="onBlur()"
             aq-uppercase>   
         <mat-progress-bar *ngIf="searching" 
             color="accent"
