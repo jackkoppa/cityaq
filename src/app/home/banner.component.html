@@ -1,16 +1,26 @@
 <div class="banner-wrapper">    
-    <div *ngFor="let color of colors; let first = first" 
+    <div *ngFor="let color of colors; index as i;" 
         class="banner-color"
-        [ngClass]="'bg-' + color">
-        <button mat-mini-fab *ngIf="first && userOnboarded" (click)="triggerToggleMenu()">
-            <mat-icon aria-label="cityAQ Intro" 
-                class="banner-icon"
-                *ngIf="!menuVisible"
-                [@fade]>info</mat-icon>
-            <mat-icon aria-label="Close cityAQ Intro"
-                class="banner-icon"
-                *ngIf="menuVisible"
-                [@fade]>close</mat-icon>
-        </button>
+        [ngClass]="'bg-' + color">            
+            <button mat-mini-fab 
+                *ngIf="i === 0 && userOnboarded" 
+                (click)="triggerToggleMenu()"
+                [@fade]>
+                <mat-icon aria-label="cityAQ Intro" 
+                    class="banner-icon"
+                    *ngIf="!menuVisible"
+                    [@fade]>info</mat-icon>
+                <mat-icon aria-label="Close cityAQ Intro"
+                    class="banner-icon"
+                    *ngIf="menuVisible"
+                    [@fade]>close</mat-icon>
+            </button>
+            <a [href]="githubLink" 
+                target="_blank"
+                aria-label="Visit GitHub Page"
+                mat-mini-fab
+                *ngIf="i === 1">
+                <span class="aq-icon aq-icon-github"></span>
+            </a>
     </div>
 </div>

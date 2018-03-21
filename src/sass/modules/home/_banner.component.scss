@@ -7,7 +7,8 @@
     width: 100%;
     z-index: map-get($z-index-levels, 'foreground-1');
 
-    button.mat-mini-fab {
+    button.mat-mini-fab,
+    a.mat-mini-fab {
         background-color: $dark-grey;
         position: absolute;
         left: 0;

@@ -8,3 +8,19 @@ body {
 @each $transform in lowercase, uppercase {
     .#{$transform} { text-transform: $transform}
 }
+
+.aq-icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 15%;
+    position: absolute;
+    top: 15%;
+    width: 70%;
+    height: 70%;
+
+    &.aq-icon-github {
+        background-image: url('../assets/icons/vendor/github.svg')
+    }
+}
+

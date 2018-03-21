@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { environment } from '../../environments/environment';
 import { ColorName } from '../core/naming/color-name.model';
 import { COLOR_VALUES } from '../core/naming/color-values.constant';
 import { FadeAnimation } from '../shared/animations/fade-animation.constant';
@@ -14,6 +15,7 @@ export class BannerComponent implements OnInit {
     @Input() userOnboarded: boolean = false;
     @Output() toggleMenu: EventEmitter<void> = new EventEmitter<void>();
     public colors: ColorName[] = [];
+    public readonly githubLink: string = environment.githubLink;
 
     constructor() { };
 
