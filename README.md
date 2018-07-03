@@ -9,6 +9,8 @@ Angular PWA to compare simple air quality data for different cities, using the [
 * Google Static Maps API for location images
 * Modularized Sass for styling
 
+Check out the [introduction video](https://youtu.be/1XPOSGgrCHE) created for OpenAQ workshops in Accra & Nairobi.
+
 ## Running Locally
 ### Install
 * Node.js & npm ([link](https://nodejs.org/en/download/))
