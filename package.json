@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "sw-build": "ng build --prod && node build/fix-sw",
+    "sw-serve": "npm run sw-build && http-server dist -p 8080 -o",
     "ci-test": "node test/generate-spec-data && ng test --code-coverage --watch=false --browsers=ChromeHeadless",
     "ci-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "ci-deploy": "ng build --prod --base-href \"https://jackkoppa.github.io/cityaq/\" && node build/fix-sw && angular-cli-ghpages --repo=https://GH_TOKEN@github.com/jackkoppa/cityaq.git --name=\"Jack Koppa\" --email=hello@jackkoppa.com"
@@ -45,6 +46,7 @@
     "codelyzer": "~4.1.0",
     "coveralls": "^3.0.0",
     "csvtojson": "^1.1.9",
+    "http-server": "^0.11.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "jsonfile": "^4.0.0",
