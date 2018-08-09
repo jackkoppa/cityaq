@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { LatestApi } from '../api/openaq/latest/latest.api';
 import { LatestRequest } from '../api/openaq/latest/latest-request.model';
@@ -15,6 +15,6 @@ export class LatestHandlerService {
             city: cityName,
             country: country
         }
-        return this.latestApi.getLatest(request);        
+        return this.latestApi.getLatest(request);
     }
 }

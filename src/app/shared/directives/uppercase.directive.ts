@@ -1,8 +1,8 @@
 import { Directive, OnInit, OnDestroy } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
-import 'rxjs/add/operator/takeUntil';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Directive({
     selector: '[aq-uppercase]'
@@ -25,8 +25,8 @@ export class UpperCaseDirective implements OnInit, OnDestroy {
 
     private subscribeToChanges(): void {
         this.control.valueChanges
-            .takeUntil(this.destroy)            
-            .subscribe(val => this.upperCase(val));
+          .pipe(takeUntil(this.destroy))
+          .subscribe(val => this.upperCase(val));
     }
 
     private upperCase(val: string): void {

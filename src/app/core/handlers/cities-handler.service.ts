@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { CitiesApi } from '../api/openaq/cities/cities.api';
 import { CitiesRequest } from '../api/openaq/cities/cities-request.model';

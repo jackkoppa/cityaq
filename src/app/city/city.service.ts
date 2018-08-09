@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { Coordinates } from '../core/api/openaq/coordinates.model';
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
@@ -20,7 +21,7 @@ import { LatestCityMeasurements } from './latest-city-measurements.model';
 
 @Injectable()
 export class CityService {
-    
+
     constructor(
         private calculationService: CalculationService,
         private namingService: NamingService,
@@ -32,10 +33,10 @@ export class CityService {
     public getLatestCityMeasurements(searchedCity: SearchedCity): Observable<LatestResponse> {
         return this.latestHandlerService
             .getLatestByCityAndCountry(searchedCity.city, searchedCity.country)
-            .catch(err => {
+            .pipe(catchError(err => {
                 if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
                     this.messagingService.warnDismissable(
-                        `Currently offline, and no measurements have been saved for ${searchedCity.city.toUpperCase()} - ` + 
+                        `Currently offline, and no measurements have been saved for ${searchedCity.city.toUpperCase()} - ` +
                         `will be loaded when connection is restored`
                     );
                 } else {
@@ -44,8 +45,8 @@ export class CityService {
                         [`Search error for ${searchedCity.city}: `, searchedCity, err]
                     );
                 }
-                return Observable.of(null);
-            });
+                return of(null);
+            }));
     }
 
     public getStaticMapsImageFileURL(searchedCity: SearchedCity): Promise<any> {
@@ -59,7 +60,7 @@ export class CityService {
                     console.warn(`Currently offline, and no background been saved for ${searchedCity.city.toUpperCase()} - ` +
                         `will be loaded when connection is restored`)
                 } else {
-                    console.error(`Failed to retrieve background for ${searchedCity.city.toUpperCase()} ` + 
+                    console.error(`Failed to retrieve background for ${searchedCity.city.toUpperCase()} ` +
                     `from Google Static Maps`, err);
                 }
                 return Promise.resolve(null);
@@ -113,12 +114,12 @@ export class CityService {
 
     private hasLatLong(coordinates: Coordinates): boolean {
         return !!(coordinates && coordinates.latitude && coordinates.longitude);
-    } 
+    }
 
     private verifyCityAndLatest(searchedCity: SearchedCity, latestResponse: LatestResponse): boolean {
-        return !!(searchedCity && 
-            searchedCity.city && 
-            searchedCity.locationsResponse && 
+        return !!(searchedCity &&
+            searchedCity.city &&
+            searchedCity.locationsResponse &&
             searchedCity.locationsResponse.length > 0 &&
             latestResponse &&
             latestResponse.length > 0);

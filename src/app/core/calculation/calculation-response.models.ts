@@ -1,15 +1,13 @@
-import {  } from '../naming/'
 import { MeasurementUnit } from '../api/openaq/measurement-unit.model';
-
 
 export type CalculationResponseSimple = number;
 
 export interface CalculationResponse {
     AQI: CalculationResponseSimple;
-    
+
     unit: MeasurementUnit;
     concentration: number;
-    message: CalculationMessage;    
+    message: CalculationMessage;
     allMessages?: CalculationMessage[];
 }
 
