@@ -2,11 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable, Subject } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 import { CityCardsListComponent } from '../city/city-cards-list.component';
 import { CitiesIndividualResponse } from '../core/api/openaq/cities/cities-individual-response.model';
@@ -45,14 +42,14 @@ export class SearchBarComponent implements OnInit, OnChanges {
         private locationsHandlerService: LocationsHandlerService,
         private messagingService: MessagingService,
         private storageService: StorageService
-    ) { 
+    ) {
         this.searchService.searchingStatus.subscribe(status => {
             if (this.searching && status === SearchingStatus.Finished) this.clearSearchInput();
             this.searching = status === SearchingStatus.Started;
         })
     };
 
-    public ngOnInit(): void {        
+    public ngOnInit(): void {
         this.newForm();
         this.checkForFirstSession();
     }
@@ -81,7 +78,7 @@ export class SearchBarComponent implements OnInit, OnChanges {
     public onFocus(): void {
         this.searchService.setStatusFocused();
     }
-    
+
     private newForm(): void {
         this.searchForm = this.fb.group({
             searchInput: ['']
@@ -92,8 +89,8 @@ export class SearchBarComponent implements OnInit, OnChanges {
         this.filteredCities = this.searchForm
             .get('searchInput')
             .valueChanges
-            .startWith('')
-            .map(cityName => this.searchService.filterCities(cityName, this.allCities));
+            .pipe(startWith(''),
+              map(cityName => this.searchService.filterCities(cityName, this.allCities)));
     }
 
     private addCityToParams(cityName: string): void {

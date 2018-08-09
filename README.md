@@ -27,13 +27,8 @@ ng serve
 Livereloading dev server now available at `http://localhost:4200/`
 
 ### Run w/ Service Worker
-Since the Angular [`ServiceWorkerModule`](https://angular.io/api/service-worker/ServiceWorkerModule) cannot be tested using the normal Webpack dev server, run the steps above, but instead of `ng serve`, run:
-```shell
-npm install -g http-server
-npm run sw-build
-cd dist
-http-server -p 8080
-```
+Since the Angular [`ServiceWorkerModule`](https://angular.io/api/service-worker/ServiceWorkerModule) cannot be tested using the normal Webpack dev server, run the steps above, but instead of `ng serve`, run `npm run sw-serve`
+
 Server now available at `http://localhost:8080/`, without livereload
 
 ## Contributors

@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import 'rxjs/add/operator/do';
-import { Observable } from 'rxjs/Observable';
-
 import { LatestMeasurement } from '../core/api/openaq/latest/latest-measurement.model';
 import { LatestResponse } from '../core/api/openaq/latest/latest-response.model';
 import { Parameter } from '../core/api/openaq/parameter.model';
@@ -39,19 +36,19 @@ export class CityCardComponent implements OnInit {
     get expandIcon(): string {
         return this.expanded ? 'expand_less' : 'expand_more';
     }
-    
+
     get favoriteIcon(): string {
         return this.isFavorite ? 'favorite' : 'favorite_border';
     }
-    
+
     constructor(
         private cityService: CityService,
         private latestHandlerService: LatestHandlerService,
         private staticMapsHandlerService: StaticMapsHandlerService,
         private storageService: StorageService
     ) { };
-    
-    
+
+
     ngOnInit() {
         this.storageService.favoritesChange
             .subscribe(favorites => this.isFavorite = this.storageService.isFavorite(this.searchedCity.city))
@@ -59,7 +56,7 @@ export class CityCardComponent implements OnInit {
             .subscribe(latest => this.setAveragesAndClasses(latest));
         this.cityService.getStaticMapsImageFileURL(this.searchedCity)
             .then(url => this.staticMapsURL = url);
-        
+
     }
 
     public toggleContent(): void {
@@ -71,7 +68,7 @@ export class CityCardComponent implements OnInit {
             this.storageService.removeFavorite(this.searchedCity.city) :
             this.storageService.addFavorite(this.searchedCity.city);
     }
-    
+
     private getRowsClass(): string {
         return 'rows-' + Math.ceil(this.parameterAverages.length / 2)
     }
@@ -79,12 +76,12 @@ export class CityCardComponent implements OnInit {
     private setAveragesAndClasses(latest: LatestResponse): void {
         this.latestResponse = latest;
         this.parameterAverages = this.cityService.getParameterAverages(
-            this.searchedCity, 
+            this.searchedCity,
             this.latestResponse
         );
         this.overallAQI = this.cityService.getOverallAQI(this.parameterAverages);
-        this.overallAQIClass = this.cityService.getAQIClass(this.overallAQI);   
-        this.setRetrievedMsg(latest);     
+        this.overallAQIClass = this.cityService.getAQIClass(this.overallAQI);
+        this.setRetrievedMsg(latest);
     }
 
     private setRetrievedMsg(latest: LatestResponse): void {
@@ -93,7 +90,7 @@ export class CityCardComponent implements OnInit {
             return latestIndividual.measurements;
         });
         measurements.forEach(measurement => {
-            measurement.forEach(latestMeasurement => (latestMeasurement && latestMeasurement.lastUpdated) ? 
+            measurement.forEach(latestMeasurement => (latestMeasurement && latestMeasurement.lastUpdated) ?
                 timestamps.push(latestMeasurement.lastUpdated) : null)
         });
         const dates = timestamps.map(timestamp => Math.round(new Date(timestamp).getTime()));

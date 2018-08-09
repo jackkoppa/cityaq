@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { StaticMapsApi } from '../api/maps/static-images/static-maps.api';
@@ -37,7 +37,7 @@ export class StaticMapsHandlerService {
         request.center = latitude.toString() + ',' + (longitude + this.latOffset(latitude, longitude)).toString();
         request.markers += '|' + latitude.toString() + ',' + longitude.toString();
         request.key = environment.staticMapsKey;
-        return this.staticMapsApi.getImage(request);        
+        return this.staticMapsApi.getImage(request);
     }
 
     private latOffset(latitude: number, longitude: number): number {
@@ -49,7 +49,7 @@ export class StaticMapsHandlerService {
         return LONG_OFFSET + ((latDecimal >= 0.5 ? -1 : 1) * longDecimal * LONG_OFFSET)
 
         // removing fully randomized center points, in favor of location-generated "randomization"
-        // location-generated means that each location will always have its same, unique center point; 
+        // location-generated means that each location will always have its same, unique center point;
         // much better for caching each image
         // return LONG_OFFSET + ((Math.random() >= 0.5 ? -1 : 1) * Math.random() * LONG_OFFSET);
     }

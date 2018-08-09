@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/throw';
+import { Observable, Subject, of, forkJoin } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 
 import { CitiesRequest } from '../core/api/openaq/cities/cities-request.model';
 import { CitiesResponse } from '../core/api/openaq/cities/cities-response.model';
@@ -21,9 +20,9 @@ import { SearchingStatus } from './searching-status.model';
 
 @Injectable()
 export class SearchService {
-    
+
     private triggerSearchingStatus: Subject<SearchingStatus> = new Subject<SearchingStatus>();
-    
+
     public get searchingStatus(): Observable<SearchingStatus> {
         return this.triggerSearchingStatus;
     };
@@ -55,29 +54,28 @@ export class SearchService {
         const city = allCities.find(city => city.city === cityName);
         if (!city || !city.country) {
             this.messagingService.warn(`${cityName.toUpperCase()} is not tracked by OpenAQ`, 'slow');
-            return Observable.of(null);
+            return of(null);
         }
         const country = city.country;
         return this.locationsHandlerService
             .getLocationsByCityAndCountry(cityName, country)
-            .map(locations => {
+            .pipe(map(locations => {
                 city.locationsResponse = locations;
                 return city;
-            })
-            .catch(err => {
-                if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
-                    this.messagingService.warnDismissable(
-                        `Currently offline, and no location information has been saved for ${cityName.toUpperCase()} - ` + 
-                        `will be loaded when connection is restored`
-                    );
-                } else {
-                    this.messagingService.errorDismissable(
-                        `Failed to retrieve location data for ${cityName.toUpperCase()} from OpenAQ`,
-                        [`Search error for ${cityName}: `, city, err]
-                    );
-                }
-                return Observable.of(null);
-            });
+            }), catchError(err => {
+              if(ServiceWorkerHelper.isServiceWorkerTimeout(err)) {
+                  this.messagingService.warnDismissable(
+                      `Currently offline, and no location information has been saved for ${cityName.toUpperCase()} - ` +
+                      `will be loaded when connection is restored`
+                  );
+              } else {
+                  this.messagingService.errorDismissable(
+                      `Failed to retrieve location data for ${cityName.toUpperCase()} from OpenAQ`,
+                      [`Search error for ${cityName}: `, city, err]
+                  );
+              }
+              return of(null);
+          }));
     }
 
     public sortCities(cityA: CitiesIndividualResponse, cityB: CitiesIndividualResponse): number {
@@ -89,13 +87,13 @@ export class SearchService {
 
         if (!aDigitFirst && bDigitFirst) return -1;
         if (aDigitFirst && !bDigitFirst) return 1;
-        
+
         if (a < b) return -1;
         if (a > b) return 1;
         return 0;
     }
 
-    public validateSearchInput(cityName: string, allCities: CitiesResponse): string {        
+    public validateSearchInput(cityName: string, allCities: CitiesResponse): string {
         const match = allCities.find(city => city.city.toUpperCase() === cityName.toUpperCase());
         return match ? match.city : null;
     }
@@ -104,9 +102,9 @@ export class SearchService {
         searchTerm: string,
         allCities: CitiesResponse
     ): CitiesResponse {
-        return searchTerm ? 
-            this.filterCitiesWhenSearchTermExists(searchTerm, allCities) : 
-            allCities.slice(0, 5); 
+        return searchTerm ?
+            this.filterCitiesWhenSearchTermExists(searchTerm, allCities) :
+            allCities.slice(0, 5);
     }
 
     public updateCities(
@@ -132,7 +130,7 @@ export class SearchService {
                 `${country} ${city}`,
                 `${country}, ${city}`
             ]
-            return variations.some(searchFormat => searchFormat.indexOf(searchTerm.trim().toLowerCase()) === 0);            
+            return variations.some(searchFormat => searchFormat.indexOf(searchTerm.trim().toLowerCase()) === 0);
         })
         return filteredCities.slice(0, 5);
     }
@@ -153,14 +151,14 @@ export class SearchService {
         const newCityNames = objectParams.cityNames && objectParams.cityNames
             .filter(cityName => !updatedSearchedCities.find(searchedCity => searchedCity.city === cityName))
         if (!newCityNames || newCityNames.length <= 0) {
-            return Observable.of(updatedSearchedCities);
+            return of(updatedSearchedCities);
         } else {
             this.setStatusStarted()
-            return Observable.forkJoin(objectParams.cityNames
-                    .map(cityName => this.search(cityName, allCities))             
+            return forkJoin(objectParams.cityNames
+                    .map(cityName => this.search(cityName, allCities))
                 )
-                .map(searchedCities => searchedCities.filter(searchedCity => searchedCity != null))
-                .do(searchedCities => this.setStatusFinished());                
+                .pipe(map(searchedCities => searchedCities.filter(searchedCity => searchedCity != null)),
+                  tap(searchedCities => this.setStatusFinished()));
         }
     }
 }

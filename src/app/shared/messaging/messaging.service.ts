@@ -23,7 +23,7 @@ export class MessagingService {
         consoleMsg?: any[],
         duration: MessageDuration = 'medium'
     ): MatSnackBarRef<SimpleSnackBar> {
-        return this.triggerPrompt(msg, consoleMsg, duration, undefined, 'error');           
+        return this.triggerPrompt(msg, consoleMsg, duration, undefined, 'error');
     }
 
     public errorDismissable(
@@ -40,7 +40,7 @@ export class MessagingService {
         dismissAction?: DismissAction,
         consoleMsg?: any[]
     ): MatSnackBarRef<SimpleSnackBar> {
-        return this.triggerPrompt(msg, consoleMsg, duration, dismissAction, 'warn');             
+        return this.triggerPrompt(msg, consoleMsg, duration, dismissAction, 'warn');
     }
 
     public warnDismissable(
@@ -52,7 +52,7 @@ export class MessagingService {
     }
 
     public info(
-        msg: string, 
+        msg: string,
         duration: MessageDuration = 'fast'
     ): MatSnackBarRef<SimpleSnackBar> {
         return this.triggerPrompt(msg, undefined, duration, undefined, 'info');
@@ -67,7 +67,7 @@ export class MessagingService {
 
     private triggerPrompt(
         msg: string,
-        consoleMsg: any[],        
+        consoleMsg: any[],
         duration: MessageDuration,
         dismissAction: DismissAction,
         severity: 'error' | 'warn' | 'info'
@@ -75,7 +75,7 @@ export class MessagingService {
         consoleMsg && severity && console[severity](...consoleMsg);
         return this.matSnackBar.open(msg, dismissAction, {
             duration: DURATION_MAP.get(duration),
-            extraClasses: [severity]
+            panelClass: [severity]
         });
     }
 }

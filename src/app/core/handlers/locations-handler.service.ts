@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { LocationsApi } from '../api/openaq/locations/locations.api';
 import { LocationsRequest } from '../api/openaq/locations/locations-request.model';
@@ -15,6 +15,6 @@ export class LocationsHandlerService {
             city: cityName,
             country: country
         }
-        return this.locationsApi.getLocations(request);        
+        return this.locationsApi.getLocations(request);
     }
 }

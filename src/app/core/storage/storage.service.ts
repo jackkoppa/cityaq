@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { ReplaySubject } from 'rxjs';
 
 import { ObjectParams } from '../routing/params.models';
 
@@ -22,7 +22,7 @@ export class StorageService {
         this.local.setItem('favorites', JSON.stringify(favorites));
         this.favoritesChange.next(this.favorites);
     }
-    
+
     private get sessionStarted(): boolean {
         return JSON.parse(this.session.getItem('sessionStarted')) as boolean;
     }
@@ -41,7 +41,7 @@ export class StorageService {
     public get favoritesSnapshot(): ObjectParams {
         return this.favorites;
     }
-    
+
     public removeAllFavorites(): void {
         this.favorites = null;
     }
