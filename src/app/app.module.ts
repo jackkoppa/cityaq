@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -22,7 +22,7 @@ import { SettingsModule } from './settings/settings.module';
     ],
     imports: [
         BrowserModule,
-        HttpModule,
+        HttpClientModule,
         ReactiveFormsModule,
         RouterModule.forRoot(APP_ROUTES),
         ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
